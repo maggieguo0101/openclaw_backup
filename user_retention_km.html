@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 800px;
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    padding: 40px;
+    color: #333;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 3px solid #2c5364;
+  }
+  .header h1 { font-size: 26px; color: #1a1a2e; margin-bottom: 8px; }
+  .header .subtitle { font-size: 13px; color: #888; }
+  .header .source { font-size: 12px; color: #aaa; margin-top: 8px; }
+  .header .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #203a43, #2c5364);
+    color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 11px; margin-top: 8px;
+  }
+  .section { margin-bottom: 24px; }
+  .section-title {
+    font-size: 17px; font-weight: bold; color: #1a1a2e;
+    margin-bottom: 12px; padding-left: 12px; border-left: 4px solid #2c5364;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 8px; }
+  th { background: #2c5364; color: #fff; padding: 8px 10px; text-align: left; font-size: 12px; }
+  td { padding: 8px 10px; border-bottom: 1px solid #eee; font-size: 12px; line-height: 1.5; vertical-align: top; }
+  tr:nth-child(even) { background: #f8f9ff; }
+  .lifecycle-box {
+    display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .lc-item {
+    flex: 1; min-width: 150px;
+    border-radius: 10px; padding: 14px; text-align: center;
+  }
+  .lc-item.潜客 { background: #ebf8ff; border: 2px solid #3182ce; }
+  .lc-item.活跃 { background: #f0fff4; border: 2px solid #38a169; }
+  .lc-item.衰退 { background: #fffaf0; border: 2px solid #dd6b20; }
+  .lc-item.流失 { background: #fff5f5; border: 2px solid #e53e3e; }
+  .lc-item .lc-name { font-size: 16px; font-weight: bold; margin-bottom: 4px; }
+  .lc-item .lc-goal { font-size: 12px; color: #555; }
+  .lc-item .lc-metric { font-size: 11px; color: #888; margin-top: 4px; }
+  .play-card {
+    background: #f8f9ff; border: 1px solid #e2e8f0; border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 10px;
+  }
+  .play-card .play-title { font-size: 13px; font-weight: bold; color: #2c5364; margin-bottom: 6px; }
+  .play-card .play-detail { font-size: 12px; color: #555; line-height: 1.7; }
+  .play-card .play-detail .hl { color: #2c5364; font-weight: bold; }
+  .play-card.hot { background: linear-gradient(135deg, #ebf8ff 0%, #f0fff4 100%); border: 2px solid #2c5364; }
+  .quote {
+    background: #f7fafc; border-left: 4px solid #2c5364;
+    padding: 12px 16px; margin: 12px 0; font-size: 13px; color: #555; font-style: italic;
+  }
+  .conclusion {
+    background: linear-gradient(135deg, #203a43, #2c5364);
+    color: #fff; border-radius: 12px; padding: 18px 22px; font-size: 13px; line-height: 1.8;
+  }
+  .conclusion strong { color: #ffd700; }
+  .footer { text-align: center; margin-top: 16px; font-size: 11px; color: #aaa; }
+  .divider { height: 1px; background: #e2e8f0; margin: 20px 0; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; color: #fff; margin-left: 6px; }
+  .tag.blue { background: #3182ce; }
+  .tag.green { background: #38a169; }
+  .tag.orange { background: #dd6b20; }
+  .tag.red { background: #e53e3e; }
+</style>
+</head>
+<body>
+<div class="card">
+
+<div class="header">
+  <h1>📋 用户分层与产品策略</h1>
+  <div class="subtitle">用户生命周期运营 · 留存/提频/召回全景方案</div>
+  <div class="source">来源：学城 km.sankuai.com/page/240237202</div>
+  <div class="badge">小爪整理 · 2026.03.09</div>
+</div>
+
+<!-- 生命周期总览 -->
+<div class="section">
+  <div class="section-title">一、用户生命周期总览</div>
+  <div class="lifecycle-box">
+    <div class="lc-item 潜客">
+      <div class="lc-name">🆕 潜客</div>
+      <div class="lc-goal">目标：拉新</div>
+      <div class="lc-metric">指标：新客数</div>
+    </div>
+    <div class="lc-item 活跃">
+      <div class="lc-name">🔥 活跃期</div>
+      <div class="lc-goal">目标：提频</div>
+      <div class="lc-metric">指标：N转N+1复购率</div>
+    </div>
+    <div class="lc-item 衰退">
+      <div class="lc-name">⚠️ 衰退期</div>
+      <div class="lc-goal">目标：留存</div>
+      <div class="lc-metric">指标：流失率</div>
+    </div>
+    <div class="lc-item 流失">
+      <div class="lc-name">🚨 流失期</div>
+      <div class="lc-goal">目标：召回</div>
+      <div class="lc-metric">指标：召回率</div>
+    </div>
+  </div>
+</div>
+
+<!-- 潜客期 -->
+<div class="section">
+  <div class="section-title">二、潜客期：裂变拉新 <span class="tag blue">拉新</span></div>
+  <div class="play-card">
+    <div class="play-title">玩法1：基础裂变活动</div>
+    <div class="play-detail">老拉新砍价/砍券，客态用户帮砍同时注册为新用户</div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法2：裂变 + 任务制</div>
+    <div class="play-detail">帮砍后引导客态做简单任务（浏览POI、浏览详情页）→ 翻倍红包<br><span class="hl">核心：不是为自己获利，而是帮朋友砍更多 → 成就感驱动</span></div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法3：裂变 + 答题制</div>
+    <div class="play-detail">帮砍后答题获得翻倍红包。题目围绕业务认知设计<br><span class="hl">目的：让流量不只帮砍就走，而是形成品牌认知</span></div>
+  </div>
+  <div class="play-card hot">
+    <div class="play-title">⭐ 玩法4：秒杀大额券（锁定新客）</div>
+    <div class="play-detail">
+      ① <span class="hl">0.01元秒杀50元券</span> → 抓摇摆用户（几乎无成本）<br>
+      ② <span class="hl">10元秒杀100元券</span> → 锁定有需求新客（沉没成本）<br>
+      买券 = 付出成本 → 后续转化概率大幅提升
+    </div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法5：券金额膨胀</div>
+    <div class="play-detail">领券后未使用 → 金额自动膨胀刺激转化<br>新客无门槛膨胀 / 老客需拉新才能膨胀</div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法6：做任务送现金</div>
+    <div class="play-detail">基础参与得1元 → 邀1新人得3元 → 邀3新人得5元 → 好友下单得20元<br><span class="hl">满10元提现，对标拼多多/同程模式</span></div>
+  </div>
+</div>
+
+<!-- 活跃期 -->
+<div class="section">
+  <div class="section-title">三、活跃期：提频促忠诚 <span class="tag green">核心</span></div>
+  <div class="quote">"提频是结果，可以通过优惠来培养用户的忠诚。用户是先有消费，消费多了才慢慢转为忠诚。"</div>
+  <div class="quote">"忠诚度培养的关键：每次消费中增加用户的沉没成本"</div>
+
+  <div class="play-card hot">
+    <div class="play-title">⭐ 玩法1：积分主流程抵现</div>
+    <div class="play-detail">100积分 = 1元，<span class="hl">下单页直接展示</span>「您有XX积分可抵X元」<br>让用户感知积分值钱 → 积分就是沉没成本 → 不舍得离开<br>参考：京东</div>
+  </div>
+  <div class="play-card hot">
+    <div class="play-title">⭐ 玩法2：任务制下单返现</div>
+    <div class="play-detail">参与下单任务 → 额外获得返现补贴<br><span class="hl">让用户感知「订得越多越便宜」→ 对平台产生依赖</span><br>参考：艺龙</div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法3：会员分层红包</div>
+    <div class="play-detail">不同等级会员 → 不同额度专享券<br>前置页投放会员专享券，强化等级权益感知</div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法4：会员体验月卡</div>
+    <div class="play-detail">券 + 权益打包销售（如延时退房、折扣等）<br><span class="hl">低级会员购买 → 体验高级权益 → 促成长升级</span><br>参考：拼多多省钱月卡</div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法5：下单抽免单</div>
+    <div class="play-detail">3元参与抽奖 → 100%中奖 → 最高免单<br>每200人开一次奖：1等免单 / 2等红包 / 3等积分<br><span class="hl">花钱买券 → 付出成本 → 记住使用概率提高</span><br>参考：同程</div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法6：商家升房券/早餐券</div>
+    <div class="play-detail">商家出资提供增值服务券 → 平台给流量<br>低价享高价服务 → 由奢入俭难 → 消费升级</div>
+  </div>
+</div>
+
+<!-- 衰退期 -->
+<div class="section">
+  <div class="section-title">四、衰退期：留存防流失 <span class="tag orange">留存</span></div>
+  <div class="quote">"需要让用户明白，如果离开平台，会承受一定的损失"</div>
+
+  <div class="play-card hot">
+    <div class="play-title">⭐ 玩法1：直接发放返现（非券！）</div>
+    <div class="play-detail">Push/短信直接往账户发<span class="hl">返现金额</span>（不是券）<br>提现条件：拉新注册 / 拉新下单 / 自己下单<br>本质：换一种玩法的老拉新</div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法2：已享优惠提醒（年度账单式）</div>
+    <div class="play-detail">Push已省多少钱 → 已消费多少 → 积分余额（折算成钱）→ 已享服务<br><span class="hl">通过内容唤起用户对平台的认知和情感连接</span></div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法3：红包临期提醒</div>
+    <div class="play-detail">券快过期时Push提醒 → 制造紧迫感促转化</div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法4：红包延期（付费）</div>
+    <div class="play-detail">大额券临期 → 允许延期1次（需积分/拉新）<br><span class="hl">筛选用户：参与延期的 = 后续高转化概率</span></div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法5：券金额膨胀</div>
+    <div class="play-detail">无大额券的用户 → 参与膨胀活动 → 付出成本获大券</div>
+  </div>
+  <div class="play-card">
+    <div class="play-title">玩法6：免单抽奖（降门槛）</div>
+    <div class="play-detail">衰退期用户 <span class="hl">0.1元</span>（vs活跃期3元）参与免单抽奖<br>免费房由平台出，选本地周边度假型</div>
+  </div>
+</div>
+
+<!-- 核心方法论 -->
+<div class="section">
+  <div class="section-title">五、核心方法论提炼</div>
+  <table>
+    <tr><th>原则</th><th>解释</th><th>应用</th></tr>
+    <tr><td><strong>沉没成本</strong></td><td>用户付出越多越不舍得走</td><td>积分抵现、买券、任务返现</td></tr>
+    <tr><td><strong>损失厌恶</strong></td><td>失去比获得更痛苦</td><td>临期提醒、已享优惠账单、进度条</td></tr>
+    <tr><td><strong>用户分层</strong></td><td>不同阶段不同策略</td><td>潜客重认知、活跃重频次、衰退重挽留</td></tr>
+    <tr><td><strong>任务制</strong></td><td>行为引导 + 即时反馈</td><td>下单返现、拉新返现、做任务送钱</td></tr>
+    <tr><td><strong>社交裂变</strong></td><td>利用社交关系降成本</td><td>帮砍、邀新、好友下单返现</td></tr>
+  </table>
+</div>
+
+<div class="divider"></div>
+
+<div class="conclusion">
+  <strong>📌 出行场景落地建议：</strong><br><br>
+  ① <strong>活跃期</strong>：连续下单阶梯奖励 + 积分主流程抵现 + 通勤包<br>
+  ② <strong>衰退期</strong>：直接发返现（非券）+ 已省钱账单Push + 临期提醒<br>
+  ③ <strong>潜客期</strong>：秒杀大额券（0.01元/10元）锁定新客第一单<br><br>
+  <strong>最关键的一句话：提频是结果，沉没成本是手段。</strong>
+</div>
+
+<div class="footer">🐾 小爪整理 · 原文：km.sankuai.com/page/240237202 · 2026.03.09</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: #f0f2f5;
+    padding: 20px;
+    width: 480px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  }
+  .header {
+    background: linear-gradient(135deg, #1a5db8 0%, #0d3a7a 100%);
+    padding: 18px 22px 16px;
+    color: #fff;
+    position: relative;
+  }
+  .header-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 4px;
+    font-size: 11px;
+    padding: 2px 8px;
+    margin-bottom: 7px;
+    letter-spacing: 1px;
+  }
+  .header-title { font-size: 26px; font-weight: 700; }
+  .header-sub { font-size: 12px; opacity: 0.75; margin-top: 4px; }
+  .header-badge {
+    position: absolute; right: 22px; top: 22px;
+    background: #ff6b35; color: #fff;
+    font-size: 11px; font-weight: 700;
+    padding: 4px 12px; border-radius: 20px;
+  }
+
+  /* 发行价基准 */
+  .base-row {
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px 22px;
+    background: #f7f9fc;
+    border-bottom: 1px solid #eaeef5;
+    gap: 24px;
+  }
+  .base-item { text-align: center; }
+  .base-val { font-size: 22px; font-weight: 700; color: #1a5db8; }
+  .base-label { font-size: 11px; color: #888; margin-top: 2px; }
+  .divider { width: 1px; height: 40px; background: #dde3ec; }
+
+  /* 三档预测 */
+  .sec-title {
+    font-size: 11px; font-weight: 700; color: #1a5db8;
+    padding: 12px 22px 8px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #eaeef5;
+    background: #f7f9fc;
+  }
+  .scenarios {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+  .scenario {
+    padding: 14px 12px 16px;
+    text-align: center;
+    border-right: 1px solid #eaeef5;
+  }
+  .scenario:last-child { border-right: none; }
+  .scenario.main { background: #f0f5ff; }
+  .sc-label { font-size: 10px; font-weight: 700; color: #888; letter-spacing: 0.5px; }
+  .sc-label.blue { color: #1a5db8; }
+  .sc-price {
+    font-size: 28px; font-weight: 800;
+    margin: 6px 0 3px;
+  }
+  .sc-price.gray { color: #aaa; }
+  .sc-price.blue { color: #1a5db8; }
+  .sc-price.orange { color: #d97706; }
+  .sc-rise { font-size: 13px; font-weight: 700; }
+  .sc-rise.red { color: #e53935; }
+  .sc-note { font-size: 10px; color: #999; margin-top: 5px; line-height: 1.5; }
+
+  /* 操作建议条 */
+  .action-bar {
+    margin: 0 18px 14px;
+    margin-top: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .ab-row {
+    display: flex; align-items: center;
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+  .ab-row.sell { background: #fff2f2; }
+  .ab-row.hold { background: #f0fff4; }
+  .ab-row.watch { background: #f0f5ff; }
+  .ab-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    margin-right: 8px; flex-shrink: 0;
+  }
+  .ab-dot.red { background: #e53935; }
+  .ab-dot.green { background: #1a7a4a; }
+  .ab-dot.blue { background: #1a5db8; }
+  .ab-text { color: #333; }
+  .ab-text strong { font-weight: 700; }
+
+  .disclaimer {
+    padding: 6px 22px 12px;
+    font-size: 10px; color: #ccc; text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <div class="header-badge">明日上市 3/18</div>
+    <div class="header-tag">北交所 · 上市预测</div>
+    <div class="header-title">族兴新材 920078</div>
+    <div class="header-sub">铝颜料国内第一 · 无老股 · 筹码干净</div>
+  </div>
+
+  <!-- 发行价基准 -->
+  <div class="base-row">
+    <div class="base-item">
+      <div class="base-val">6.98<span style="font-size:13px;font-weight:400">元</span></div>
+      <div class="base-label">发行价</div>
+    </div>
+    <div class="divider"></div>
+    <div class="base-item">
+      <div class="base-val" style="color:#e53935;">8.7<span style="font-size:13px;font-weight:400">元</span></div>
+      <div class="base-label">每股净资产（破净发行）</div>
+    </div>
+    <div class="divider"></div>
+    <div class="base-item">
+      <div class="base-val" style="color:#1a7a4a;">19<span style="font-size:13px;font-weight:400">元</span></div>
+      <div class="base-label">顶格中介成本价</div>
+    </div>
+  </div>
+
+  <!-- 三档开盘价预测 -->
+  <div class="sec-title">📊 首日开盘价 · 三档预测</div>
+  <div class="scenarios">
+    <div class="scenario">
+      <div class="sc-label">保守</div>
+      <div class="sc-price gray">~21元</div>
+      <div class="sc-rise red">+200%</div>
+      <div class="sc-note">顶格微利<br>小仓保本</div>
+    </div>
+    <div class="scenario main">
+      <div class="sc-label blue">⭐ 中性（主流）</div>
+      <div class="sc-price blue">22–24元</div>
+      <div class="sc-rise red">+215%~+244%</div>
+      <div class="sc-note">分析师一致<br>预测区间</div>
+    </div>
+    <div class="scenario">
+      <div class="sc-label">乐观</div>
+      <div class="sc-price orange">28–35元</div>
+      <div class="sc-rise red">+300%~+400%</div>
+      <div class="sc-note">龙头溢价<br>兑现偏乐观</div>
+    </div>
+  </div>
+
+  <!-- 操作建议 -->
+  <div class="action-bar" style="margin-top:14px;">
+    <div class="ab-row sell">
+      <div class="ab-dot red"></div>
+      <div class="ab-text"><strong>27元以上</strong> → 择机分批卖出，锁定收益</div>
+    </div>
+    <div class="ab-row hold">
+      <div class="ab-dot green"></div>
+      <div class="ab-text"><strong>20–27元</strong> → 格局观望，持有不追不割</div>
+    </div>
+    <div class="ab-row watch">
+      <div class="ab-dot blue"></div>
+      <div class="ab-text"><strong>20元以下</strong> → 观望，长线价值约19元，不恐慌</div>
+    </div>
+  </div>
+
+  <div class="disclaimer">数据来源：东财、雪球分析师观点综合 · 仅供参考，不构成投资建议</div>
+</div>
+</body>
+</html>

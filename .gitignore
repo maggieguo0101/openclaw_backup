@@ -1,0 +1,29 @@
+# 敏感配置
+wechat_config.json
+*.env
+.env*
+*_state.json
+bse_ipo_notify_pending.json
+
+# 临时文件
+.temp_*
+--output
+.openclaw/
+
+# 大图片/截图（可选，减少仓库体积）
+*.png
+*.jpg
+*.jpeg
+*.webp
+sso_*.png
+moa_*.png
+browser_*.png
+xiaohongshu_login.png
+
+# Office临时文件
+~$*
+unpacked_sp/
+
+# 压缩包
+*.tar.gz
+*.zip

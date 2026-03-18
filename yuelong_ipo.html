@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: #f0f2f5;
+    padding: 20px;
+    width: 520px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  }
+
+  /* 顶部标题栏 */
+  .header {
+    background: linear-gradient(135deg, #1a6bde 0%, #0d4fa8 100%);
+    padding: 20px 22px 18px;
+    color: #fff;
+    position: relative;
+  }
+  .header-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 4px;
+    font-size: 11px;
+    padding: 2px 8px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .header-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .header-sub {
+    font-size: 13px;
+    opacity: 0.8;
+    margin-top: 4px;
+  }
+  .header-badge {
+    position: absolute;
+    right: 22px;
+    top: 22px;
+    background: #ff6b35;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* 核心数据区 */
+  .core-row {
+    display: flex;
+    padding: 16px 22px;
+    background: #f7f9fc;
+    gap: 0;
+    border-bottom: 1px solid #eaeef5;
+  }
+  .core-item {
+    flex: 1;
+    text-align: center;
+  }
+  .core-item + .core-item {
+    border-left: 1px solid #dde3ec;
+  }
+  .core-val {
+    font-size: 22px;
+    font-weight: 700;
+    color: #e53935;
+  }
+  .core-val.blue { color: #1a6bde; }
+  .core-val.green { color: #00875a; }
+  .core-label {
+    font-size: 11px;
+    color: #888;
+    margin-top: 3px;
+  }
+
+  /* 申购信息表格 */
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1a6bde;
+    padding: 12px 22px 6px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #eaeef5;
+    background: #f7f9fc;
+  }
+  .info-table {
+    padding: 4px 0;
+  }
+  .info-row {
+    display: flex;
+    padding: 8px 22px;
+    font-size: 13px;
+    border-bottom: 1px solid #f0f3f7;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-key {
+    color: #666;
+    width: 120px;
+    flex-shrink: 0;
+  }
+  .info-val {
+    color: #222;
+    font-weight: 500;
+    flex: 1;
+  }
+  .info-val.red { color: #e53935; }
+  .info-val.green { color: #00875a; }
+  .info-val.blue { color: #1a6bde; }
+
+  /* 资金策略区 */
+  .strategy-section {
+    background: #fffbf0;
+    border-top: 1px solid #fde9b8;
+  }
+  .strategy-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #b8740a;
+    padding: 10px 22px 6px;
+    letter-spacing: 0.5px;
+  }
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 4px 22px 14px;
+  }
+  .strategy-item {
+    background: #fff;
+    border: 1px solid #fcd97e;
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+  .strategy-item .s-label {
+    font-size: 11px;
+    color: #b8740a;
+    font-weight: 600;
+  }
+  .strategy-item .s-val {
+    font-size: 15px;
+    color: #333;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .strategy-item .s-note {
+    font-size: 10px;
+    color: #999;
+    margin-top: 1px;
+  }
+
+  /* 公司简介 */
+  .bio-section {
+    border-top: 1px solid #eaeef5;
+    padding: 12px 22px 14px;
+    background: #f7f9fc;
+  }
+  .bio-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #666;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .bio-text {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  /* 风险提示 */
+  .disclaimer {
+    padding: 8px 22px 14px;
+    font-size: 10px;
+    color: #bbb;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- 顶部标题 -->
+  <div class="header">
+    <div class="header-badge">已申购 3/16</div>
+    <div class="header-tag">北交所 · 新股申购</div>
+    <div class="header-title">悦龙科技</div>
+    <div class="header-sub">申购代码 920188 · 股票代码 874157</div>
+  </div>
+
+  <!-- 三项核心数据 -->
+  <div class="core-row">
+    <div class="core-item">
+      <div class="core-val">14.04<span style="font-size:13px;font-weight:400">元</span></div>
+      <div class="core-label">发行价格</div>
+    </div>
+    <div class="core-item">
+      <div class="core-val blue">14.99<span style="font-size:13px;font-weight:400">倍</span></div>
+      <div class="core-label">发行市盈率</div>
+    </div>
+    <div class="core-item">
+      <div class="core-val green">28.52<span style="font-size:13px;font-weight:400">倍</span></div>
+      <div class="core-label">行业市盈率</div>
+    </div>
+  </div>
+
+  <!-- 发行基本信息 -->
+  <div class="section-title">▌ 发行基本信息</div>
+  <div class="info-table">
+    <div class="info-row">
+      <span class="info-key">申购日期</span>
+      <span class="info-val">2026年3月16日（周一）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">申购时间</span>
+      <span class="info-val">9:15 — 15:00（越早越优）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">中签结果</span>
+      <span class="info-val">2026年3月17日（今日）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">网上发行量</span>
+      <span class="info-val red">1,979.39 万股</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">顶格申购上限</span>
+      <span class="info-val red">98.96 万股（≈1,389.4 万元）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">预计总申购资金</span>
+      <span class="info-val">约 9,100 亿元</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">定价方式</span>
+      <span class="info-val">直接定价（无询价）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">老股转让</span>
+      <span class="info-val green">无（筹码结构干净 ✓）</span>
+    </div>
+  </div>
+
+  <!-- 资金配置策略 -->
+  <div class="strategy-section">
+    <div class="strategy-title">💰 资金配置策略（预计获配组合）</div>
+    <div class="strategy-grid">
+      <div class="strategy-item">
+        <div class="s-label">1正0碎（稳拿1手）</div>
+        <div class="s-val">445 – 475 万</div>
+        <div class="s-note">450万全力冲，475万稳妥</div>
+      </div>
+      <div class="strategy-item">
+        <div class="s-label">1正1碎</div>
+        <div class="s-val">750 – 800 万</div>
+        <div class="s-note">顶格翻车时才出现</div>
+      </div>
+      <div class="strategy-item">
+        <div class="s-label">2正0碎</div>
+        <div class="s-val">900 – 950 万</div>
+        <div class="s-note">900万全力，950万稳妥</div>
+      </div>
+      <div class="strategy-item" style="border-color:#f6a623;background:#fff8ec">
+        <div class="s-label" style="color:#d97706">⭐ 首选：2正1碎</div>
+        <div class="s-val" style="color:#d97706">950 – 1,050 万</div>
+        <div class="s-note">碎股门槛 848 万，性价比最优</div>
+      </div>
+      <div class="strategy-item" style="grid-column: span 2; border-color:#1a6bde;background:#f0f5ff">
+        <div class="s-label" style="color:#1a6bde">🏆 顶格（3正1碎）</div>
+        <div class="s-val" style="color:#1a6bde">1,389.4 万（顶格）</div>
+        <div class="s-note">无需抢时间，顶格不翻车上限 9,167 亿</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 公司亮点 -->
+  <div class="bio-section">
+    <div class="bio-title">📌 公司亮点</div>
+    <div class="bio-text">
+      山东悦龙橡塑科技，成立1989年。主营<strong>海洋/陆地油气柔性管道 + 工业专用软管</strong>，全球少数取得API认证企业。核心客户：中海油、中石油、埃克森美孚、国民油井高华(NOV)。产品应用于"海洋石油981""蓝鲸1号/2号""梦想号"等国家重大工程。2024年净利 8,342 万元，毛利率 57%+，2025Q1-3 同比增长 +18%。
+    </div>
+  </div>
+
+  <div class="disclaimer">数据来源：北交所发行公告及公开资讯 · 仅供参考，不构成投资建议</div>
+</div>
+</body>
+</html>

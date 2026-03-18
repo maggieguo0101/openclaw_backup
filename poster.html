@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 750px;
+    background: #fff;
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+
+  .poster {
+    width: 750px;
+    min-height: 1050px;
+    background: linear-gradient(160deg, #f0f9e8 0%, #fef9ee 50%, #fff8f0 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .top-bg {
+    width: 100%;
+    height: 260px;
+    background: linear-gradient(135deg, #1e4d0f 0%, #3a7520 40%, #5aaa30 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .top-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: -5%;
+    width: 110%;
+    height: 90px;
+    background: linear-gradient(160deg, #f0f9e8 0%, #fef9ee 100%);
+    border-radius: 50%;
+  }
+
+  .mushroom-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-top: 25px;
+    gap: 18px;
+  }
+
+  .mushroom { display: flex; flex-direction: column; align-items: center; }
+
+  .mushroom-cap {
+    width: 42px; height: 32px;
+    background: radial-gradient(ellipse at 38% 28%, #d4b060, #7a4f10);
+    border-radius: 50% 50% 12% 12%;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+    position: relative;
+  }
+  .mushroom-cap::after {
+    content: ''; position: absolute; top: 7px; left: 7px;
+    width: 10px; height: 5px;
+    background: rgba(255,255,255,0.25); border-radius: 50%;
+  }
+  .mushroom-stem { width: 13px; height: 26px; background: linear-gradient(to bottom, #f0e0a0, #ccaa55); border-radius: 3px; }
+  .mushroom.tall .mushroom-cap { width: 54px; height: 40px; }
+  .mushroom.tall .mushroom-stem { height: 42px; }
+  .mushroom.small .mushroom-cap { width: 28px; height: 22px; }
+  .mushroom.small .mushroom-stem { height: 18px; }
+
+  .title-area { padding: 32px 40px 14px; text-align: center; }
+
+  .title-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffa500, #ff6600);
+    color: white; font-size: 13px; font-weight: 700;
+    padding: 5px 20px; border-radius: 20px;
+    margin-bottom: 16px; letter-spacing: 2px;
+    box-shadow: 0 3px 12px rgba(255,100,0,0.4);
+  }
+
+  .main-title {
+    font-size: 48px; font-weight: 900; line-height: 1.25;
+    color: #2a6618; margin-bottom: 4px;
+    text-shadow: 2px 2px 0px rgba(42,102,24,0.15);
+  }
+  .sub-title {
+    font-size: 40px; font-weight: 900;
+    color: #ff6600; margin-bottom: 8px;
+    text-shadow: 2px 2px 0px rgba(255,102,0,0.15);
+  }
+
+  .divider {
+    display: flex; align-items: center; justify-content: center; gap: 10px; margin: 8px 0 4px;
+  }
+  .divider-line { height: 2px; width: 70px; background: linear-gradient(to right, transparent, #5aaa30); border-radius: 2px; }
+  .divider-line.r { background: linear-gradient(to left, transparent, #5aaa30); }
+  .divider-icon { font-size: 18px; }
+
+  .content-area { padding: 18px 32px; }
+
+  .session-card {
+    background: white; border-radius: 18px; padding: 20px 22px;
+    margin-bottom: 14px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border-left: 5px solid #5aaa30; position: relative; overflow: hidden;
+  }
+  .session-card.pm { border-left-color: #ff8000; }
+  .session-card::before {
+    content: ''; position: absolute; top: -25px; right: -25px;
+    width: 90px; height: 90px; border-radius: 50%;
+    background: rgba(90,170,48,0.07);
+  }
+  .session-card.pm::before { background: rgba(255,128,0,0.07); }
+
+  .session-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+
+  .session-tag {
+    background: linear-gradient(135deg, #3a7520, #5aaa30);
+    color: white; font-size: 14px; font-weight: 700;
+    padding: 5px 16px; border-radius: 20px; white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(90,170,48,0.35);
+  }
+  .session-tag.pm { background: linear-gradient(135deg, #cc6600, #ff8000); box-shadow: 0 2px 8px rgba(255,128,0,0.35); }
+  .session-time { font-size: 15px; color: #999; font-weight: 500; }
+
+  .activity-item {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 10px; padding: 11px 14px;
+    background: linear-gradient(135deg, #f7fdf0, #edfadf);
+    border-radius: 12px;
+  }
+  .session-card.pm .activity-item { background: linear-gradient(135deg, #fff9f0, #fff0dc); }
+
+  .activity-icon {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: linear-gradient(135deg, #5aaa30, #3a7520);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0;
+    box-shadow: 0 3px 8px rgba(90,170,48,0.35);
+  }
+  .session-card.pm .activity-icon {
+    background: linear-gradient(135deg, #ff8000, #cc6600);
+    box-shadow: 0 3px 8px rgba(255,128,0,0.35);
+  }
+
+  .activity-name { font-size: 16px; font-weight: 700; color: #2a5510; margin-bottom: 2px; }
+  .session-card.pm .activity-name { color: #994400; }
+  .activity-desc { font-size: 13px; color: #999; line-height: 1.45; }
+
+  .info-bar {
+    margin: 6px 32px 0;
+    background: linear-gradient(135deg, #1e4d0f, #3a7520);
+    border-radius: 18px; padding: 22px 26px;
+    box-shadow: 0 6px 20px rgba(30,77,15,0.25);
+  }
+
+  .info-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .info-row:last-child { margin-bottom: 0; }
+
+  .info-icon {
+    width: 38px; height: 38px;
+    background: rgba(255,255,255,0.12); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .info-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 3px; }
+  .info-value { font-size: 16px; font-weight: 700; color: white; }
+
+  .footer {
+    display: flex; justify-content: center; align-items: center;
+    padding: 18px 20px 24px; gap: 10px;
+  }
+  .logo-main { font-size: 15px; color: #3a7520; font-weight: 700; letter-spacing: 1px; }
+  .logo-sub { font-size: 11px; color: #bbb; letter-spacing: 2px; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <div class="top-bg">
+    <div class="mushroom-row">
+      <div class="mushroom small"><div class="mushroom-cap"></div><div class="mushroom-stem"></div></div>
+      <div class="mushroom"><div class="mushroom-cap"></div><div class="mushroom-stem"></div></div>
+      <div class="mushroom tall"><div class="mushroom-cap"></div><div class="mushroom-stem"></div></div>
+      <div class="mushroom tall"><div class="mushroom-cap"></div><div class="mushroom-stem"></div></div>
+      <div class="mushroom tall"><div class="mushroom-cap"></div><div class="mushroom-stem"></div></div>
+      <div class="mushroom"><div class="mushroom-cap"></div><div class="mushroom-stem"></div></div>
+      <div class="mushroom small"><div class="mushroom-cap"></div><div class="mushroom-stem"></div></div>
+      <div class="mushroom"><div class="mushroom-cap"></div><div class="mushroom-stem"></div></div>
+    </div>
+  </div>
+
+  <div class="title-area">
+    <div class="title-badge">🌿 乐自然亲子自然教育</div>
+    <div class="main-title">"蘑"法森林与</div>
+    <div class="sub-title">木头的奇妙之旅</div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-icon">🍄</div>
+      <div class="divider-line r"></div>
+    </div>
+  </div>
+
+  <div class="content-area">
+    <div class="session-card">
+      <div class="session-header">
+        <div class="session-tag">🌅 上午场</div>
+        <div class="session-time">10:00 – 12:00</div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">🍄</div>
+        <div>
+          <div class="activity-name">"蘑"法探秘</div>
+          <div class="activity-desc">参观羊肚菌基地，近距离了解菌菇世界</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">🤲</div>
+        <div>
+          <div class="activity-name">"蘑"法小手</div>
+          <div class="activity-desc">亲子采摘时光，动手感受自然的馈赠</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">🍳</div>
+        <div>
+          <div class="activity-name">"蘑"法厨房</div>
+          <div class="activity-desc">生火做饭，羊肚菌焖饭香飘四野</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card pm">
+      <div class="session-header">
+        <div class="session-tag pm">🌲 下午场</div>
+        <div class="session-time">13:30 – 15:30</div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">🪵</div>
+        <div>
+          <div class="activity-name">森林寻宝</div>
+          <div class="activity-desc">认识木材，探索森林里的天然宝藏</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">🪝</div>
+        <div>
+          <div class="activity-name">创意大变身</div>
+          <div class="activity-desc">动手制作随形挂衣钩，带走专属手作纪念品</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-row">
+      <div class="info-icon">📅</div>
+      <div>
+        <div class="info-label">活动时间</div>
+        <div class="info-value">2026年3月21日（周六）10:00 – 15:30</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">📍</div>
+      <div>
+        <div class="info-label">活动地点</div>
+        <div class="info-value">freeland 自在乐土森林营地（浦东川沙）</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div style="text-align:center">
+      <div class="logo-main">🌿 乐自然 LOVENATURE</div>
+      <div class="logo-sub">让孩子在自然中成长</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

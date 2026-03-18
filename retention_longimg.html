@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 800px;
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px;
+    color: #333;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 3px solid #667eea;
+  }
+  .header h1 {
+    font-size: 28px;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+  }
+  .header .subtitle {
+    font-size: 14px;
+    color: #888;
+  }
+  .header .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1a1a2e;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid #667eea;
+  }
+  .diagnosis-box {
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .diagnosis-box .label { font-weight: bold; color: #e53e3e; font-size: 14px; }
+  .diagnosis-box .desc { color: #555; font-size: 13px; margin-top: 6px; }
+  .core-issue {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  th {
+    background: #667eea;
+    color: #fff;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 13px;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  tr:nth-child(even) { background: #f8f9ff; }
+  .plan-card {
+    background: #f8f9ff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .plan-card.recommended {
+    background: linear-gradient(135deg, #ebf4ff 0%, #f0e6ff 100%);
+    border: 2px solid #667eea;
+  }
+  .plan-card .rank {
+    font-size: 22px;
+    position: absolute;
+    top: 14px;
+    left: 16px;
+  }
+  .plan-card .plan-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: #1a1a2e;
+    margin-left: 36px;
+    margin-bottom: 8px;
+  }
+  .plan-card .plan-detail {
+    font-size: 13px;
+    color: #555;
+    margin-left: 36px;
+    line-height: 1.7;
+  }
+  .plan-card .plan-detail .principle {
+    color: #667eea;
+    font-weight: bold;
+  }
+  .optimize-table td:first-child {
+    font-weight: bold;
+    color: #667eea;
+    white-space: nowrap;
+    width: 100px;
+  }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .metric-box {
+    background: #f8f9ff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .metric-box .metric-name { font-size: 12px; color: #888; margin-bottom: 4px; }
+  .metric-box .metric-value { font-size: 18px; font-weight: bold; color: #667eea; }
+  .metric-box .metric-desc { font-size: 11px; color: #aaa; margin-top: 4px; }
+  .conclusion {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .conclusion strong { color: #ffd700; }
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #aaa;
+  }
+  .tag {
+    display: inline-block;
+    background: #667eea;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-right: 4px;
+  }
+  .tag.green { background: #38a169; }
+  .tag.orange { background: #dd6b20; }
+  .tag.red { background: #e53e3e; }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <h1>🐾 用户留存竞品分析 & 可落地玩法</h1>
+    <div class="subtitle">出行平台用户留存策略全景报告</div>
+    <div class="badge">小爪智库 · 2026.03.09</div>
+  </div>
+
+  <!-- 一、诊断 -->
+  <div class="section">
+    <div class="section-title">一、当前滴滴留存玩法诊断</div>
+    <div class="diagnosis-box">
+      <div class="label">❌ 现状：7天签到打卡发券</div>
+      <div class="desc">门槛低无区分、券面额小无驱动力、签到和下单完全脱钩</div>
+    </div>
+    <div class="core-issue">核心问题：签到 ≠ 下单。用户天天签到但不打车 = 假留存</div>
+  </div>
+
+  <!-- 二、竞品对比 -->
+  <div class="section">
+    <div class="section-title">二、竞品留存策略对比</div>
+    <table>
+      <tr><th>平台</th><th>核心策略</th><th>底层逻辑</th></tr>
+      <tr><td><strong>高德打车</strong></td><td>聚合比价 + 签到积分商城 + 场景推荐</td><td>流量入口优势，用比价锁用户</td></tr>
+      <tr><td><strong>花小猪</strong></td><td>极致低价 + 1元首单 + 社交裂变</td><td>价格敏感型，拼多多式玩法</td></tr>
+      <tr><td><strong>T3出行</strong></td><td>会员体系 + 安全品牌 + 保险赠送</td><td>品质差异化，锁中高端用户</td></tr>
+      <tr><td><strong>美团打车</strong></td><td>生态打通 + 跨品类券</td><td>吃喝玩乐打车一体化协同</td></tr>
+      <tr><td><strong>Uber</strong></td><td>Uber One月费制 + 每单返现</td><td>订阅锁定，跨场景协同</td></tr>
+    </table>
+  </div>
+
+  <!-- 三、方案评估 -->
+  <div class="section">
+    <div class="section-title">三、你的方案评估：7天内下单2单赠大额券</div>
+    <div style="background:#f0fff4;border:1px solid #c6f6d5;border-radius:10px;padding:14px 20px;margin-bottom:14px;font-size:14px;">
+      <strong style="color:#38a169;">👍 方向对了</strong> — 把留存和真实交易挂钩，比纯签到强10倍
+    </div>
+    <table class="optimize-table">
+      <tr><th>优化维度</th><th>建议</th></tr>
+      <tr><td>阶梯设计</td><td>7天2单→基础券；4单→大额券；6单→超级券。递进式刺激</td></tr>
+      <tr><td>券使用限制</td><td>限下周使用 → 形成「本周挣、下周花」留存飞轮</td></tr>
+      <tr><td>损失厌恶</td><td>进度条可视化："已完成1/2单，还差1单获得20元券"</td></tr>
+      <tr><td>时间窗口</td><td>改为「自然周」→ 每周一重置，形成周期性习惯</td></tr>
+    </table>
+  </div>
+
+  <!-- 四、玩法推荐 -->
+  <div class="section">
+    <div class="section-title">四、更有效的留存玩法推荐（按ROI排序）</div>
+
+    <div class="plan-card recommended">
+      <div class="rank">🥇</div>
+      <div class="plan-title">连续下单阶梯奖励 <span class="tag green">推荐首选</span></div>
+      <div class="plan-detail">
+        自然周内下单：2单→5元券，4单→15元券，6单→30元券<br>
+        券限下一自然周使用<br>
+        <span class="principle">原理：目标趋近效应 — 越接近目标越不愿放弃</span>
+      </div>
+    </div>
+
+    <div class="plan-card">
+      <div class="rank">🥈</div>
+      <div class="plan-title">通勤包 / 场景锁定</div>
+      <div class="plan-detail">
+        识别通勤用户 → 推「工作日5天通勤包」→ 打包价便宜20%<br>
+        <span class="principle">原理：高频场景用价格优势提前锁定，竞品无法抢</span>
+      </div>
+    </div>
+
+    <div class="plan-card">
+      <div class="rank">🥉</div>
+      <div class="plan-title">会员日 / 周期性大额回馈</div>
+      <div class="plan-detail">
+        每周五「出行日」：当天下单双倍积分，积分兑大额券<br>
+        <span class="principle">原理：固定节奏培养用户心理预期</span>
+      </div>
+    </div>
+
+    <div class="plan-card">
+      <div class="rank">🏅</div>
+      <div class="plan-title">社交裂变 + 下单绑定</div>
+      <div class="plan-detail">
+        邀好友下单双方各得券，好友须完成真实订单才发券<br>
+        <span class="principle">原理：社交压力 + 双向激励（花小猪已验证有效）</span>
+      </div>
+    </div>
+
+    <div class="plan-card">
+      <div class="rank">🎯</div>
+      <div class="plan-title">「打车基金」沉淀玩法</div>
+      <div class="plan-detail">
+        每次下单自动存入1-3元到打车基金，可直接抵扣<br>
+        连续7天有下单 → 基金翻倍<br>
+        <span class="principle">原理：资金沉淀 = 迁移成本，用户不舍得离开</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 五、指标 -->
+  <div class="section">
+    <div class="section-title">五、关键数据指标</div>
+    <div class="metrics-grid">
+      <div class="metric-box">
+        <div class="metric-name">7日留存率</div>
+        <div class="metric-value">+5%</div>
+        <div class="metric-desc">目标提升幅度</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-name">周均下单频次</div>
+        <div class="metric-value">+1单</div>
+        <div class="metric-desc">目标增量</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-name">券核销率</div>
+        <div class="metric-value">≥60%</div>
+        <div class="metric-desc">低于说明券设计有问题</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-name">活动ROI</div>
+        <div class="metric-value">LTV+</div>
+        <div class="metric-desc">补贴成本 < 用户LTV增量</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 结论 -->
+  <div class="conclusion">
+    <strong>📌 小爪建议：</strong><br>
+    先上<strong>方案1（连续下单阶梯奖励）</strong>做AB测试，落地快、可量化、ROI可控。<br>
+    配合进度条可视化，预计7日留存提升 <strong>3-8个百分点</strong>。
+  </div>
+
+  <div class="footer">🐾 小爪智库 · Catclaw Research · 2026.03.09</div>
+
+</div>
+</body>
+</html>

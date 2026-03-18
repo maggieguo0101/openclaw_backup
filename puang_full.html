@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: #f0f2f5;
+    padding: 20px;
+    width: 560px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  }
+
+  /* ===== 顶部 ===== */
+  .header {
+    background: linear-gradient(135deg, #c0392b 0%, #7b1010 100%);
+    padding: 18px 22px 16px;
+    color: #fff;
+    position: relative;
+  }
+  .header-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 4px;
+    font-size: 11px;
+    padding: 2px 8px;
+    margin-bottom: 7px;
+    letter-spacing: 1px;
+  }
+  .header-title { font-size: 26px; font-weight: 700; letter-spacing: 1px; }
+  .header-sub { font-size: 12px; opacity: 0.8; margin-top: 3px; }
+  .header-badge {
+    position: absolute; right: 22px; top: 20px;
+    background: #ff6b35; color: #fff;
+    font-size: 11px; font-weight: 700;
+    padding: 4px 12px; border-radius: 20px;
+  }
+
+  /* ===== 区块标题 ===== */
+  .sec-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    padding: 10px 22px 6px;
+    border-bottom: 1px solid #eaeef5;
+    background: #f7f9fc;
+  }
+  .sec-title.red { color: #c0392b; }
+  .sec-title.blue { color: #1a5db8; }
+  .sec-title.green { color: #1a7a4a; }
+  .sec-title.gold { color: #b8740a; }
+  .sec-title.purple { color: #7b2fa8; }
+
+  /* ===== 三列核心指标 ===== */
+  .kpi-row {
+    display: flex;
+    border-bottom: 1px solid #eaeef5;
+    background: #f7f9fc;
+  }
+  .kpi-item { flex: 1; text-align: center; padding: 12px 4px; }
+  .kpi-item + .kpi-item { border-left: 1px solid #dde3ec; }
+  .kpi-val { font-size: 20px; font-weight: 700; }
+  .kpi-val.red { color: #e53935; }
+  .kpi-val.blue { color: #1a5db8; }
+  .kpi-val.green { color: #1a7a4a; }
+  .kpi-label { font-size: 10px; color: #888; margin-top: 2px; }
+
+  /* ===== 通用两列表格 ===== */
+  .info-row {
+    display: flex; padding: 7px 22px;
+    font-size: 12.5px;
+    border-bottom: 1px solid #f0f3f7;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { color: #666; width: 110px; flex-shrink: 0; }
+  .info-val { color: #222; font-weight: 500; flex: 1; }
+  .info-val.red { color: #e53935; }
+  .info-val.blue { color: #1a5db8; }
+  .info-val.green { color: #1a7a4a; }
+  .info-val.orange { color: #d97706; }
+  .info-val.gray { color: #888; font-weight: 400; }
+
+  /* ===== 资金梯队 ===== */
+  .ladder-wrap {
+    padding: 8px 22px 12px;
+    background: #fffbf0;
+  }
+  .ladder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-top: 4px;
+  }
+  .ladder-item {
+    background: #fff;
+    border: 1px solid #fcd97e;
+    border-radius: 8px;
+    padding: 8px 11px;
+  }
+  .ladder-item.highlight {
+    border-color: #1a5db8;
+    background: #f0f5ff;
+  }
+  .ladder-item.top {
+    grid-column: span 2;
+    border-color: #c0392b;
+    background: #fff5f5;
+  }
+  .l-tag { font-size: 10px; font-weight: 700; color: #b8740a; }
+  .l-tag.blue { color: #1a5db8; }
+  .l-tag.red { color: #c0392b; }
+  .l-money { font-size: 15px; font-weight: 700; color: #222; margin: 2px 0; }
+  .l-note { font-size: 10px; color: #999; }
+
+  /* ===== 收益率测算 ===== */
+  .roi-wrap {
+    padding: 8px 22px 12px;
+    background: #f3f0ff;
+  }
+  .roi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 7px;
+    margin-top: 4px;
+  }
+  .roi-item {
+    background: #fff;
+    border: 1px solid #c9b8f5;
+    border-radius: 8px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .roi-scene { font-size: 10px; color: #7b2fa8; font-weight: 700; }
+  .roi-price { font-size: 16px; font-weight: 700; color: #333; margin: 3px 0 1px; }
+  .roi-earn { font-size: 11px; color: #e53935; font-weight: 600; }
+  .roi-rate { font-size: 10px; color: #888; margin-top: 2px; }
+
+  /* ===== 风险提示 ===== */
+  .risk-wrap {
+    padding: 8px 22px 10px;
+    background: #fff9f9;
+    border-top: 1px solid #f5c6c6;
+  }
+  .risk-title { font-size: 11px; font-weight: 700; color: #c0392b; margin-bottom: 5px; }
+  .risk-text { font-size: 11px; color: #666; line-height: 1.65; }
+
+  .disclaimer {
+    padding: 7px 22px 12px;
+    font-size: 10px; color: #ccc; text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- 顶部 -->
+  <div class="header">
+    <div class="header-badge">⚡ 明日申购 3/18</div>
+    <div class="header-tag">北交所 · 新股申购分析</div>
+    <div class="header-title">普昂医疗</div>
+    <div class="header-sub">申购代码 920069 &nbsp;·&nbsp; 股票代码 874572 &nbsp;·&nbsp; 中签结果 3/23</div>
+  </div>
+
+  <!-- ① 发行参数 -->
+  <div class="sec-title red">① 发行参数</div>
+  <div class="kpi-row">
+    <div class="kpi-item">
+      <div class="kpi-val red">18.38<span style="font-size:12px;font-weight:400">元</span></div>
+      <div class="kpi-label">发行价</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val blue">14.53<span style="font-size:12px;font-weight:400">倍</span></div>
+      <div class="kpi-label">发行PE</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val green">48.44<span style="font-size:12px;font-weight:400">倍</span></div>
+      <div class="kpi-label">行业PE</div>
+    </div>
+  </div>
+  <div style="padding:0">
+    <div class="info-row">
+      <span class="info-key">估值折价</span>
+      <span class="info-val red">▼ 70%（相对行业，安全边际极高）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">定价方式</span>
+      <span class="info-val">直接定价（无询价）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">老股转让</span>
+      <span class="info-val orange">有（流通老股约525万股，有减持压力）</span>
+    </div>
+  </div>
+
+  <!-- ② 基本面 -->
+  <div class="sec-title blue">② 基本面</div>
+  <div style="padding:0">
+    <div class="info-row">
+      <span class="info-key">主营业务</span>
+      <span class="info-val">糖尿病护理耗材（胰岛素笔针为核心）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">核心客户</span>
+      <span class="info-val gray">Sol-Millennium、Arkray、三诺生物、Ypsomed等</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">出口覆盖</span>
+      <span class="info-val">70+ 国家，海外收入占大头</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">2024年营收</span>
+      <span class="info-val">约 3.0 亿元</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">2025年扣非利润</span>
+      <span class="info-val green">8,450万元（同比 +26%）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">2025年EPS（预测）</span>
+      <span class="info-val">约 2.1 元/股（+38%，线性外推）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">全球市场空间</span>
+      <span class="info-val gray">2024年约13.5亿美元，CAGR 5.8%（至2031年）</span>
+    </div>
+  </div>
+
+  <!-- ③ 申购结构 -->
+  <div class="sec-title green">③ 申购结构</div>
+  <div style="padding:0">
+    <div class="info-row">
+      <span class="info-key">申购日期</span>
+      <span class="info-val red">2026-03-18（明日·周三）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">申购时间</span>
+      <span class="info-val">9:15—15:00（银河/中银 8:30 最早可提交）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">网上发行量</span>
+      <span class="info-val">952.45 万股（9.5万手）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">顶格申购上限</span>
+      <span class="info-val red">47.62 万股 ≈ 875.3 万元</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">顶格1+1临界线</span>
+      <span class="info-val orange">8,336 亿（低于此值可获碎股，需抢时间）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">预计总申购资金</span>
+      <span class="info-val">约 7,500 – 8,000 亿元</span>
+    </div>
+  </div>
+
+  <!-- ④ 资金梯队 -->
+  <div class="sec-title gold">④ 不同资金能拿几手</div>
+  <div class="ladder-wrap">
+    <div class="ladder-grid">
+      <div class="ladder-item">
+        <div class="l-tag">碎股（拼时间）</div>
+        <div class="l-money">&lt; 807 万</div>
+        <div class="l-note">770万以下大概率陪跑</div>
+      </div>
+      <div class="ladder-item highlight">
+        <div class="l-tag blue">1正0碎（稳）</div>
+        <div class="l-money">807 – 875 万</div>
+        <div class="l-note">≥807万，获配1手正股</div>
+      </div>
+      <div class="ladder-item highlight" style="grid-column: span 2; border-color:#d97706; background:#fffbf0;">
+        <div class="l-tag" style="color:#d97706;">⭐ 顶格博1+1（首选）</div>
+        <div class="l-money" style="color:#d97706;">875 万元（顶格）</div>
+        <div class="l-note">顶格 + 9:15前提交 → 大概率1正+1碎；若抢不到碎股则为1正</div>
+      </div>
+      <div class="ladder-item top">
+        <div class="l-tag red">💡 关键提示</div>
+        <div class="l-money" style="font-size:12px;color:#555;">发行量仅9.5万手，碎股竞争激烈，务必9:15前下单</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ 收益率测算 -->
+  <div class="sec-title purple">⑤ 收益率测算（首日开盘）</div>
+  <div class="roi-wrap">
+    <div style="font-size:11px;color:#666;margin-bottom:6px;">基准：顶格875万申购，预计涨幅150%~220%，开盘价区间35–58元</div>
+    <div class="roi-grid">
+      <div class="roi-item">
+        <div class="roi-scene">保守（+150%）</div>
+        <div class="roi-price">~46元</div>
+        <div class="roi-earn">+2,762元/手</div>
+        <div class="roi-rate">1+0 年化约万分之3.8</div>
+      </div>
+      <div class="roi-item" style="border-color:#c0392b;">
+        <div class="roi-scene" style="color:#c0392b;">中性（+180%）</div>
+        <div class="roi-price">~51元</div>
+        <div class="roi-earn">+3,308元/手</div>
+        <div class="roi-rate">1+0 年化约万分之4.1</div>
+      </div>
+      <div class="roi-item">
+        <div class="roi-scene">乐观（+220%）</div>
+        <div class="roi-price">~59元</div>
+        <div class="roi-earn">+4,046元/手</div>
+        <div class="roi-rate">1+0 年化约万分之5.0</div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:#888;margin-top:7px;text-align:center;">
+      1+1（两手）收益翻倍 · 北交所不冻资，中签后3/23缴款
+    </div>
+  </div>
+
+  <!-- ⑥ 风险提示 -->
+  <div class="risk-wrap">
+    <div class="risk-title">⚠️ 主要风险</div>
+    <div class="risk-text">
+      1. <strong>老股减持压力</strong>：流通老股约525万股，上市后存在减持风险，压制首日涨幅<br>
+      2. <strong>核心产品降价</strong>：胰岛素笔针降价约29%，毛利率持续承压<br>
+      3. <strong>出口依赖高</strong>：汇率波动及海外贸易政策变化影响业绩<br>
+      4. <strong>收益率偏低</strong>：顶格年化约万分之4，低于资金机会成本，小资金建议权衡
+    </div>
+  </div>
+
+  <div class="disclaimer">数据来源：北交所发行公告及公开资讯整理 · 仅供参考，不构成投资建议</div>
+</div>
+</body>
+</html>

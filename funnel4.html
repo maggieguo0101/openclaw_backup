@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  width: 900px; 
+  background: #fff; 
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  padding: 30px 40px;
+}
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 28px;
+}
+.funnel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.funnel-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+.funnel-bar {
+  height: 52px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+.funnel-bar .label { font-size: 14px; font-weight: 700; }
+.funnel-bar .value { font-size: 19px; font-weight: 800; margin-left: 10px; }
+.rate-badge {
+  position: absolute;
+  right: 10px;
+  background: #f0f4ff;
+  border: 1px solid #d0d8f0;
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 12px;
+  color: #4a5568;
+  font-weight: 600;
+}
+.rate-badge .rate-val { color: #e53e3e; font-weight: 800; }
+.arrow-down { width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 8px solid #cbd5e0; margin: 2px 0; }
+</style>
+</head>
+<body>
+
+<div class="title">3.1-3.10 AIBD下发批次转化漏斗</div>
+
+<div class="funnel-container">
+  <!-- 1 -->
+  <div class="funnel-row">
+    <div class="funnel-bar" style="width:820px; background: linear-gradient(135deg, #667eea, #764ba2);">
+      <span class="label">执行总门店数</span>
+      <span class="value">1,725</span>
+    </div>
+  </div>
+  <div class="arrow-down"></div>
+
+  <!-- 2 -->
+  <div class="funnel-row">
+    <div class="funnel-bar" style="width:680px; background: linear-gradient(135deg, #5B86E5, #36D1DC);">
+      <span class="label">接通门店数</span>
+      <span class="value">999</span>
+    </div>
+    <span class="rate-badge">接通率 <span class="rate-val">57.91%</span></span>
+  </div>
+  <div class="arrow-down"></div>
+
+  <!-- 3 -->
+  <div class="funnel-row">
+    <div class="funnel-bar" style="width:520px; background: linear-gradient(135deg, #F2994A, #F2C94C);">
+      <span class="label">同意添加企微</span>
+      <span class="value">167</span>
+    </div>
+    <span class="rate-badge">同意率 <span class="rate-val">16.72%</span></span>
+  </div>
+  <div class="arrow-down"></div>
+
+  <!-- 4 -->
+  <div class="funnel-row">
+    <div class="funnel-bar" style="width:420px; background: linear-gradient(135deg, #f093fb, #f5576c);">
+      <span class="label">FC调用成功</span>
+      <span class="value">128</span>
+    </div>
+    <span class="rate-badge">FC成功率 <span class="rate-val">76.65%</span></span>
+  </div>
+  <div class="arrow-down"></div>
+
+  <!-- 5 -->
+  <div class="funnel-row">
+    <div class="funnel-bar" style="width:360px; background: linear-gradient(135deg, #a18cd1, #fbc2eb); color:#333;">
+      <span class="label">FC→深海好友发送</span>
+      <span class="value">125</span>
+    </div>
+    <span class="rate-badge">发送成功率 <span class="rate-val">97.66%</span></span>
+  </div>
+  <div class="arrow-down"></div>
+
+  <!-- 6 -->
+  <div class="funnel-row">
+    <div class="funnel-bar" style="width:270px; background: linear-gradient(135deg, #4facfe, #00f2fe); color:#1a1a2e;">
+      <span class="label">企微添加成功</span>
+      <span class="value">42</span>
+    </div>
+    <span class="rate-badge">添加率 <span class="rate-val">33.60%</span></span>
+  </div>
+  <div class="arrow-down"></div>
+
+  <!-- 7 -->
+  <div class="funnel-row">
+    <div class="funnel-bar" style="width:200px; background: linear-gradient(135deg, #ff6b6b, #ee5a24);">
+      <span class="label">建群成功</span>
+      <span class="value">36</span>
+    </div>
+    <span class="rate-badge">建群率 <span class="rate-val">85.71%</span></span>
+  </div>
+</div>
+
+<div style="text-align:center; margin-top:24px; padding:14px 20px; background:#f8f9fb; border-radius:10px; border:1px solid #e8ecf1;">
+  <span style="font-size:14px; color:#555; font-weight:600;">🔑 全链路：执行 1,725 → 建群成功 36 →
+  <span style="color:#e53e3e; font-size:18px; font-weight:800;">全链路转化率 2.09%</span>
+  <span style="margin-left:16px; color:#b7791f; font-size:14px; font-weight:700;">| 建群/同意加企微 <span style="font-size:17px; font-weight:800; color:#d69e2e;">21.56%</span></span></span>
+</div>
+
+</body>
+</html>

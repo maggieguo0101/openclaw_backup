@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #ffffff;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    width: 1300px;
+    padding: 40px;
+  }
+</style>
+</head>
+<body>
+<svg width="1220" height="920" viewBox="0 0 1220 920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#333"/>
+    </marker>
+    <marker id="arr-gold" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#c48a00"/>
+    </marker>
+    <pattern id="hatch" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#f5c842" stroke-width="3.5" stroke-opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="1220" height="920" fill="white"/>
+
+  <!-- 标题 -->
+  <text x="610" y="34" font-size="17" font-weight="600" fill="#1a1a1a" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif">AIBD 签约 &amp; 上团单 × OpenClaw 企微自动化架构</text>
+
+  <!-- ===== 企微Channel 大竖框 (x=530~710, y=60~790) ===== -->
+  <rect x="530" y="60" width="180" height="730" rx="6" fill="url(#hatch)" stroke="#f5c842" stroke-width="2.5"/>
+  <rect x="530" y="60" width="180" height="730" rx="6" fill="none" stroke="#f5c842" stroke-width="2.5"/>
+  <!-- 需自建标签 -->
+  <rect x="558" y="38" width="84" height="26" rx="4" fill="white" stroke="#f5c842" stroke-width="1.8"/>
+  <text x="600" y="55" font-size="12" fill="#c48a00" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">需自建</text>
+  <line x1="600" y1="64" x2="600" y2="82" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+  <text x="620" y="102" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle" font-family="PingFang SC, sans-serif">企微 Channel</text>
+
+  <!-- 消息网关 qwbot -->
+  <rect x="544" y="510" width="152" height="58" rx="4" fill="white" stroke="#888" stroke-width="1.3"/>
+  <text x="620" y="535" font-size="13" fill="#1a1a1a" text-anchor="middle" font-family="PingFang SC, sans-serif">消息网关</text>
+  <text x="620" y="555" font-size="12" fill="#666" text-anchor="middle" font-family="PingFang SC, sans-serif">(qwbot)</text>
+
+  <!-- ===== OpenClaw Agent框 ===== -->
+  <rect x="160" y="110" width="260" height="330" rx="8" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="212" y="96" font-size="13" fill="#555" font-family="PingFang SC, sans-serif">Catclaw-小助手 Agent</text>
+  <text x="290" y="228" font-size="64" text-anchor="middle">🦞</text>
+  <text x="290" y="268" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle" font-family="PingFang SC, sans-serif">OpenClaw</text>
+  <!-- 上单Skills -->
+  <rect x="184" y="300" width="152" height="46" rx="3" fill="white" stroke="#333" stroke-width="1.3"/>
+  <polygon points="316,300 336,300 336,320 316,320 316,300" fill="#e8e8e8" stroke="#333" stroke-width="1"/>
+  <line x1="316" y1="300" x2="336" y2="320" stroke="#333" stroke-width="1"/>
+  <text x="252" y="328" font-size="13" fill="#1a1a1a" text-anchor="middle" font-family="PingFang SC, sans-serif">上单 Skills</text>
+  <!-- Skills↕内部箭头 -->
+  <line x1="290" y1="346" x2="290" y2="418" stroke="#333" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="290" y1="300" x2="290" y2="272" stroke="#333" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+
+  <!-- ===== 企微群图标框 ===== -->
+  <rect x="768" y="158" width="140" height="150" rx="12" fill="white" stroke="#333" stroke-width="1.8" stroke-dasharray="6,4"/>
+  <text x="838" y="250" font-size="60" text-anchor="middle">💬</text>
+  <text x="838" y="294" font-size="12" fill="#666" text-anchor="middle" font-family="PingFang SC, sans-serif">企微群</text>
+
+  <!-- ===== 商户小人 (右上) ===== -->
+  <circle cx="1070" cy="195" r="22" fill="none" stroke="#333" stroke-width="1.8"/>
+  <line x1="1070" y1="217" x2="1070" y2="283" stroke="#333" stroke-width="1.8"/>
+  <line x1="1070" y1="239" x2="1040" y2="263" stroke="#333" stroke-width="1.8"/>
+  <line x1="1070" y1="239" x2="1100" y2="263" stroke="#333" stroke-width="1.8"/>
+  <line x1="1070" y1="283" x2="1046" y2="323" stroke="#333" stroke-width="1.8"/>
+  <line x1="1070" y1="283" x2="1094" y2="323" stroke="#333" stroke-width="1.8"/>
+  <text x="1070" y="348" font-size="14" fill="#1a1a1a" text-anchor="middle" font-family="PingFang SC, sans-serif">商户</text>
+
+  <!-- ===== 销售小人 (左下) ===== -->
+  <circle cx="72" cy="520" r="22" fill="none" stroke="#333" stroke-width="1.8"/>
+  <line x1="72" y1="542" x2="72" y2="608" stroke="#333" stroke-width="1.8"/>
+  <line x1="72" y1="564" x2="42" y2="588" stroke="#333" stroke-width="1.8"/>
+  <line x1="72" y1="564" x2="102" y2="588" stroke="#333" stroke-width="1.8"/>
+  <line x1="72" y1="608" x2="48" y2="648" stroke="#333" stroke-width="1.8"/>
+  <line x1="72" y1="608" x2="96" y2="648" stroke="#333" stroke-width="1.8"/>
+  <text x="72" y="672" font-size="14" fill="#1a1a1a" text-anchor="middle" font-family="PingFang SC, sans-serif">销售</text>
+
+  <!-- ===== 真人销售小人 (右下) ===== -->
+  <circle cx="1070" cy="520" r="22" fill="none" stroke="#333" stroke-width="1.8"/>
+  <line x1="1070" y1="542" x2="1070" y2="608" stroke="#333" stroke-width="1.8"/>
+  <line x1="1070" y1="564" x2="1040" y2="588" stroke="#333" stroke-width="1.8"/>
+  <line x1="1070" y1="564" x2="1100" y2="588" stroke="#333" stroke-width="1.8"/>
+  <line x1="1070" y1="608" x2="1046" y2="648" stroke="#333" stroke-width="1.8"/>
+  <line x1="1070" y1="608" x2="1094" y2="648" stroke="#333" stroke-width="1.8"/>
+  <text x="1070" y="672" font-size="14" fill="#1a1a1a" text-anchor="middle" font-family="PingFang SC, sans-serif">真人销售</text>
+
+  <!-- ===== 大象通知框 ===== -->
+  <rect x="768" y="500" width="200" height="62" rx="6" fill="#fffbf0" stroke="#f5c842" stroke-width="2"/>
+  <text x="868" y="527" font-size="13" font-weight="600" fill="#1a1a1a" text-anchor="middle" font-family="PingFang SC, sans-serif">🐘 大象通知真人销售</text>
+  <text x="868" y="548" font-size="11" fill="#888" text-anchor="middle" font-family="PingFang SC, sans-serif">商家名称 + 群链接 + 材料清单</text>
+
+  <!-- ============================= -->
+  <!-- ===== 连线 ===== -->
+  <!-- ============================= -->
+
+  <!-- ① 销售→OpenClaw 虚线 -->
+  <line x1="102" y1="565" x2="158" y2="400" stroke="#333" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arr)"/>
+  <rect x="26" y="476" width="128" height="44" rx="3" fill="white"/>
+  <text x="90" y="493" font-size="12" fill="#333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">①下发任务</text>
+  <text x="90" y="511" font-size="11" fill="#666" text-anchor="middle" font-family="PingFang SC, sans-serif">(1家 or 多家门店)</text>
+
+  <!-- ② OpenClaw→Channel (上方横线) -->
+  <line x1="420" y1="230" x2="528" y2="230" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="474" y="218" font-size="12" fill="#333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">②开启商户对话</text>
+
+  <!-- OpenClaw→qwbot (斜线向右下) -->
+  <line x1="420" y1="400" x2="542" y2="520" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ③ qwbot→企微群 右上斜线 -->
+  <!-- 走Channel右侧出去连到企微群 -->
+  <line x1="710" y1="530" x2="768" y2="250" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- ③标签 放在线的右侧，不与⑥重叠 -->
+  <rect x="718" y="310" width="52" height="60" rx="3" fill="white"/>
+  <text x="744" y="328" font-size="12" fill="#333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">③</text>
+  <text x="744" y="344" font-size="11" fill="#333" text-anchor="middle" font-family="PingFang SC, sans-serif">消息</text>
+  <text x="744" y="360" font-size="11" fill="#333" text-anchor="middle" font-family="PingFang SC, sans-serif">发送</text>
+  <text x="744" y="376" font-size="11" fill="#333" text-anchor="middle" font-family="PingFang SC, sans-serif">到群</text>
+
+  <!-- ④ 企微群→商户 -->
+  <line x1="908" y1="215" x2="1046" y2="210" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="977" y="202" font-size="12" fill="#333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">④触达商户</text>
+
+  <!-- ⑤ 商户→企微群 虚线 -->
+  <line x1="1046" y1="240" x2="910" y2="266" stroke="#333" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr)"/>
+  <text x="977" y="276" font-size="12" fill="#333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">⑤回复消息</text>
+
+  <!-- ⑥ 企微群→qwbot 虚线，走Channel左侧，与③错开 -->
+  <!-- 从企微群左边出来，往左下到qwbot -->
+  <line x1="768" y1="290" x2="530" y2="530" stroke="#333" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr)"/>
+  <!-- ⑥标签放在线的左侧 -->
+  <rect x="600" y="390" width="62" height="24" rx="3" fill="white"/>
+  <text x="631" y="406" font-size="12" fill="#333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">⑥网关接收</text>
+
+  <!-- ⑦ qwbot→OpenClaw 虚线 -->
+  <line x1="544" y1="545" x2="422" y2="430" stroke="#333" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr)"/>
+  <rect x="430" y="474" width="116" height="24" rx="3" fill="white"/>
+  <text x="488" y="490" font-size="12" fill="#333" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">⑦小龙虾接收</text>
+
+  <!-- ⑧ qwbot→大象通知 金色实线 (已认领分支) -->
+  <line x1="696" y1="555" x2="766" y2="535" stroke="#c48a00" stroke-width="1.8" marker-end="url(#arr-gold)"/>
+  <rect x="672" y="566" width="86" height="22" rx="3" fill="white"/>
+  <text x="715" y="581" font-size="11" fill="#c48a00" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">⑧已认领触发</text>
+
+  <!-- ⑨ 大象通知→真人销售 金色实线 -->
+  <line x1="968" y1="531" x2="1046" y2="531" stroke="#c48a00" stroke-width="1.8" marker-end="url(#arr-gold)"/>
+  <text x="1007" y="520" font-size="12" fill="#c48a00" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">⑨通知跟进</text>
+
+  <!-- ⑩ 真人销售→OpenClaw 大弧线虚线回路 -->
+  <path d="M 1046 610 Q 1046 760 610 760 Q 300 760 290 442" fill="none" stroke="#333" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arr)"/>
+  <rect x="550" y="748" width="160" height="24" rx="3" fill="white"/>
+  <text x="630" y="764" font-size="12" fill="#555" text-anchor="middle" font-family="PingFang SC, sans-serif" font-weight="600">⑩代操作完成，回传结果</text>
+
+  <!-- ===== 底部图例条 ===== -->
+  <rect x="0" y="862" width="1220" height="36" fill="#fafafa" stroke="#e8e8e8" stroke-width="1"/>
+  <text x="20" y="884" font-size="12" fill="#aaa" font-family="PingFang SC, sans-serif">🔗 DrawIO 风格 · AIBD × OpenClaw 企微自动化</text>
+  <line x1="680" y1="880" x2="714" y2="880" stroke="#333" stroke-width="1.5"/>
+  <polygon points="714,876 722,880 714,884" fill="#333"/>
+  <text x="728" y="884" font-size="11" fill="#666" font-family="PingFang SC, sans-serif">实线 = 主动流程</text>
+  <line x1="856" y1="880" x2="890" y2="880" stroke="#333" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <polygon points="890,876 898,880 890,884" fill="#333"/>
+  <text x="904" y="884" font-size="11" fill="#666" font-family="PingFang SC, sans-serif">虚线 = 回路/被动接收</text>
+  <rect x="1060" y="872" width="14" height="14" rx="2" fill="#fffbf0" stroke="#f5c842" stroke-width="1.5"/>
+  <text x="1080" y="884" font-size="11" fill="#c48a00" font-family="PingFang SC, sans-serif">大象通知路径</text>
+
+</svg>
+</body>
+</html>

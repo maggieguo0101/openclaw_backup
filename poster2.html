@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 750px;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+
+.poster {
+  width: 750px;
+  height: 1334px;
+  position: relative;
+  overflow: hidden;
+  background: #0d2a0a;
+}
+
+/* 背景渐变森林氛围 */
+.bg-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 0%, #1a5c0e 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 20% 100%, #0a3205 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 80% 100%, #0a3205 0%, transparent 50%),
+    linear-gradient(180deg, #071a04 0%, #0d2a0a 30%, #142e10 60%, #0a1e08 100%);
+}
+
+/* 光晕效果 */
+.light-beam {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 600px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(180,255,100,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.light-spot {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,220,80,0.08) 0%, transparent 70%);
+}
+
+/* 装饰圆圈 */
+.deco-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(150,255,80,0.1);
+}
+
+/* 顶部标签 */
+.top-label {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+}
+
+.brand-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  letter-spacing: 3px;
+  padding: 7px 22px;
+  border-radius: 30px;
+}
+
+/* 蘑菇装饰组 */
+.mushrooms-top {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 12px;
+  padding-bottom: 0;
+}
+
+/* 主视觉区 */
+.hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 蘑菇SVG装饰 */
+.mushroom-scene {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+}
+
+/* 标题 */
+.title-block {
+  position: absolute;
+  top: 160px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 20;
+  padding: 0 40px;
+}
+
+.eyebrow {
+  font-size: 14px;
+  color: rgba(180,255,120,0.8);
+  letter-spacing: 4px;
+  margin-bottom: 18px;
+  font-weight: 400;
+}
+
+.main-title-line1 {
+  font-size: 72px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(120,255,60,0.4), 0 4px 20px rgba(0,0,0,0.8);
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.main-title-line1 .highlight {
+  color: #b5ff60;
+  text-shadow: 0 0 30px rgba(181,255,96,0.6), 0 4px 20px rgba(0,0,0,0.8);
+}
+
+.main-title-line2 {
+  font-size: 58px;
+  font-weight: 900;
+  color: #ffcc00;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(255,200,0,0.5), 0 4px 20px rgba(0,0,0,0.8);
+  letter-spacing: 2px;
+}
+
+.title-sub {
+  margin-top: 20px;
+  font-size: 16px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 2px;
+}
+
+/* 分隔线 */
+.divider-area {
+  position: absolute;
+  top: 490px;
+  left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 20;
+}
+
+.divider-line-h {
+  height: 1px;
+  width: 120px;
+  background: linear-gradient(to right, transparent, rgba(181,255,96,0.5));
+}
+.divider-line-h.r { background: linear-gradient(to left, transparent, rgba(181,255,96,0.5)); }
+.divider-diamond {
+  width: 8px; height: 8px;
+  background: #b5ff60;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(181,255,96,0.8);
+}
+
+/* 内容区 */
+.content-section {
+  position: absolute;
+  top: 530px;
+  left: 40px; right: 40px;
+  z-index: 20;
+}
+
+.session-block {
+  margin-bottom: 24px;
+}
+
+.session-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.session-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #b5ff60;
+  text-transform: uppercase;
+}
+
+.session-time-badge {
+  background: rgba(181,255,96,0.15);
+  border: 1px solid rgba(181,255,96,0.3);
+  color: #b5ff60;
+  font-size: 13px;
+  padding: 3px 12px;
+  border-radius: 20px;
+}
+
+.session-block.pm .session-label { color: #ffd060; }
+.session-block.pm .session-time-badge {
+  background: rgba(255,208,96,0.15);
+  border-color: rgba(255,208,96,0.3);
+  color: #ffd060;
+}
+
+.activities-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.activities-grid.two-col {
+  grid-template-columns: 1fr 1fr;
+}
+
+.activity-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 16px 14px;
+  backdrop-filter: blur(5px);
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.activity-card:hover {
+  background: rgba(181,255,96,0.08);
+  border-color: rgba(181,255,96,0.25);
+}
+
+.session-block.pm .activity-card:hover {
+  background: rgba(255,208,96,0.08);
+  border-color: rgba(255,208,96,0.25);
+}
+
+.act-emoji {
+  font-size: 28px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.act-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.act-desc {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+}
+
+/* 底部信息条 */
+.info-section {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  height: 200px;
+  z-index: 20;
+}
+
+.info-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.95) 100%);
+}
+
+.info-content {
+  position: absolute;
+  bottom: 35px;
+  left: 0; right: 0;
+  padding: 0 45px;
+}
+
+.info-items {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.info-item {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.info-item + .info-item {
+  border-left: 1px solid rgba(255,255,255,0.1);
+  padding-left: 28px;
+  margin-left: 28px;
+}
+
+.info-icon-box {
+  width: 40px; height: 40px;
+  background: rgba(181,255,96,0.15);
+  border: 1px solid rgba(181,255,96,0.3);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.info-label-text {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.info-value-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.footer-brand {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 3px;
+}
+
+/* 粒子装饰 */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(181,255,96,0.6);
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); opacity: 0.6; }
+  50% { transform: translateY(-10px); opacity: 1; }
+}
+
+/* 底部树木剪影 */
+.forest-silhouette {
+  position: absolute;
+  bottom: 195px;
+  left: 0; right: 0;
+  height: 120px;
+  z-index: 15;
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- 背景 -->
+  <div class="bg-gradient"></div>
+  <div class="light-beam"></div>
+  <div class="light-spot"></div>
+
+  <!-- 装饰环 -->
+  <div class="deco-ring" style="width:600px;height:600px;top:-200px;left:75px;"></div>
+  <div class="deco-ring" style="width:400px;height:400px;top:-50px;left:175px;opacity:0.5;"></div>
+
+  <!-- 粒子 -->
+  <div class="particle" style="width:4px;height:4px;top:120px;left:120px;animation-delay:0s;"></div>
+  <div class="particle" style="width:3px;height:3px;top:200px;left:600px;animation-delay:1s;"></div>
+  <div class="particle" style="width:5px;height:5px;top:350px;left:80px;animation-delay:2s;background:rgba(255,208,96,0.6);"></div>
+  <div class="particle" style="width:3px;height:3px;top:420px;left:650px;animation-delay:0.5s;"></div>
+  <div class="particle" style="width:4px;height:4px;top:160px;left:380px;animation-delay:1.5s;background:rgba(255,208,96,0.6);"></div>
+
+  <!-- 顶部品牌标签 -->
+  <div class="top-label">
+    <div class="brand-tag">🌿 乐自然 LOVENATURE</div>
+  </div>
+
+  <!-- 标题区 -->
+  <div class="title-block">
+    <div class="eyebrow">亲子自然教育 · 2026.03.21</div>
+    <div class="main-title-line1"><span class="highlight">"蘑"</span>法森林</div>
+    <div class="main-title-line2">木头的奇妙之旅</div>
+    <div class="title-sub">探秘 · 采摘 · 烹饪 · 木作</div>
+  </div>
+
+  <!-- 蘑菇SVG场景 -->
+  <svg class="mushroom-scene" viewBox="0 0 750 250" xmlns="http://www.w3.org/2000/svg">
+    <!-- 地面 -->
+    <ellipse cx="375" cy="230" rx="400" ry="30" fill="rgba(20,60,10,0.8)"/>
+
+    <!-- 蘑菇1 左小 -->
+    <ellipse cx="120" cy="185" rx="28" ry="18" fill="#3d1a06"/>
+    <ellipse cx="120" cy="185" rx="28" ry="18" fill="url(#mg1)"/>
+    <rect x="114" y="183" width="12" height="35" rx="4" fill="#c8a855"/>
+    <ellipse cx="114" cy="216" rx="12" ry="5" fill="rgba(0,0,0,0.2)"/>
+
+    <!-- 蘑菇2 左中 -->
+    <ellipse cx="200" cy="165" rx="38" ry="26" fill="url(#mg2)"/>
+    <rect x="192" y="162" width="16" height="50" rx="5" fill="#d4b870"/>
+    <ellipse cx="200" cy="210" rx="14" ry="6" fill="rgba(0,0,0,0.2)"/>
+
+    <!-- 蘑菇3 中高 -->
+    <ellipse cx="320" cy="130" rx="52" ry="36" fill="url(#mg3)"/>
+    <rect x="310" y="126" width="20" height="80" rx="6" fill="#e8cc88"/>
+    <ellipse cx="320" cy="204" rx="18" ry="7" fill="rgba(0,0,0,0.25)"/>
+
+    <!-- 蘑菇4 中高 -->
+    <ellipse cx="430" cy="135" rx="48" ry="34" fill="url(#mg4)"/>
+    <rect x="420" y="131" width="20" height="75" rx="6" fill="#e0c07a"/>
+    <ellipse cx="430" cy="204" rx="17" ry="7" fill="rgba(0,0,0,0.25)"/>
+
+    <!-- 蘑菇5 右中 -->
+    <ellipse cx="565" cy="170" rx="36" ry="24" fill="url(#mg5)"/>
+    <rect x="557" y="167" width="15" height="48" rx="5" fill="#cca86a"/>
+    <ellipse cx="565" cy="213" rx="13" ry="5" fill="rgba(0,0,0,0.2)"/>
+
+    <!-- 蘑菇6 右小 -->
+    <ellipse cx="640" cy="190" rx="24" ry="16" fill="url(#mg6)"/>
+    <rect x="634" y="188" width="11" height="30" rx="3" fill="#b89050"/>
+    <ellipse cx="640" cy="216" rx="10" ry="4" fill="rgba(0,0,0,0.15)"/>
+
+    <!-- 高光 -->
+    <ellipse cx="306" cy="138" rx="18" ry="8" fill="rgba(255,255,255,0.12)"/>
+    <ellipse cx="418" cy="143" rx="16" ry="7" fill="rgba(255,255,255,0.12)"/>
+    <ellipse cx="188" cy="172" rx="12" ry="5" fill="rgba(255,255,255,0.1)"/>
+
+    <!-- 草地 -->
+    <path d="M0 225 Q50 210 100 222 Q150 235 200 218 Q250 205 300 220 Q350 235 400 215 Q450 200 500 220 Q550 235 600 218 Q650 205 700 222 Q730 230 750 225 L750 250 L0 250 Z" fill="rgba(20,60,10,0.9)"/>
+
+    <!-- 渐变定义 -->
+    <defs>
+      <radialGradient id="mg1" cx="38%" cy="30%">
+        <stop offset="0%" stop-color="#c8924a"/>
+        <stop offset="100%" stop-color="#5a2a08"/>
+      </radialGradient>
+      <radialGradient id="mg2" cx="38%" cy="30%">
+        <stop offset="0%" stop-color="#d4a050"/>
+        <stop offset="100%" stop-color="#6a3010"/>
+      </radialGradient>
+      <radialGradient id="mg3" cx="38%" cy="30%">
+        <stop offset="0%" stop-color="#e0b060"/>
+        <stop offset="100%" stop-color="#7a3c10"/>
+      </radialGradient>
+      <radialGradient id="mg4" cx="38%" cy="30%">
+        <stop offset="0%" stop-color="#d8a855"/>
+        <stop offset="100%" stop-color="#703610"/>
+      </radialGradient>
+      <radialGradient id="mg5" cx="38%" cy="30%">
+        <stop offset="0%" stop-color="#cc9845"/>
+        <stop offset="100%" stop-color="#622c0c"/>
+      </radialGradient>
+      <radialGradient id="mg6" cx="38%" cy="30%">
+        <stop offset="0%" stop-color="#c09040"/>
+        <stop offset="100%" stop-color="#5a2808"/>
+      </radialGradient>
+    </defs>
+  </svg>
+
+  <!-- 分隔线 -->
+  <div class="divider-area">
+    <div class="divider-line-h"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line-h r"></div>
+  </div>
+
+  <!-- 内容区 -->
+  <div class="content-section">
+
+    <!-- 上午 -->
+    <div class="session-block">
+      <div class="session-title-row">
+        <div class="session-label">🌅 上午场</div>
+        <div class="session-time-badge">10:00 – 12:00</div>
+      </div>
+      <div class="activities-grid">
+        <div class="activity-card">
+          <span class="act-emoji">🍄</span>
+          <div class="act-name">"蘑"法探秘</div>
+          <div class="act-desc">参观羊肚菌基地</div>
+        </div>
+        <div class="activity-card">
+          <span class="act-emoji">🤲</span>
+          <div class="act-name">"蘑"法小手</div>
+          <div class="act-desc">亲子采摘时光</div>
+        </div>
+        <div class="activity-card">
+          <span class="act-emoji">🍳</span>
+          <div class="act-name">"蘑"法厨房</div>
+          <div class="act-desc">羊肚菌焖饭</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 下午 -->
+    <div class="session-block pm">
+      <div class="session-title-row">
+        <div class="session-label">🌲 下午场</div>
+        <div class="session-time-badge">13:30 – 15:30</div>
+      </div>
+      <div class="activities-grid two-col">
+        <div class="activity-card">
+          <span class="act-emoji">🪵</span>
+          <div class="act-name">森林寻宝</div>
+          <div class="act-desc">认识木材探索自然</div>
+        </div>
+        <div class="activity-card">
+          <span class="act-emoji">🪝</span>
+          <div class="act-name">创意大变身</div>
+          <div class="act-desc">制作随形挂衣钩</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 树木剪影 -->
+  <svg class="forest-silhouette" viewBox="0 0 750 120" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 120 L0 80 L30 20 L60 80 L60 120 Z" fill="rgba(5,20,3,0.7)"/>
+    <path d="M40 120 L40 60 L80 0 L120 60 L120 120 Z" fill="rgba(5,20,3,0.6)"/>
+    <path d="M600 120 L600 60 L640 0 L680 60 L680 120 Z" fill="rgba(5,20,3,0.6)"/>
+    <path d="M660 120 L660 75 L695 18 L730 75 L730 120 Z" fill="rgba(5,20,3,0.7)"/>
+    <path d="M710 120 L710 85 L735 30 L760 85 L760 120 Z" fill="rgba(5,20,3,0.6)"/>
+  </svg>
+
+  <!-- 底部信息 -->
+  <div class="info-section">
+    <div class="info-bg"></div>
+    <div class="info-content">
+      <div class="info-items">
+        <div class="info-item">
+          <div class="info-icon-box">📅</div>
+          <div>
+            <div class="info-label-text">活动时间</div>
+            <div class="info-value-text">2026年3月21日 周六<br>10:00 – 15:30</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon-box">📍</div>
+          <div>
+            <div class="info-label-text">活动地点</div>
+            <div class="info-value-text">freeland 自在乐土<br>森林营地（浦东川沙）</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-brand">LOVENATURE · 让孩子在自然中成长</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

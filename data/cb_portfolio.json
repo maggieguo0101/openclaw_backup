@@ -1,0 +1,23 @@
+{
+  "created": "2026-03-10",
+  "initial_cash": 100000,
+  "cash": 100000,
+  "holdings": [],
+  "total_value": 100000,
+  "total_profit": 0,
+  "total_profit_pct": 0,
+  "trades": [],
+  "strategy": {
+    "name": "双低摊大饼 + 折价轮动",
+    "rules": {
+      "double_low_max": 130,
+      "discount_threshold": -1.0,
+      "max_holdings": 20,
+      "single_position_pct": 5,
+      "rebalance_freq": "monthly",
+      "stop_loss": -15,
+      "take_profit_price": 130
+    }
+  },
+  "notes": "模拟组合，10万虚拟本金，跟踪双低摊大饼+折价套利策略表现"
+}

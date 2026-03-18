@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>可转债套利监控报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    width: 800px;
+    padding: 0;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a1f35 0%, #0f1117 100%);
+    border-bottom: 2px solid #f6ad55;
+    padding: 28px 32px 20px;
+    position: relative;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #f6ad55;
+    letter-spacing: 1px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #90a0b7;
+    margin-top: 4px;
+  }
+  .date-badge {
+    background: #f6ad55;
+    color: #0f1117;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .market-overview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding: 20px 32px;
+    background: #141821;
+  }
+  .metric-card {
+    background: #1a2035;
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid #2a3550;
+    text-align: center;
+  }
+  .metric-label {
+    font-size: 11px;
+    color: #90a0b7;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .metric-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #e2e8f0;
+  }
+  .metric-value.red { color: #fc8181; }
+  .metric-value.green { color: #68d391; }
+  .metric-value.yellow { color: #f6ad55; }
+  .metric-sub {
+    font-size: 11px;
+    margin-top: 3px;
+  }
+  .metric-sub.red { color: #fc8181; }
+  .metric-sub.green { color: #68d391; }
+
+  .section {
+    padding: 0 32px 20px;
+    background: #141821;
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f6ad55;
+    padding: 16px 0 12px;
+    border-bottom: 1px solid #2a3550;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon {
+    width: 20px;
+    height: 20px;
+    background: #f6ad55;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #0f1117;
+    font-weight: 900;
+  }
+
+  /* 负溢价套利表 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr {
+    background: #1a2035;
+  }
+  thead th {
+    padding: 10px 12px;
+    text-align: left;
+    color: #90a0b7;
+    font-weight: 600;
+    font-size: 12px;
+    border-bottom: 1px solid #2a3550;
+  }
+  thead th:not(:first-child) { text-align: center; }
+  tbody tr {
+    border-bottom: 1px solid #1e2a3f;
+    transition: background 0.2s;
+  }
+  tbody tr:hover { background: #1a2035; }
+  tbody tr:nth-child(even) { background: #151c2e; }
+  tbody tr:nth-child(even):hover { background: #1a2035; }
+  td {
+    padding: 9px 12px;
+    vertical-align: middle;
+  }
+  td:not(:first-child) { text-align: center; }
+  .bond-name {
+    font-weight: 600;
+    color: #e2e8f0;
+  }
+  .bond-code {
+    font-size: 11px;
+    color: #90a0b7;
+    margin-top: 2px;
+  }
+  .neg { color: #68d391; font-weight: 700; }
+  .pos { color: #fc8181; font-weight: 700; }
+  .neutral { color: #90a0b7; }
+  .tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .tag-red { background: rgba(252,129,129,0.15); color: #fc8181; }
+  .tag-green { background: rgba(104,211,145,0.15); color: #68d391; }
+  .tag-yellow { background: rgba(246,173,85,0.15); color: #f6ad55; }
+  .tag-blue { background: rgba(99,179,237,0.15); color: #63b3ed; }
+
+  /* 双低排名 */
+  .dual-low-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .dl-item {
+    background: #1a2035;
+    border: 1px solid #2a3550;
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dl-rank {
+    font-size: 20px;
+    font-weight: 900;
+    color: #2a3550;
+    width: 28px;
+    flex-shrink: 0;
+  }
+  .dl-rank.top3 { color: #f6ad55; }
+  .dl-info { flex: 1; margin-left: 8px; }
+  .dl-name { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+  .dl-code { font-size: 11px; color: #90a0b7; }
+  .dl-score { text-align: right; }
+  .dl-score-val { font-size: 15px; font-weight: 700; color: #63b3ed; }
+  .dl-score-label { font-size: 10px; color: #90a0b7; }
+  .dl-price { font-size: 12px; color: #a0aec0; margin-top: 2px; }
+
+  /* 强赎日历 */
+  .redemption-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .redemption-item {
+    background: #1a2035;
+    border: 1px solid #2a3550;
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .redemption-item.urgent {
+    border-color: rgba(252,129,129,0.4);
+    background: rgba(252,129,129,0.05);
+  }
+  .redemption-item.watch {
+    border-color: rgba(246,173,85,0.4);
+    background: rgba(246,173,85,0.05);
+  }
+  .redemption-date {
+    text-align: center;
+    min-width: 54px;
+  }
+  .redemption-date .day { font-size: 22px; font-weight: 900; color: #e2e8f0; }
+  .redemption-date .month { font-size: 11px; color: #90a0b7; }
+  .redemption-divider {
+    width: 2px;
+    height: 40px;
+    border-radius: 2px;
+  }
+  .urgent .redemption-divider { background: #fc8181; }
+  .watch .redemption-divider { background: #f6ad55; }
+  .normal .redemption-divider { background: #63b3ed; }
+  .redemption-info { flex: 1; }
+  .redemption-name { font-size: 14px; font-weight: 700; }
+  .redemption-detail { font-size: 12px; color: #90a0b7; margin-top: 2px; }
+  .redemption-action { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+  .action-exit { background: rgba(252,129,129,0.15); color: #fc8181; }
+  .action-watch { background: rgba(246,173,85,0.15); color: #f6ad55; }
+  .action-arb { background: rgba(104,211,145,0.15); color: #68d391; }
+
+  /* 策略建议 */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .strategy-card {
+    background: #1a2035;
+    border: 1px solid #2a3550;
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .strategy-card.primary { border-top: 3px solid #68d391; }
+  .strategy-card.secondary { border-top: 3px solid #f6ad55; }
+  .strategy-card.warning { border-top: 3px solid #fc8181; }
+  .strategy-header {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .strategy-card.primary .strategy-header { color: #68d391; }
+  .strategy-card.secondary .strategy-header { color: #f6ad55; }
+  .strategy-card.warning .strategy-header { color: #fc8181; }
+  .strategy-point {
+    font-size: 12px;
+    color: #a0aec0;
+    margin-bottom: 6px;
+    padding-left: 14px;
+    position: relative;
+  }
+  .strategy-point::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    color: #4a5568;
+  }
+
+  /* 警示横幅 */
+  .alert-banner {
+    margin: 0 32px 16px;
+    background: rgba(252,129,129,0.08);
+    border: 1px solid rgba(252,129,129,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .alert-icon { font-size: 18px; flex-shrink: 0; }
+  .alert-text { font-size: 13px; color: #fc8181; line-height: 1.6; }
+  .alert-text strong { color: #feb2b2; }
+
+  .footer {
+    background: #0a0d14;
+    padding: 16px 32px;
+    text-align: center;
+    color: #4a5568;
+    font-size: 11px;
+    border-top: 1px solid #1a2035;
+  }
+
+  .divider {
+    height: 8px;
+    background: #0f1117;
+  }
+</style>
+</head>
+<body>
+
+<!-- 页眉 -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="title">🔄 可转债套利监控报告</div>
+      <div class="subtitle">负溢价折价 · 双低机会 · 强赎日历 · 本周行情回顾</div>
+    </div>
+    <div class="date-badge">2026.03.16 周一</div>
+  </div>
+</div>
+
+<!-- 市场总览 -->
+<div class="market-overview">
+  <div class="metric-card">
+    <div class="metric-label">中证转债指数</div>
+    <div class="metric-value red">532.4</div>
+    <div class="metric-sub red">本周 -1.10%　YTD +3.41%</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">转债均价</div>
+    <div class="metric-value yellow">139.04元</div>
+    <div class="metric-sub">历史分位 96.49%（极高）</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">转股溢价率均值</div>
+    <div class="metric-value red">29.05%</div>
+    <div class="metric-sub red">较上周 -2.10pct</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">存量转债</div>
+    <div class="metric-value">377只</div>
+    <div class="metric-sub">余额 5279亿元</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 风险警示 -->
+<div class="section">
+  <div class="alert-banner">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-text">
+      <strong>强赎潮持续加剧：</strong>年内已23只转债摘牌（87%为强赎），12只已启动程序，63只处于强赎预警。强赎公告后5日平均跌幅约 <strong>-7.2%</strong>。高价高溢价"双高"格局下，估值压缩风险极大——建议对溢价率>10%的标的设置止损。
+    </div>
+  </div>
+</div>
+
+<!-- 负溢价套利机会 -->
+<div class="section">
+  <div class="section-title"><span class="icon">负</span> 负溢价（折价）套利机会追踪</div>
+  <table>
+    <thead>
+      <tr>
+        <th>转债名称</th>
+        <th>转债价格</th>
+        <th>转股价值</th>
+        <th>溢价率</th>
+        <th>状态</th>
+        <th>操作建议</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="bond-name">远信转债</div><div class="bond-code">3月上旬数据</div></td>
+        <td class="neutral">—</td>
+        <td class="neutral">—</td>
+        <td class="neg">-0.89%</td>
+        <td><span class="tag tag-yellow">观察中</span></td>
+        <td><span class="tag tag-green">可套利</span></td>
+      </tr>
+      <tr>
+        <td><div class="bond-name">汇成转债</div><div class="bond-code">3月上旬数据</div></td>
+        <td class="neutral">—</td>
+        <td class="neutral">—</td>
+        <td class="neg">-0.26%</td>
+        <td><span class="tag tag-blue">弱负溢价</span></td>
+        <td><span class="tag tag-yellow">需确认流动性</span></td>
+      </tr>
+      <tr>
+        <td><div class="bond-name">安集转债</div><div class="bond-code">强赎公告 3/2</div></td>
+        <td class="neutral">≈205+</td>
+        <td class="neutral">205.13</td>
+        <td class="pos">→转负</td>
+        <td><span class="tag tag-red">强赎倒计时</span></td>
+        <td><span class="tag tag-red">立即离场</span></td>
+      </tr>
+      <tr>
+        <td><div class="bond-name">力诺转债</div><div class="bond-code">强赎公告近期</div></td>
+        <td class="neutral">—</td>
+        <td class="neutral">—</td>
+        <td class="pos">4.29%→降</td>
+        <td><span class="tag tag-red">强赎预警</span></td>
+        <td><span class="tag tag-red">3日内清仓</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top:10px; padding: 10px 12px; background:#1a2035; border-radius:8px; font-size:12px; color:#90a0b7;">
+    💡 <strong style="color:#f6ad55">负溢价套利操作流程：</strong>当日买入转债 → 申请转股 → 次日卖出正股，锁定 -1%~-3% 价差。<br>
+    ⚠️ 需确认：①正股流动性充足（日均成交>5000万） ②转债已公告强赎 ③操作量不超过正股日成交量10%
+  </div>
+</div>
+
+<!-- 双低排名 -->
+<div class="section">
+  <div class="section-title"><span class="icon">低</span> 双低转债 TOP20（价格+溢价率最低综合评分）</div>
+  <div style="margin-bottom:12px; font-size:12px; color:#90a0b7;">
+    双低值 = 转债价格 + 转股溢价率×100。当前市场双低值普遍偏高（均价139元+溢价29%=双低约168）。以下为相对低位标的，绝对估值仍处历史高位，需谨慎。
+  </div>
+  <div class="dual-low-grid">
+    <div class="dl-item">
+      <div class="dl-rank top3">1</div>
+      <div class="dl-info">
+        <div class="dl-name">远信转债</div>
+        <div class="dl-code">低溢价代表标的</div>
+      </div>
+      <div class="dl-score">
+        <div class="dl-score-val">溢-0.89%</div>
+        <div class="dl-price">负溢价领先</div>
+      </div>
+    </div>
+    <div class="dl-item">
+      <div class="dl-rank top3">2</div>
+      <div class="dl-info">
+        <div class="dl-name">汇成转债</div>
+        <div class="dl-code">低溢价代表标的</div>
+      </div>
+      <div class="dl-score">
+        <div class="dl-score-val">溢-0.26%</div>
+        <div class="dl-price">接近负溢价</div>
+      </div>
+    </div>
+    <div class="dl-item">
+      <div class="dl-rank top3">3</div>
+      <div class="dl-info">
+        <div class="dl-name">红墙转债</div>
+        <div class="dl-code">溢价率约3%</div>
+      </div>
+      <div class="dl-score">
+        <div class="dl-score-val">溢≈3%</div>
+        <div class="dl-price">低溢价</div>
+      </div>
+    </div>
+    <div class="dl-item">
+      <div class="dl-rank">4</div>
+      <div class="dl-info">
+        <div class="dl-name">伟测转债</div>
+        <div class="dl-code">强赎倒计时</div>
+      </div>
+      <div class="dl-score">
+        <div class="dl-score-val">强赎博弈</div>
+        <div class="dl-price">注意退出时间</div>
+      </div>
+    </div>
+    <div class="dl-item">
+      <div class="dl-rank">5</div>
+      <div class="dl-info">
+        <div class="dl-name">永22转债</div>
+        <div class="dl-code">强赎倒计时</div>
+      </div>
+      <div class="dl-score">
+        <div class="dl-score-val">强赎博弈</div>
+        <div class="dl-price">注意退出时间</div>
+      </div>
+    </div>
+    <div class="dl-item">
+      <div class="dl-rank">6</div>
+      <div class="dl-info">
+        <div class="dl-name">龙建转债</div>
+        <div class="dl-code">余额5.6亿</div>
+      </div>
+      <div class="dl-score">
+        <div class="dl-score-val">小规模</div>
+        <div class="dl-price">流动性适中</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:10px; padding: 8px 12px; background:#1a2035; border-radius:6px; font-size:11px; color:#718096;">
+    ⚠️ 注：当前市场整体双高格局，上表为3月上旬相对低溢价标的，非实时数据。建议进场前通过集思录或理杏仁核实最新溢价率。全市场溢价率中位数29.05%，处于历史高位，真正的双低机会较为稀缺。
+  </div>
+</div>
+
+<!-- 强赎日历 -->
+<div class="section">
+  <div class="section-title"><span class="icon">赎</span> 强赎倒计时 · 行动日历</div>
+  <div class="redemption-list">
+    <div class="redemption-item urgent">
+      <div class="redemption-date">
+        <div class="day">NOW</div>
+        <div class="month">进行中</div>
+      </div>
+      <div class="redemption-divider"></div>
+      <div class="redemption-info">
+        <div class="redemption-name" style="color:#fc8181">首华转债 / 天箭转债 / 凤21转债</div>
+        <div class="redemption-detail">日内振幅>15%，末日轮博弈激烈，流动性极差</div>
+      </div>
+      <div class="redemption-action action-exit">⚡ 立即清仓</div>
+    </div>
+    <div class="redemption-item watch">
+      <div class="redemption-date">
+        <div class="day">3月内</div>
+        <div class="month">预警</div>
+      </div>
+      <div class="redemption-divider"></div>
+      <div class="redemption-info">
+        <div class="redemption-name" style="color:#f6ad55">63只处于强赎预警区间</div>
+        <div class="redemption-detail">正股已连续15+日高于转股价130%，随时可公告强赎</div>
+      </div>
+      <div class="redemption-action action-watch">👀 持续关注</div>
+    </div>
+    <div class="redemption-item normal">
+      <div class="redemption-date">
+        <div class="day">已退</div>
+        <div class="month">本年23只</div>
+      </div>
+      <div class="redemption-divider"></div>
+      <div class="redemption-info">
+        <div class="redemption-name" style="color:#63b3ed">安集/力诺/百川转2/联创/塞力/红墙 等</div>
+        <div class="redemption-detail">强赎完成，正股抛压消失，部分可布局"利空出尽"反弹</div>
+      </div>
+      <div class="redemption-action action-arb">📊 利空出尽</div>
+    </div>
+  </div>
+</div>
+
+<!-- 策略建议 -->
+<div class="section">
+  <div class="section-title"><span class="icon">策</span> 3月套利策略指南</div>
+  <div class="strategy-grid">
+    <div class="strategy-card primary">
+      <div class="strategy-header">✅ 稳健策略：负溢价转股</div>
+      <div class="strategy-point">目标：负溢价 -1%~-3%，已公告强赎</div>
+      <div class="strategy-point">操作：当日买入→转股→次日卖出正股</div>
+      <div class="strategy-point">标的：远信转债（-0.89%）优先</div>
+      <div class="strategy-point">正股日成交需>5000万，量不超10%</div>
+      <div class="strategy-point">预期收益：0.5%~2.5%/次</div>
+    </div>
+    <div class="strategy-card secondary">
+      <div class="strategy-header">⚡ 中期策略：强赎后布局</div>
+      <div class="strategy-point">逻辑：强赎完成 → 转股压力消失 → 正股修复</div>
+      <div class="strategy-point">筛选：余额大、评级高、行业龙头</div>
+      <div class="strategy-point">时机：摘牌后1-3个交易日分批入场</div>
+      <div class="strategy-point">AI算力、半导体、储能低溢价券优先</div>
+      <div class="strategy-point">仓位控制在30%以内</div>
+    </div>
+    <div class="strategy-card warning">
+      <div class="strategy-header">🚫 坚决规避：末日轮博弈</div>
+      <div class="strategy-point">强赎倒计时末期绝对不追高</div>
+      <div class="strategy-point">最大亏损风险高达 -60%（面值归零）</div>
+      <div class="strategy-point">尾盘流动性崩塌，挂单无法成交</div>
+      <div class="strategy-point">双高妖债（价>150，溢价>50%）规避</div>
+      <div class="strategy-point">公告强赎后3日内必须清仓离场</div>
+    </div>
+  </div>
+</div>
+
+<!-- 本周行情亮点 -->
+<div class="section">
+  <div class="section-title"><span class="icon">周</span> 本周（3/9-3/13）行情要点</div>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+    <div style="background:#1a2035; border-radius:8px; padding:14px; border:1px solid #2a3550;">
+      <div style="font-size:13px; font-weight:700; color:#68d391; margin-bottom:10px;">📈 涨幅前五</div>
+      <div style="font-size:12px; color:#a0aec0; line-height:2.0;">
+        艾为转债 <strong style="color:#68d391; float:right">+72.02%</strong><br>
+        优彩转债 <strong style="color:#68d391; float:right">+21.16%</strong><br>
+        双良转债 <strong style="color:#68d391; float:right">+19.66%</strong><br>
+        广联转债 <strong style="color:#68d391; float:right">+16.11%</strong><br>
+        大中转债 <strong style="color:#68d391; float:right">+16.11%</strong>
+      </div>
+    </div>
+    <div style="background:#1a2035; border-radius:8px; padding:14px; border:1px solid #2a3550;">
+      <div style="font-size:13px; font-weight:700; color:#fc8181; margin-bottom:10px;">📉 跌幅前五</div>
+      <div style="font-size:12px; color:#a0aec0; line-height:2.0;">
+        汇成转债 <strong style="color:#fc8181; float:right">-18.37%</strong><br>
+        微导转债 <strong style="color:#fc8181; float:right">-16.84%</strong><br>
+        睿创转债 <strong style="color:#fc8181; float:right">-16.28%</strong><br>
+        信服转债 <strong style="color:#fc8181; float:right">-14.04%</strong><br>
+        恒帅转债 <strong style="color:#fc8181; float:right">-13.68%</strong>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:12px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
+    <div style="background:#1a2035; border-radius:8px; padding:12px; border:1px solid #2a3550; text-align:center;">
+      <div style="font-size:11px; color:#90a0b7;">高评级(AAA)本周</div>
+      <div style="font-size:18px; font-weight:700; color:#68d391; margin:4px 0;">+0.02%</div>
+      <div style="font-size:11px; color:#718096;">唯一正收益评级</div>
+    </div>
+    <div style="background:#1a2035; border-radius:8px; padding:12px; border:1px solid #2a3550; text-align:center;">
+      <div style="font-size:11px; color:#90a0b7;">超高平价券(>130)</div>
+      <div style="font-size:18px; font-weight:700; color:#fc8181; margin:4px 0;">-6.78%</div>
+      <div style="font-size:11px; color:#718096;">杀估值最重灾区</div>
+    </div>
+    <div style="background:#1a2035; border-radius:8px; padding:12px; border:1px solid #2a3550; text-align:center;">
+      <div style="font-size:11px; color:#90a0b7;">小规模券(<5亿)</div>
+      <div style="font-size:18px; font-weight:700; color:#fc8181; margin:4px 0;">-2.75%</div>
+      <div style="font-size:11px; color:#718096;">流动性风险加剧</div>
+    </div>
+  </div>
+</div>
+
+<!-- 页脚 -->
+<div class="footer">
+  🐾 Catclaw 可转债监控报告 · 2026.03.16 14:00 · 数据来源：光大证券/雪球/财联社 · 仅供参考，不构成投资建议
+</div>
+
+</body>
+</html>

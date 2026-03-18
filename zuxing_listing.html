@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: #f0f2f5;
+    padding: 20px;
+    width: 560px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  }
+  .header {
+    background: linear-gradient(135deg, #1a5db8 0%, #0d3a7a 100%);
+    padding: 18px 22px 16px;
+    color: #fff;
+    position: relative;
+  }
+  .header-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 4px;
+    font-size: 11px;
+    padding: 2px 8px;
+    margin-bottom: 7px;
+    letter-spacing: 1px;
+  }
+  .header-title { font-size: 26px; font-weight: 700; letter-spacing: 1px; }
+  .header-sub { font-size: 12px; opacity: 0.8; margin-top: 3px; }
+  .header-badge {
+    position: absolute; right: 22px; top: 20px;
+    background: #ff6b35; color: #fff;
+    font-size: 11px; font-weight: 700;
+    padding: 4px 12px; border-radius: 20px;
+  }
+  .sec-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    padding: 10px 22px 6px;
+    border-bottom: 1px solid #eaeef5;
+    background: #f7f9fc;
+  }
+  .sec-title.blue { color: #1a5db8; }
+  .sec-title.green { color: #1a7a4a; }
+  .sec-title.gold { color: #b8740a; }
+  .sec-title.red { color: #c0392b; }
+  .sec-title.purple { color: #7b2fa8; }
+  .kpi-row {
+    display: flex;
+    border-bottom: 1px solid #eaeef5;
+    background: #f7f9fc;
+  }
+  .kpi-item { flex: 1; text-align: center; padding: 12px 4px; }
+  .kpi-item + .kpi-item { border-left: 1px solid #dde3ec; }
+  .kpi-val { font-size: 20px; font-weight: 700; }
+  .kpi-val.red { color: #e53935; }
+  .kpi-val.blue { color: #1a5db8; }
+  .kpi-val.green { color: #1a7a4a; }
+  .kpi-val.orange { color: #d97706; }
+  .kpi-label { font-size: 10px; color: #888; margin-top: 2px; }
+  .info-row {
+    display: flex; padding: 7px 22px;
+    font-size: 12.5px;
+    border-bottom: 1px solid #f0f3f7;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { color: #666; width: 110px; flex-shrink: 0; }
+  .info-val { color: #222; font-weight: 500; flex: 1; }
+  .info-val.red { color: #e53935; }
+  .info-val.blue { color: #1a5db8; }
+  .info-val.green { color: #1a7a4a; }
+  .info-val.orange { color: #d97706; }
+  .info-val.gray { color: #888; font-weight: 400; font-size: 11.5px; }
+
+  /* 开盘价预测区 */
+  .price-wrap {
+    padding: 10px 22px 14px;
+    background: #f3f0ff;
+  }
+  .price-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .price-item {
+    background: #fff;
+    border: 1px solid #c9b8f5;
+    border-radius: 8px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .price-item.highlight { border-color: #1a5db8; background: #f0f5ff; }
+  .p-scene { font-size: 10px; color: #7b2fa8; font-weight: 700; }
+  .p-scene.blue { color: #1a5db8; }
+  .p-price { font-size: 18px; font-weight: 700; color: #333; margin: 3px 0 1px; }
+  .p-rise { font-size: 11px; color: #e53935; font-weight: 600; }
+  .p-note { font-size: 10px; color: #888; margin-top: 2px; }
+
+  /* 操作建议 */
+  .action-wrap {
+    padding: 10px 22px 12px;
+    background: #fffbf0;
+    border-top: 1px solid #fde9b8;
+  }
+  .action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .action-item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+  .action-item.sell { border: 1.5px solid #e53935; }
+  .action-item.hold { border: 1.5px solid #1a7a4a; }
+  .action-item.watch { border: 1.5px solid #1a5db8; grid-column: span 2; }
+  .a-tag { font-size: 10px; font-weight: 700; }
+  .a-tag.red { color: #e53935; }
+  .a-tag.green { color: #1a7a4a; }
+  .a-tag.blue { color: #1a5db8; }
+  .a-val { font-size: 13px; font-weight: 700; color: #222; margin: 2px 0 1px; }
+  .a-note { font-size: 10px; color: #888; }
+
+  /* 风险 */
+  .risk-wrap {
+    padding: 8px 22px 10px;
+    background: #fff9f9;
+    border-top: 1px solid #f5c6c6;
+  }
+  .risk-title { font-size: 11px; font-weight: 700; color: #c0392b; margin-bottom: 5px; }
+  .risk-text { font-size: 11px; color: #666; line-height: 1.65; }
+
+  .highlight-bar {
+    background: #e8f4e8;
+    border-left: 3px solid #1a7a4a;
+    padding: 6px 12px;
+    margin: 6px 22px 4px;
+    font-size: 11.5px;
+    color: #1a5a2a;
+    border-radius: 0 4px 4px 0;
+  }
+  .disclaimer {
+    padding: 7px 22px 12px;
+    font-size: 10px; color: #ccc; text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- 顶部 -->
+  <div class="header">
+    <div class="header-badge">明日上市 3/18</div>
+    <div class="header-tag">北交所 · 新股上市分析</div>
+    <div class="header-title">族兴新材</div>
+    <div class="header-sub">股票代码 920078 &nbsp;·&nbsp; 有色金属功能粉体材料 &nbsp;·&nbsp; 国家级专精特新小巨人</div>
+  </div>
+
+  <!-- ① 发行参数 -->
+  <div class="sec-title blue">① 发行参数</div>
+  <div class="kpi-row">
+    <div class="kpi-item">
+      <div class="kpi-val red">6.98<span style="font-size:12px;font-weight:400">元</span></div>
+      <div class="kpi-label">发行价</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val blue">14.99<span style="font-size:12px;font-weight:400">倍</span></div>
+      <div class="kpi-label">发行PE（2024年）</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val green">34.76<span style="font-size:12px;font-weight:400">倍</span></div>
+      <div class="kpi-label">行业均值PE</div>
+    </div>
+  </div>
+  <div style="padding:0">
+    <div class="info-row">
+      <span class="info-key">估值折价</span>
+      <span class="info-val red">▼ 57%（按2025年净利润PE仅10.2倍，更低）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">发行总股本</span>
+      <span class="info-val">1.2亿股（发行2300万股，网上发行2070万股）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">老股转让</span>
+      <span class="info-val green">✅ 无老股 — 筹码干净，无减持压力</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">每股净资产</span>
+      <span class="info-val">8.7元（发行价6.98元，破净发行，安全边际极高）</span>
+    </div>
+  </div>
+
+  <!-- ② 基本面 -->
+  <div class="sec-title blue">② 基本面</div>
+  <div style="padding:0">
+    <div class="info-row">
+      <span class="info-key">主营业务</span>
+      <span class="info-val">铝颜料 + 微细球形铝粉（全产业链）</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">行业地位</span>
+      <span class="info-val red">铝颜料全球第三、国内第一；铝粉国内市占21.47%</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">核心客户</span>
+      <span class="info-val gray">阿克苏诺贝尔、PPG、立邦、巴斯夫等跨国巨头</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">2025年净利润</span>
+      <span class="info-val green">5,872万元（扣非），同比 +32%~39%</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">毛利率</span>
+      <span class="info-val">约21%（铝颜料毛利率约39%），高于同业均值</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">拓展赛道</span>
+      <span class="info-val orange">新能源（光伏浆料）、军工（固体推进剂）、半导体</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">核心技术</span>
+      <span class="info-val gray">7大核心技术、46项发明专利，打破德国/日本垄断</span>
+    </div>
+  </div>
+
+  <!-- ③ 开盘价预测 -->
+  <div class="sec-title purple">③ 首日开盘价预测</div>
+  <div class="price-wrap">
+    <div style="font-size:11px;color:#555;margin-bottom:2px;">市场参考预测（综合多方分析师观点）</div>
+    <div class="price-grid">
+      <div class="price-item">
+        <div class="p-scene">保守（+200%）</div>
+        <div class="p-price">约21元</div>
+        <div class="p-rise">+200%</div>
+        <div class="p-note">顶格成本约19元<br>微利或保本</div>
+      </div>
+      <div class="price-item highlight">
+        <div class="p-scene blue">中性（+250%）</div>
+        <div class="p-price">约24元</div>
+        <div class="p-rise">+244%</div>
+        <div class="p-note">东财主流预测<br>27元以上择机抛</div>
+      </div>
+      <div class="price-item">
+        <div class="p-scene">乐观（+400%）</div>
+        <div class="p-price">约28–35元</div>
+        <div class="p-rise">+300%~460%</div>
+        <div class="p-note">龙头溢价充分<br>兑现概率偏低</div>
+      </div>
+    </div>
+    <div class="highlight-bar">
+      📌 东财分析师核心判断：开盘约22元，<strong>27元以上择机抛出</strong>，20元以下格局观望；长线价值约19元
+    </div>
+  </div>
+
+  <!-- ④ 操作建议 -->
+  <div class="sec-title gold">④ 操作建议</div>
+  <div class="action-wrap">
+    <div class="action-grid">
+      <div class="action-item sell">
+        <div class="a-tag red">🔴 建议卖出区间</div>
+        <div class="a-val">27元以上</div>
+        <div class="a-note">择机分批出，锁定收益</div>
+      </div>
+      <div class="action-item hold">
+        <div class="a-tag green">🟡 格局观望区间</div>
+        <div class="a-val">20–27元</div>
+        <div class="a-note">持有等待，不追高不割肉</div>
+      </div>
+      <div class="action-item watch">
+        <div class="a-tag blue">🔵 打新中签成本参考</div>
+        <div class="a-val">顶格成本约19元 &nbsp;|&nbsp; 每100股打新盈亏：20元→盈利102元 &nbsp;/&nbsp; 24元→盈利1,702元 &nbsp;/&nbsp; 28元→盈利2,102元</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ 风险提示 -->
+  <div class="risk-wrap">
+    <div class="risk-title">⚠️ 主要风险</div>
+    <div class="risk-text">
+      1. <strong>业绩波动大</strong>：2022-2024年净利增速大幅起伏（-18%→+68%→-32%），2025年反弹可持续性待验证<br>
+      2. <strong>应收账款高企</strong>：占营收63%，远高于同行，回款慢、话语权偏弱<br>
+      3. <strong>毛利率下滑趋势</strong>：铝颜料毛利率从42%→37%，铝价波动持续压制<br>
+      4. <strong>可比公司参考性差</strong>：细分赛道无法对标，估值溢价有争议
+    </div>
+  </div>
+
+  <div class="disclaimer">数据来源：北交所发行公告、东财、雪球等公开资讯整理 · 仅供参考，不构成投资建议</div>
+</div>
+</body>
+</html>

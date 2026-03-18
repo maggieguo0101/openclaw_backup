@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; padding: 40px; width: 1600px; }
+</style>
+</head>
+<body>
+<svg width="1520" height="860" viewBox="0 0 1520 860" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+    <polygon points="0 0,8 3,0 6" fill="#555"/>
+  </marker>
+  <marker id="arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+    <polygon points="0 0,8 3,0 6" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+    <polygon points="0 0,8 3,0 6" fill="#27ae60"/>
+  </marker>
+  <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
+    <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#00000018"/>
+  </filter>
+</defs>
+
+<rect width="1520" height="860" fill="#f8f9fa"/>
+
+<!-- 标题 -->
+<text x="760" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">AIBD直签流程 · 各环节异常情况全览</text>
+
+<!-- ═══════════════════════════════════════════════
+     主流程节点  y=90（主流程横轴）
+     每个主节点 x 坐标：
+     AI外呼=80, 添加企微=270, 是否通过=470, 发起企微群=660, 发起企微问答=870, 签约=1080, 上团单=1280
+════════════════════════════════════════════════ -->
+
+<!-- ── 节点1：AI外呼 ── -->
+<g filter="url(#shadow)">
+  <rect x="30" y="68" width="110" height="44" rx="6" fill="#4A90D9" stroke="none"/>
+  <text x="85" y="94" font-size="13" font-weight="600" fill="white" text-anchor="middle">AI 外呼</text>
+</g>
+
+<!-- →主流程箭头 -->
+<line x1="140" y1="90" x2="196" y2="90" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- ── 节点2：添加王晓慧企微 ── -->
+<g filter="url(#shadow)">
+  <rect x="196" y="68" width="130" height="44" rx="6" fill="#4A90D9" stroke="none"/>
+  <text x="261" y="88" font-size="13" font-weight="600" fill="white" text-anchor="middle">添加</text>
+  <text x="261" y="104" font-size="13" font-weight="600" fill="white" text-anchor="middle">王晓慧企微</text>
+</g>
+
+<!-- →主流程箭头 -->
+<line x1="326" y1="90" x2="380" y2="90" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- ── 判断菱形：是否企微通过 ── -->
+<polygon points="416,68 476,90 416,112 356,90" fill="#F5A623" stroke="none" filter="url(#shadow)"/>
+<text x="416" y="86" font-size="11" font-weight="600" fill="white" text-anchor="middle">是否</text>
+<text x="416" y="100" font-size="11" font-weight="600" fill="white" text-anchor="middle">通过?</text>
+
+<!-- 是 → 主流程继续 -->
+<line x1="476" y1="90" x2="524" y2="90" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+<rect x="476" y="74" width="22" height="16" rx="2" fill="#e8f8ef"/>
+<text x="487" y="86" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="600">是</text>
+
+<!-- ── 节点3：发起企微群 ── -->
+<g filter="url(#shadow)">
+  <rect x="524" y="68" width="120" height="44" rx="6" fill="#4A90D9" stroke="none"/>
+  <text x="584" y="88" font-size="13" font-weight="600" fill="white" text-anchor="middle">发起</text>
+  <text x="584" y="104" font-size="13" font-weight="600" fill="white" text-anchor="middle">企微群</text>
+</g>
+
+<!-- →主流程箭头 -->
+<line x1="644" y1="90" x2="694" y2="90" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- ── 节点4：发起企微问答 ── -->
+<g filter="url(#shadow)">
+  <rect x="694" y="68" width="120" height="44" rx="6" fill="#4A90D9" stroke="none"/>
+  <text x="754" y="88" font-size="13" font-weight="600" fill="white" text-anchor="middle">发起</text>
+  <text x="754" y="104" font-size="13" font-weight="600" fill="white" text-anchor="middle">企微问答</text>
+</g>
+
+<!-- →主流程箭头 -->
+<line x1="814" y1="90" x2="864" y2="90" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- ── 节点5：签约 ── -->
+<g filter="url(#shadow)">
+  <rect x="864" y="68" width="100" height="44" rx="6" fill="#4A90D9" stroke="none"/>
+  <text x="914" y="94" font-size="13" font-weight="600" fill="white" text-anchor="middle">签约</text>
+</g>
+
+<!-- →主流程箭头 -->
+<line x1="964" y1="90" x2="1014" y2="90" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- ── 节点6：上团单 ── -->
+<g filter="url(#shadow)">
+  <rect x="1014" y="68" width="100" height="44" rx="6" fill="#27ae60" stroke="none"/>
+  <text x="1064" y="94" font-size="13" font-weight="600" fill="white" text-anchor="middle">上团单</text>
+</g>
+
+<!-- →完成 -->
+<line x1="1114" y1="90" x2="1164" y2="90" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+<g filter="url(#shadow)">
+  <rect x="1164" y="74" width="64" height="32" rx="16" fill="#2C3E50" stroke="none"/>
+  <text x="1196" y="94" font-size="12" font-weight="600" fill="white" text-anchor="middle">完成 ✓</text>
+</g>
+
+<!-- ═══════════════════════════════
+     菱形"否"分支 → 重试/放弃
+════════════════════════════════ -->
+<line x1="416" y1="112" x2="416" y2="148" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+<rect x="380" y="112" width="22" height="16" rx="2" fill="#fdecea"/>
+<text x="391" y="124" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">否</text>
+<rect x="356" y="148" width="120" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="416" y="162" font-size="11" fill="#c0392b" text-anchor="middle">N次重试后</text>
+<text x="416" y="176" font-size="11" fill="#c0392b" text-anchor="middle">标记放弃 / 转人工</text>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     异常分支区  从各节点向下引出异常
+     y轴布局：
+     y=220 异常标题行
+     y=260~820 各异常卡片，每张卡片高约60px，间距10px
+════════════════════════════════════════════════════════ -->
+
+<!-- ── 异常分支竖线（从主节点底部向下） ── -->
+
+<!-- 节点1 AI外呼 异常 -->
+<line x1="85" y1="112" x2="85" y2="210" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+<!-- 节点2 添加企微 异常 -->
+<line x1="261" y1="112" x2="261" y2="210" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+<!-- 节点3 发起企微群 异常 -->
+<line x1="584" y1="112" x2="584" y2="210" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+<!-- 节点4 发起企微问答 异常 -->
+<line x1="754" y1="112" x2="754" y2="210" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+<!-- 节点5 签约 异常 -->
+<line x1="914" y1="112" x2="914" y2="210" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+<!-- 节点6 上团单 异常 -->
+<line x1="1064" y1="112" x2="1064" y2="210" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+<!-- ── 异常标题 ── -->
+<text x="85" y="205" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">↓ 异常</text>
+<text x="261" y="205" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">↓ 异常</text>
+<text x="584" y="205" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">↓ 异常</text>
+<text x="754" y="205" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">↓ 异常</text>
+<text x="914" y="205" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">↓ 异常</text>
+<text x="1064" y="205" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">↓ 异常</text>
+
+<!-- ════════════════════
+  异常卡片
+  每列宽 120px，居中对齐对应节点
+  卡片 x = nodeX - 60
+════════════════════ -->
+
+<!-- 定义卡片宏（用rect+text手写） -->
+<!-- 列1: 节点1 AI外呼  cx=85 -->
+<!-- 列2: 节点2 添加企微  cx=261 -->
+<!-- 列3: 节点3 发起企微群  cx=584 -->
+<!-- 列4: 节点4 企微问答  cx=754 -->
+<!-- 列5: 节点5 签约  cx=914 -->
+<!-- 列6: 节点6 上团单  cx=1064 -->
+
+<!-- 列1 异常卡片 -->
+<rect x="18" y="218" width="136" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="86" y="236" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">外呼无人接听</text>
+<text x="86" y="252" font-size="10" fill="#888" text-anchor="middle">多次拨打未接通</text>
+<text x="86" y="264" font-size="10" fill="#e74c3c" text-anchor="middle">→ 标记，间隔重拨</text>
+
+<rect x="18" y="280" width="136" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="86" y="298" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">外呼被拒绝/挂断</text>
+<text x="86" y="314" font-size="10" fill="#888" text-anchor="middle">商家明确拒绝</text>
+<text x="86" y="326" font-size="10" fill="#e74c3c" text-anchor="middle">→ 标记放弃</text>
+
+<rect x="18" y="342" width="136" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="86" y="360" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">号码无效</text>
+<text x="86" y="376" font-size="10" fill="#888" text-anchor="middle">停机/空号/错误</text>
+<text x="86" y="388" font-size="10" fill="#e74c3c" text-anchor="middle">→ 更新号码后重试</text>
+
+<!-- 列2 异常卡片 -->
+<rect x="192" y="218" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="262" y="236" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">好友申请未通过</text>
+<text x="262" y="252" font-size="10" fill="#888" text-anchor="middle">商家超时未接受</text>
+<text x="262" y="264" font-size="10" fill="#e74c3c" text-anchor="middle">→ 3h提醒，超时转人工</text>
+
+<rect x="192" y="280" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="262" y="298" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">好友申请被拒绝</text>
+<text x="262" y="314" font-size="10" fill="#888" text-anchor="middle">商家主动拒绝</text>
+<text x="262" y="326" font-size="10" fill="#e74c3c" text-anchor="middle">→ 标记，通知销售</text>
+
+<rect x="192" y="342" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="262" y="360" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">小助手限频/封号</text>
+<text x="262" y="376" font-size="10" fill="#888" text-anchor="middle">当日加好友超上限</text>
+<text x="262" y="388" font-size="10" fill="#e74c3c" text-anchor="middle">→ 切换备用账号</text>
+
+<rect x="192" y="404" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="262" y="422" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">深海托管异常</text>
+<text x="262" y="438" font-size="10" fill="#888" text-anchor="middle">消息下发失败</text>
+<text x="262" y="450" font-size="10" fill="#e74c3c" text-anchor="middle">→ 重试3次+告警</text>
+
+<!-- 列3 发起企微群 异常 -->
+<rect x="516" y="218" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="586" y="236" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">好友加了未建群</text>
+<text x="586" y="252" font-size="10" fill="#888" text-anchor="middle">好友通过超时未触发建群</text>
+<text x="586" y="264" font-size="10" fill="#e74c3c" text-anchor="middle">→ 3h后自动触发</text>
+
+<rect x="516" y="280" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="586" y="298" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">建群API失败</text>
+<text x="586" y="314" font-size="10" fill="#888" text-anchor="middle">系统调用异常</text>
+<text x="586" y="326" font-size="10" fill="#e74c3c" text-anchor="middle">→ 重试3次+告警</text>
+
+<rect x="516" y="342" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="586" y="360" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">建群数达上限</text>
+<text x="586" y="376" font-size="10" fill="#888" text-anchor="middle">日限60/总限500</text>
+<text x="586" y="388" font-size="10" fill="#e74c3c" text-anchor="middle">→ 切换小助手账号</text>
+
+<rect x="516" y="404" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="586" y="422" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">商家/销售未入群</text>
+<text x="586" y="438" font-size="10" fill="#888" text-anchor="middle">建群成功但成员缺失</text>
+<text x="586" y="450" font-size="10" fill="#e74c3c" text-anchor="middle">→ 重新拉人+告警</text>
+
+<rect x="516" y="466" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="586" y="484" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">群与门店绑定失败</text>
+<text x="586" y="500" font-size="10" fill="#888" text-anchor="middle">groupId↔storeId写入失败</text>
+<text x="586" y="512" font-size="10" fill="#e74c3c" text-anchor="middle">→ 重试写入</text>
+
+<!-- 列4 企微问答 异常 -->
+<rect x="686" y="218" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="756" y="236" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">建群后未发问答</text>
+<text x="756" y="252" font-size="10" fill="#888" text-anchor="middle">超时未发出开场消息</text>
+<text x="756" y="264" font-size="10" fill="#e74c3c" text-anchor="middle">→ 自动触发补发</text>
+
+<rect x="686" y="280" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="756" y="298" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">消息发送失败</text>
+<text x="756" y="314" font-size="10" fill="#888" text-anchor="middle">深海下发失败</text>
+<text x="756" y="326" font-size="10" fill="#e74c3c" text-anchor="middle">→ 重试3次+告警</text>
+
+<rect x="686" y="342" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="756" y="360" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">商家超时无回复</text>
+<text x="756" y="376" font-size="10" fill="#888" text-anchor="middle">3h无回复</text>
+<text x="756" y="388" font-size="10" fill="#e74c3c" text-anchor="middle">→ 提醒，夜间静默</text>
+
+<rect x="686" y="404" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="756" y="422" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">商家退群</text>
+<text x="756" y="438" font-size="10" fill="#888" text-anchor="middle">商家主动离群</text>
+<text x="756" y="450" font-size="10" fill="#e74c3c" text-anchor="middle">→ 通知销售人工接管</text>
+
+<rect x="686" y="466" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="756" y="484" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">日消息量超限</text>
+<text x="756" y="500" font-size="10" fill="#888" text-anchor="middle">7200条/日上限</text>
+<text x="756" y="512" font-size="10" fill="#e74c3c" text-anchor="middle">→ 次日继续/切账号</text>
+
+<!-- 列5 签约 异常 -->
+<rect x="848" y="218" width="136" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="916" y="236" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">链接超时未点击</text>
+<text x="916" y="252" font-size="10" fill="#888" text-anchor="middle">签约小程序无操作</text>
+<text x="916" y="264" font-size="10" fill="#e74c3c" text-anchor="middle">→ 3h提醒重发</text>
+
+<rect x="848" y="280" width="136" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="916" y="298" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">签约中途放弃</text>
+<text x="916" y="314" font-size="10" fill="#888" text-anchor="middle">进入但未提交</text>
+<text x="916" y="326" font-size="10" fill="#e74c3c" text-anchor="middle">→ 提醒继续</text>
+
+<rect x="848" y="342" width="136" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="916" y="360" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">已认领材料超时</text>
+<text x="916" y="376" font-size="10" fill="#888" text-anchor="middle">请材料后无响应</text>
+<text x="916" y="388" font-size="10" fill="#e74c3c" text-anchor="middle">→ 提醒→转人工</text>
+
+<rect x="848" y="404" width="136" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="916" y="422" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">审批超时/被拒</text>
+<text x="916" y="438" font-size="10" fill="#888" text-anchor="middle">3h未审批/审批拒绝</text>
+<text x="916" y="450" font-size="10" fill="#e74c3c" text-anchor="middle">→ 大象通知真人销售</text>
+
+<!-- 列6 上团单 异常 -->
+<rect x="997" y="218" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="1067" y="236" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">签约后未触发上单</text>
+<text x="1067" y="252" font-size="10" fill="#888" text-anchor="middle">回调丢失/超时</text>
+<text x="1067" y="264" font-size="10" fill="#e74c3c" text-anchor="middle">→ 轮询补偿</text>
+
+<rect x="997" y="280" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="1067" y="298" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">团单字段不完整</text>
+<text x="1067" y="314" font-size="10" fill="#888" text-anchor="middle">必填字段未收集完</text>
+<text x="1067" y="326" font-size="10" fill="#e74c3c" text-anchor="middle">→ 引导补全</text>
+
+<rect x="997" y="342" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="1067" y="360" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">上团单接口失败</text>
+<text x="1067" y="376" font-size="10" fill="#888" text-anchor="middle">API返回错误</text>
+<text x="1067" y="388" font-size="10" fill="#e74c3c" text-anchor="middle">→ 重试+告警</text>
+
+<rect x="997" y="404" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="1067" y="422" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">行业模板缺失</text>
+<text x="1067" y="438" font-size="10" fill="#888" text-anchor="middle">该行业字段未配置</text>
+<text x="1067" y="450" font-size="10" fill="#e74c3c" text-anchor="middle">→ 告警+人工补模板</text>
+
+<rect x="997" y="466" width="140" height="52" rx="5" fill="white" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+<text x="1067" y="484" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="600">团单审核被拒</text>
+<text x="1067" y="500" font-size="10" fill="#888" text-anchor="middle">平台审核不通过</text>
+<text x="1067" y="512" font-size="10" fill="#e74c3c" text-anchor="middle">→ 大象通知销售处理</text>
+
+<!-- ═══════ 账号层告警横幅 ═══════ -->
+<rect x="1280" y="68" width="220" height="460" rx="8" fill="#fff8f0" stroke="#e67e22" stroke-width="1.8" filter="url(#shadow)"/>
+<text x="1390" y="92" font-size="13" font-weight="700" fill="#d35400" text-anchor="middle">⚠️ 账号层告警</text>
+<line x1="1290" y1="100" x2="1490" y2="100" stroke="#e67e22" stroke-width="1" stroke-dasharray="4,3"/>
+
+<rect x="1292" y="110" width="196" height="52" rx="5" fill="white" stroke="#e67e22" stroke-width="1"/>
+<text x="1390" y="128" font-size="11" fill="#d35400" text-anchor="middle" font-weight="600">单账号群数 &gt; 300</text>
+<text x="1390" y="144" font-size="10" fill="#888" text-anchor="middle">建议上限200~300群</text>
+<text x="1390" y="156" font-size="10" fill="#e67e22" text-anchor="middle">→ 负载均衡/新增账号</text>
+
+<rect x="1292" y="172" width="196" height="52" rx="5" fill="white" stroke="#e67e22" stroke-width="1"/>
+<text x="1390" y="190" font-size="11" fill="#d35400" text-anchor="middle" font-weight="600">单账号好友 &gt; 3000</text>
+<text x="1390" y="206" font-size="10" fill="#888" text-anchor="middle">建议好友数上限3000</text>
+<text x="1390" y="218" font-size="10" fill="#e67e22" text-anchor="middle">→ 继承转移/新增账号</text>
+
+<rect x="1292" y="234" width="196" height="52" rx="5" fill="white" stroke="#e67e22" stroke-width="1"/>
+<text x="1390" y="252" font-size="11" fill="#d35400" text-anchor="middle" font-weight="600">日消息 &gt; 7200条</text>
+<text x="1390" y="268" font-size="10" fill="#888" text-anchor="middle">单账号日消息上限</text>
+<text x="1390" y="280" font-size="10" fill="#e67e22" text-anchor="middle">→ 分摊到多账号</text>
+
+<rect x="1292" y="296" width="196" height="52" rx="5" fill="white" stroke="#e67e22" stroke-width="1"/>
+<text x="1390" y="314" font-size="11" fill="#d35400" text-anchor="middle" font-weight="600">账号被封禁</text>
+<text x="1390" y="330" font-size="10" fill="#888" text-anchor="middle">封号无法继承转移</text>
+<text x="1390" y="342" font-size="10" fill="#e67e22" text-anchor="middle">→ 立即切备用+紧急告警</text>
+
+<rect x="1292" y="358" width="196" height="52" rx="5" fill="white" stroke="#e67e22" stroke-width="1"/>
+<text x="1390" y="376" font-size="11" fill="#d35400" text-anchor="middle" font-weight="600">深海流量超限</text>
+<text x="1390" y="392" font-size="10" fill="#888" text-anchor="middle">&gt;150MB/min 红线</text>
+<text x="1390" y="404" font-size="10" fill="#e67e22" text-anchor="middle">→ 限流+告警</text>
+
+<rect x="1292" y="420" width="196" height="52" rx="5" fill="white" stroke="#e67e22" stroke-width="1"/>
+<text x="1390" y="438" font-size="11" fill="#d35400" text-anchor="middle" font-weight="600">深海只支持 iOS</text>
+<text x="1390" y="454" font-size="10" fill="#888" text-anchor="middle">不可托管安卓端</text>
+<text x="1390" y="466" font-size="10" fill="#e67e22" text-anchor="middle">→ 确保账号为 iOS 设备</text>
+
+<!-- ═══════ 底部图例 ═══════ -->
+<rect x="0" y="800" width="1520" height="44" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/>
+<rect x="20" y="814" width="14" height="14" rx="3" fill="#4A90D9"/>
+<text x="40" y="826" font-size="12" fill="#444">主流程节点</text>
+<rect x="150" y="814" width="14" height="14" rx="3" fill="#27ae60"/>
+<text x="170" y="826" font-size="12" fill="#444">完成节点</text>
+<polygon points="274,814 288,821 274,828" fill="#F5A623"/>
+<text x="298" y="826" font-size="12" fill="#444">判断节点</text>
+<rect x="400" y="814" width="14" height="14" rx="3" fill="white" stroke="#e74c3c" stroke-width="1.2"/>
+<text x="420" y="826" font-size="12" fill="#444">异常卡片（红色边框）</text>
+<rect x="600" y="814" width="14" height="14" rx="3" fill="white" stroke="#e67e22" stroke-width="1.2"/>
+<text x="620" y="826" font-size="12" fill="#444">账号层告警（橙色边框）</text>
+<line x1="800" y1="821" x2="830" y2="821" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+<text x="840" y="826" font-size="12" fill="#444">虚线 = 异常分支</text>
+<line x1="990" y1="821" x2="1020" y2="821" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+<text x="1030" y="826" font-size="12" fill="#444">绿色 = 正常流程继续</text>
+
+</svg>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 800px; font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: linear-gradient(135deg, #1a1c2c 0%, #0d1b2a 100%); padding: 40px; }
+  .card { background: #fff; border-radius: 16px; padding: 36px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .header { text-align: center; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 3px solid #e74c3c; }
+  .header h1 { font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .header .en { font-size: 13px; color: #888; font-style: italic; }
+  .header .badge { display: inline-block; background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 11px; margin-top: 8px; }
+  .section { margin-bottom: 20px; }
+  .section-title { font-size: 15px; font-weight: bold; color: #1a1a2e; margin-bottom: 10px; padding-left: 12px; border-left: 4px solid #e74c3c; }
+  .model-block { margin-bottom: 16px; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; }
+  .model-header { padding: 8px 14px; font-size: 13px; font-weight: bold; color: #fff; }
+  .model-header.claude { background: #1F4E79; }
+  .model-header.gemini { background: #0B5394; }
+  .model-header.deepseek { background: #38761D; }
+  .model-body { padding: 12px 14px; font-size: 12px; color: #333; line-height: 1.8; }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 8px; }
+  th { background: #2c3e50; color: #fff; padding: 7px 8px; text-align: left; font-size: 11px; }
+  td { padding: 7px 8px; border-bottom: 1px solid #eee; font-size: 11px; line-height: 1.5; vertical-align: top; }
+  tr:nth-child(even) { background: #f8f9ff; }
+  .diff { background: #fff3cd; padding: 1px 4px; border-radius: 3px; font-weight: bold; }
+  .same { color: #aaa; }
+  .conclusion { background: linear-gradient(135deg, #2c3e50, #1a1c2c); color: #fff; border-radius: 12px; padding: 16px 20px; font-size: 12px; line-height: 1.8; }
+  .conclusion strong { color: #ffd700; }
+  .footer { text-align: center; margin-top: 14px; font-size: 11px; color: #aaa; }
+  .stats-row { display: flex; gap: 10px; margin-bottom: 16px; }
+  .stat-box { flex: 1; background: #f8f9ff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; text-align: center; }
+  .stat-box .stat-label { font-size: 10px; color: #888; }
+  .stat-box .stat-value { font-size: 16px; font-weight: bold; margin-top: 2px; }
+  .stat-box.claude .stat-value { color: #1F4E79; }
+  .stat-box.gemini .stat-value { color: #0B5394; }
+  .stat-box.deepseek .stat-value { color: #38761D; }
+</style>
+</head>
+<body>
+<div class="card">
+
+<div class="header">
+  <h1>🔥 三模型翻译对比：Laughing at the Beast</h1>
+  <div class="en">Steve Pavlina | September 2025 | ~2000词长文</div>
+  <div class="badge">Claude Opus 4.6 · Gemini 3.0 Pro · DeepSeek R1</div>
+</div>
+
+<!-- 性能对比 -->
+<div class="section">
+  <div class="section-title">一、翻译性能对比</div>
+  <div class="stats-row">
+    <div class="stat-box claude"><div class="stat-label">Claude Opus 4.6</div><div class="stat-value">58秒</div><div class="stat-label">2,900字</div></div>
+    <div class="stat-box gemini"><div class="stat-label">Gemini 3.0 Pro</div><div class="stat-value">102秒</div><div class="stat-label">3,000字</div></div>
+    <div class="stat-box deepseek"><div class="stat-label">DeepSeek R1</div><div class="stat-value">94秒</div><div class="stat-label">2,900字</div></div>
+  </div>
+</div>
+
+<!-- 标题对比 -->
+<div class="section">
+  <div class="section-title">二、标题翻译对比</div>
+  <table>
+    <tr><th>模型</th><th>翻译</th><th>差异</th></tr>
+    <tr><td><strong>Claude</strong></td><td>嘲笑那头野兽</td><td class="same">三者一致 ✓</td></tr>
+    <tr><td><strong>Gemini</strong></td><td>嘲笑那头野兽</td><td class="same">三者一致 ✓</td></tr>
+    <tr><td><strong>DeepSeek</strong></td><td>嘲笑那头野兽</td><td class="same">三者一致 ✓</td></tr>
+  </table>
+</div>
+
+<!-- 关键段落对比 -->
+<div class="section">
+  <div class="section-title">三、关键段落翻译差异</div>
+
+  <table>
+    <tr><th width="12%">原文</th><th width="28%">Claude</th><th width="28%">Gemini</th><th width="28%">DeepSeek</th></tr>
+    <tr>
+      <td><strong>"backsliding greatly"</strong></td>
+      <td>大幅倒退</td>
+      <td><span class="diff">大踏步地倒退</span></td>
+      <td>大幅倒退</td>
+    </tr>
+    <tr>
+      <td><strong>"called a wrap"</strong></td>
+      <td><span class="diff">翻篇</span></td>
+      <td><span class="diff">杀青收工</span></td>
+      <td><span class="diff">翻篇</span></td>
+    </tr>
+    <tr>
+      <td><strong>"test their mettle"</strong></td>
+      <td>检验自己的<span class="diff">成色</span></td>
+      <td>检验自己的<span class="diff">真功夫</span></td>
+      <td>检验自己的<span class="diff">真功夫</span></td>
+    </tr>
+    <tr>
+      <td><strong>"Knowing is not enough, we must apply"</strong></td>
+      <td>知道不够，<span class="diff">必须去做</span></td>
+      <td>知道还不够，<span class="diff">必须付诸行动</span></td>
+      <td>知道还不够，<span class="diff">我们必须去做</span></td>
+    </tr>
+    <tr>
+      <td><strong>"light-aligned"</strong></td>
+      <td><span class="diff">与光同行</span></td>
+      <td><span class="diff">保持与光的校准</span></td>
+      <td><span class="diff">持守在光中</span></td>
+    </tr>
+    <tr>
+      <td><strong>"hopelessness, helplessness, or despair"</strong></td>
+      <td>绝望、无助或<span class="diff">绝望</span></td>
+      <td>绝望、<span class="diff">无力感</span>或<span class="diff">心灰意冷</span></td>
+      <td>绝望、无助或<span class="diff">沮丧</span></td>
+    </tr>
+    <tr>
+      <td><strong>"return to stillness"</strong></td>
+      <td>回归内心的<span class="diff">宁静</span></td>
+      <td>回归内在的<span class="diff">宁静</span></td>
+      <td>回归内在的<span class="diff">平静</span></td>
+    </tr>
+    <tr>
+      <td><strong>"silly, dumb, and ridiculous"</strong></td>
+      <td>多蠢、多笨、多<span class="diff">荒唐</span></td>
+      <td>多蠢、多笨、多<span class="diff">荒唐</span></td>
+      <td>多蠢、多<span class="diff">荒唐</span>、多<span class="diff">可笑</span></td>
+    </tr>
+    <tr>
+      <td><strong>"wonder" & "delight"</strong></td>
+      <td><span class="diff">惊奇</span> / <span class="diff">欣悦</span></td>
+      <td><span class="diff">惊奇</span> / <span class="diff">欣悦</span></td>
+      <td><span class="diff">惊奇</span> / <span class="diff">欣悦</span></td>
+    </tr>
+    <tr>
+      <td><strong>"holotropic breathwork"</strong></td>
+      <td><span class="diff">全息呼吸仪式</span></td>
+      <td><span class="diff">全息呼吸疗法仪式</span></td>
+      <td><span class="diff">全息呼吸法仪式</span></td>
+    </tr>
+    <tr>
+      <td><strong>"have a Scooby snack"</strong></td>
+      <td>赏你一块<span class="diff">狗粮</span></td>
+      <td>赏你一块<span class="diff">狗饼干</span></td>
+      <td>赏你一块<span class="diff">狗饼干</span></td>
+    </tr>
+    <tr>
+      <td><strong>"fucking ridiculous"</strong></td>
+      <td><span class="diff">真他妈荒唐透顶</span></td>
+      <td><span class="diff">真的是他妈的荒唐透顶</span></td>
+      <td><span class="diff">真的他妈太荒唐了</span></td>
+    </tr>
+  </table>
+</div>
+
+<!-- 风格分析 -->
+<div class="section">
+  <div class="section-title">四、翻译风格对比</div>
+  <table>
+    <tr><th>维度</th><th>Claude Opus 4.6</th><th>Gemini 3.0 Pro</th><th>DeepSeek R1</th></tr>
+    <tr><td><strong>流畅度</strong></td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td></tr>
+    <tr><td><strong>忠实度</strong></td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td></tr>
+    <tr><td><strong>文学性</strong></td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td></tr>
+    <tr><td><strong>本土化</strong></td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td></tr>
+    <tr><td><strong>用词大胆度</strong></td><td>高（翻篇、成色）</td><td>最高（杀青收工、大踏步）</td><td>稳健保守</td></tr>
+    <tr><td><strong>灵性术语处理</strong></td><td>精准（内驱力等）</td><td>精准（校准等）</td><td>精准（共振等）</td></tr>
+    <tr><td><strong>脏话翻译</strong></td><td>直接到位</td><td>略冗长</td><td>简洁有力</td></tr>
+  </table>
+</div>
+
+<!-- 总结 -->
+<div class="section">
+  <div class="section-title">五、总结评价</div>
+</div>
+
+<div class="conclusion">
+  <strong>📌 小爪总评（长文翻译场景）：</strong><br><br>
+  <strong>🥇 Claude Opus 4.6</strong> — 综合最佳。速度最快(58s)、行文流畅、文学性强、用词精准。灵性/哲学类文章的最佳选择。<br><br>
+  <strong>🥈 Gemini 3.0 Pro</strong> — 本土化最强。"杀青收工""大踏步"等翻译最地道，读起来最像中文原创。但速度最慢(102s)。<br><br>
+  <strong>🥉 DeepSeek R1</strong> — 最忠实原文。翻译稳健可靠，用词不冒险，适合需要精确对照原文的场景。与Claude高度接近。<br><br>
+  <strong>关键发现：</strong>长文场景下三个模型的差异比短文明显得多。Claude在文学性和速度上优势突出；Gemini在本土化表达上最大胆；DeepSeek在忠实度上最稳。
+</div>
+
+<div class="footer">🐾 小爪翻译对比 · Laughing at the Beast · 2026.03.09</div>
+
+</div>
+</body>
+</html>

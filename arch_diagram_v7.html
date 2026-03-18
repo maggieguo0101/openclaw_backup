@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; width: 1500px; padding: 40px;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+</style>
+</head>
+<body>
+<!--
+  布局规划（宽1400 高880）：
+  OpenClaw Agent:   x=120..390  y=108..450
+  企微Channel:      x=490..680  y=58..790
+  企微群:           x=760..920  y=148..318
+  商户小人:         cx=1060     y=上
+  大象通知框:       x=760..990  y=480..550
+  真人销售小人:     cx=1120     y=下
+  销售小人:         cx=60       y=下
+
+  连线路径：
+  ③ qwbot(680,519)→斜右上→企微群左边(760,228)  纯斜线，不经过企微群框内
+  ⑥ 企微群底(840,318)→下→左穿Channel左侧→右→qwbot  折线走Channel左侧外面
+-->
+<svg width="1400" height="880" viewBox="0 0 1400 880" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="a" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+    <polygon points="0 0,9 3.5,0 7" fill="#333"/></marker>
+  <marker id="ag" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+    <polygon points="0 0,9 3.5,0 7" fill="#b8860b"/></marker>
+  <pattern id="h" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="10" stroke="#f5c842" stroke-width="3" stroke-opacity="0.3"/></pattern>
+</defs>
+<rect width="1400" height="880" fill="white"/>
+
+<!-- 标题 -->
+<text x="700" y="34" font-size="18" font-weight="600" fill="#1a1a1a" text-anchor="middle">AIBD 签约 &amp; 上团单 × OpenClaw 企微自动化架构</text>
+
+<!-- ── 企微 Channel 竖框  x=490..670  y=58..790 ── -->
+<rect x="490" y="58" width="180" height="730" rx="6" fill="url(#h)" stroke="#f5c842" stroke-width="2.5"/>
+<rect x="490" y="58" width="180" height="730" rx="6" fill="none" stroke="#f5c842" stroke-width="2.5"/>
+<rect x="520" y="36" width="84" height="26" rx="4" fill="white" stroke="#f5c842" stroke-width="1.8"/>
+<text x="562" y="53" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="600">需自建</text>
+<line x1="562" y1="62" x2="562" y2="80" stroke="#333" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="580" y="100" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">企微 Channel</text>
+<!-- qwbot 框 -->
+<rect x="504" y="490" width="152" height="60" rx="4" fill="white" stroke="#888" stroke-width="1.3"/>
+<text x="580" y="516" font-size="13" fill="#1a1a1a" text-anchor="middle">消息网关</text>
+<text x="580" y="536" font-size="12" fill="#666" text-anchor="middle">(qwbot)</text>
+
+<!-- ── OpenClaw Agent  x=120..390  y=108..448 ── -->
+<rect x="120" y="108" width="270" height="340" rx="8" fill="white" stroke="#333" stroke-width="2"/>
+<text x="166" y="94" font-size="13" fill="#555">Catclaw-小助手 Agent</text>
+<text x="255" y="232" font-size="64" text-anchor="middle">🦞</text>
+<text x="255" y="272" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">OpenClaw</text>
+<rect x="144" y="304" width="152" height="46" rx="3" fill="white" stroke="#333" stroke-width="1.3"/>
+<polygon points="276,304 296,304 296,324 276,324 276,304" fill="#e8e8e8" stroke="#333" stroke-width="1"/>
+<line x1="276" y1="304" x2="296" y2="324" stroke="#333" stroke-width="1"/>
+<text x="212" y="332" font-size="13" fill="#1a1a1a" text-anchor="middle">上单 Skills</text>
+<line x1="255" y1="350" x2="255" y2="426" stroke="#333" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="255" y1="304" x2="255" y2="276" stroke="#333" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#a)"/>
+
+<!-- ── 企微群图标框  x=760..920  y=148..318 ── -->
+<rect x="760" y="148" width="160" height="170" rx="12" fill="white" stroke="#333" stroke-width="1.8" stroke-dasharray="6,4"/>
+<text x="840" y="254" font-size="64" text-anchor="middle">💬</text>
+<text x="840" y="302" font-size="12" fill="#666" text-anchor="middle">企微群</text>
+
+<!-- ── 商户小人  cx=1080  上 ── -->
+<circle cx="1080" cy="190" r="24" fill="none" stroke="#333" stroke-width="1.8"/>
+<line x1="1080" y1="214" x2="1080" y2="284" stroke="#333" stroke-width="1.8"/>
+<line x1="1080" y1="238" x2="1048" y2="264" stroke="#333" stroke-width="1.8"/>
+<line x1="1080" y1="238" x2="1112" y2="264" stroke="#333" stroke-width="1.8"/>
+<line x1="1080" y1="284" x2="1054" y2="326" stroke="#333" stroke-width="1.8"/>
+<line x1="1080" y1="284" x2="1106" y2="326" stroke="#333" stroke-width="1.8"/>
+<text x="1080" y="352" font-size="14" fill="#1a1a1a" text-anchor="middle">商户</text>
+
+<!-- ── 销售小人  cx=60  左下 ── -->
+<circle cx="60" cy="520" r="24" fill="none" stroke="#333" stroke-width="1.8"/>
+<line x1="60" y1="544" x2="60" y2="614" stroke="#333" stroke-width="1.8"/>
+<line x1="60" y1="568" x2="28" y2="594" stroke="#333" stroke-width="1.8"/>
+<line x1="60" y1="568" x2="92" y2="594" stroke="#333" stroke-width="1.8"/>
+<line x1="60" y1="614" x2="34" y2="656" stroke="#333" stroke-width="1.8"/>
+<line x1="60" y1="614" x2="86" y2="656" stroke="#333" stroke-width="1.8"/>
+<text x="60" y="680" font-size="14" fill="#1a1a1a" text-anchor="middle">销售</text>
+
+<!-- ── 真人销售小人  cx=1200  右下 ── -->
+<circle cx="1200" cy="510" r="24" fill="none" stroke="#333" stroke-width="1.8"/>
+<line x1="1200" y1="534" x2="1200" y2="604" stroke="#333" stroke-width="1.8"/>
+<line x1="1200" y1="558" x2="1168" y2="584" stroke="#333" stroke-width="1.8"/>
+<line x1="1200" y1="558" x2="1232" y2="584" stroke="#333" stroke-width="1.8"/>
+<line x1="1200" y1="604" x2="1174" y2="646" stroke="#333" stroke-width="1.8"/>
+<line x1="1200" y1="604" x2="1226" y2="646" stroke="#333" stroke-width="1.8"/>
+<text x="1200" y="670" font-size="14" fill="#1a1a1a" text-anchor="middle">真人销售</text>
+
+<!-- ── 大象通知框  x=760..990  y=484..556 ── -->
+<rect x="760" y="484" width="230" height="68" rx="6" fill="#fffbf0" stroke="#f5c842" stroke-width="2"/>
+<text x="875" y="512" font-size="13" font-weight="600" fill="#1a1a1a" text-anchor="middle">🐘 大象通知真人销售</text>
+<text x="875" y="534" font-size="11" fill="#888" text-anchor="middle">商家名称 + 群链接 + 材料清单</text>
+
+<!-- ══ 连线 ══ -->
+
+<!-- ① 销售→OpenClaw -->
+<line x1="92" y1="565" x2="118" y2="400" stroke="#333" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#a)"/>
+<rect x="14" y="470" width="136" height="44" rx="3" fill="white"/>
+<text x="82" y="488" font-size="12" fill="#333" text-anchor="middle" font-weight="600">①下发任务</text>
+<text x="82" y="507" font-size="11" fill="#666" text-anchor="middle">(1家 or 多家门店)</text>
+
+<!-- ② OpenClaw→Channel 水平 -->
+<line x1="390" y1="228" x2="488" y2="228" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="386" y="212" width="104" height="22" rx="3" fill="white"/>
+<text x="438" y="227" font-size="12" fill="#333" text-anchor="middle" font-weight="600">②开启商户对话</text>
+
+<!-- OpenClaw→qwbot 斜线 -->
+<line x1="390" y1="400" x2="502" y2="508" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+
+<!-- ③ qwbot右边→企微群左边  纯斜线，从(670,515)到(760,228) -->
+<line x1="670" y1="515" x2="760" y2="228" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+<!-- ③标签 放在斜线右侧中点附近，远离⑥ -->
+<rect x="698" y="340" width="56" height="70" rx="3" fill="white"/>
+<text x="726" y="357" font-size="12" fill="#333" text-anchor="middle" font-weight="600">③</text>
+<text x="726" y="374" font-size="11" fill="#333" text-anchor="middle">消息</text>
+<text x="726" y="390" font-size="11" fill="#333" text-anchor="middle">发送</text>
+<text x="726" y="406" font-size="11" fill="#333" text-anchor="middle">到群</text>
+
+<!-- ④ 企微群→商户 水平实线 -->
+<line x1="920" y1="216" x2="1054" y2="210" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+<rect x="922" y="198" width="104" height="22" rx="3" fill="white"/>
+<text x="974" y="213" font-size="12" fill="#333" text-anchor="middle" font-weight="600">④触达商户</text>
+
+<!-- ⑤ 商户→企微群 虚线 -->
+<line x1="1054" y1="246" x2="922" y2="274" stroke="#333" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#a)"/>
+<rect x="922" y="274" width="104" height="22" rx="3" fill="white"/>
+<text x="974" y="289" font-size="12" fill="#333" text-anchor="middle" font-weight="600">⑤回复消息</text>
+
+<!-- ⑥ 企微群→qwbot
+     路径：企微群左侧(760,250)→左折到Channel左侧外(450,250)→下到(450,519)→右到qwbot左(504,519)
+     完全在Channel左侧外绕行，不与③重叠 -->
+<polyline points="760,250  440,250  440,519  502,519"
+  fill="none" stroke="#333" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#a)"/>
+<!-- ⑥标签 放在左侧水平段 -->
+<rect x="554" y="234" width="92" height="22" rx="3" fill="white"/>
+<text x="600" y="249" font-size="12" fill="#333" text-anchor="middle" font-weight="600">⑥网关接收</text>
+
+<!-- ⑦ qwbot→OpenClaw 虚线 -->
+<line x1="504" y1="538" x2="392" y2="424" stroke="#333" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#a)"/>
+<rect x="394" y="464" width="120" height="22" rx="3" fill="white"/>
+<text x="454" y="479" font-size="12" fill="#333" text-anchor="middle" font-weight="600">⑦小龙虾接收</text>
+
+<!-- ⑧ qwbot→大象通知 金色实线 -->
+<line x1="670" y1="537" x2="758" y2="524" stroke="#b8860b" stroke-width="1.8" marker-end="url(#ag)"/>
+<rect x="646" y="549" width="98" height="22" rx="3" fill="white"/>
+<text x="695" y="564" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="600">⑧已认领触发</text>
+
+<!-- ⑨ 大象通知→真人销售 金色实线 -->
+<line x1="990" y1="520" x2="1174" y2="520" stroke="#b8860b" stroke-width="1.8" marker-end="url(#ag)"/>
+<rect x="1040" y="502" width="90" height="22" rx="3" fill="white"/>
+<text x="1085" y="517" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="600">⑨通知跟进</text>
+
+<!-- ⑩ 真人销售→OpenClaw 大弧形虚线 -->
+<path d="M 1174 604 Q 1174 770 700 770 Q 260 770 255 450"
+  fill="none" stroke="#333" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#a)"/>
+<rect x="574" y="758" width="184" height="22" rx="3" fill="white"/>
+<text x="666" y="773" font-size="12" fill="#555" text-anchor="middle" font-weight="600">⑩代操作完成，回传结果</text>
+
+<!-- ══ 底部图例 ══ -->
+<rect x="0" y="828" width="1400" height="36" fill="#fafafa" stroke="#e8e8e8" stroke-width="1"/>
+<text x="20" y="850" font-size="12" fill="#aaa">🔗 DrawIO 风格 · AIBD × OpenClaw 企微自动化</text>
+<line x1="740" y1="846" x2="774" y2="846" stroke="#333" stroke-width="1.5"/>
+<polygon points="774,842 782,846 774,850" fill="#333"/>
+<text x="788" y="850" font-size="11" fill="#666">实线 = 主动流程</text>
+<line x1="930" y1="846" x2="964" y2="846" stroke="#333" stroke-width="1.5" stroke-dasharray="5,3"/>
+<polygon points="964,842 972,846 964,850" fill="#333"/>
+<text x="978" y="850" font-size="11" fill="#666">虚线 = 回路/被动接收</text>
+<rect x="1160" y="838" width="14" height="14" rx="2" fill="#fffbf0" stroke="#f5c842" stroke-width="1.5"/>
+<text x="1180" y="850" font-size="11" fill="#b8860b">大象通知路径</text>
+</svg>
+</body>
+</html>

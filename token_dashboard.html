@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Token 消耗看板</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+    background: #0f0f1a;
+    color: #e0e0e0;
+    padding: 32px 28px 40px;
+    min-width: 820px;
+  }
+  
+  /* 标题栏 */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .title .emoji { font-size: 26px; }
+  .subtitle {
+    font-size: 13px;
+    color: #666;
+    margin-top: 3px;
+  }
+  .update-time {
+    font-size: 12px;
+    color: #555;
+  }
+  
+  /* 汇总卡片 */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .card {
+    background: #1a1a2e;
+    border: 1px solid #2a2a45;
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .card-label {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .card-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+  }
+  .card-unit {
+    font-size: 13px;
+    color: #666;
+    margin-top: 4px;
+  }
+  .card.accent-blue { border-color: #3b82f6; }
+  .card.accent-purple { border-color: #8b5cf6; }
+  .card.accent-green { border-color: #10b981; }
+  .card.accent-orange { border-color: #f59e0b; }
+  .card.accent-blue .card-value { color: #60a5fa; }
+  .card.accent-purple .card-value { color: #a78bfa; }
+  .card.accent-green .card-value { color: #34d399; }
+  .card.accent-orange .card-value { color: #fbbf24; }
+  
+  /* 图表区 */
+  .chart-section {
+    background: #1a1a2e;
+    border: 1px solid #2a2a45;
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ccc;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* 柱状图 */
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    height: 160px;
+  }
+  .bar-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+  .bar-value-label {
+    font-size: 10px;
+    color: #888;
+    white-space: nowrap;
+  }
+  .bar-stack {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    min-height: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+  .bar-seg-cache { background: #2d4a7a; }
+  .bar-seg-input { background: #3b82f6; }
+  .bar-seg-output { background: #8b5cf6; }
+  .bar-date {
+    font-size: 10px;
+    color: #666;
+    writing-mode: horizontal-tb;
+    text-align: center;
+    margin-top: 4px;
+  }
+  .bar-date.today { color: #60a5fa; font-weight: 600; }
+  
+  /* 图例 */
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 14px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #888;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+  
+  /* 明细表 */
+  .table-section {
+    background: #1a1a2e;
+    border: 1px solid #2a2a45;
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    color: #666;
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid #2a2a45;
+  }
+  th:not(:first-child), td:not(:first-child) {
+    text-align: right;
+  }
+  td {
+    padding: 9px 0;
+    border-bottom: 1px solid #1e1e35;
+    color: #ccc;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr.today-row td { color: #60a5fa; font-weight: 600; }
+  .total-row td {
+    border-top: 1px solid #3a3a5a;
+    padding-top: 12px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .num { font-variant-numeric: tabular-nums; }
+  
+  /* 缓存命中率 */
+  .hit-rate { color: #34d399 !important; font-size: 11px; }
+  .hit-rate-low { color: #f59e0b !important; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="title"><span class="emoji">🦞</span> Token 消耗看板</div>
+    <div class="subtitle">OpenClaw · catclaw-proxy-model · 数据从 2026-03-09 起</div>
+  </div>
+  <div class="update-time">更新于 2026-03-18 14:05</div>
+</div>
+
+<!-- 汇总卡片 -->
+<div class="summary-grid">
+  <div class="card accent-blue">
+    <div class="card-label">累计总 Token</div>
+    <div class="card-value">143.3M</div>
+    <div class="card-unit">tokens（含缓存）</div>
+  </div>
+  <div class="card accent-purple">
+    <div class="card-label">累计 Output</div>
+    <div class="card-value">1.3M</div>
+    <div class="card-unit">生成 tokens</div>
+  </div>
+  <div class="card accent-green">
+    <div class="card-label">累计缓存命中</div>
+    <div class="card-value">78%</div>
+    <div class="card-unit">缓存节省 112.1M tokens</div>
+  </div>
+  <div class="card accent-orange">
+    <div class="card-label">今日对话轮次</div>
+    <div class="card-value">176</div>
+    <div class="card-unit">今日 total 6.3M</div>
+  </div>
+</div>
+
+<!-- 柱状图 -->
+<div class="chart-section">
+  <div class="section-title">📊 每日 Token 消耗（最近10天）</div>
+  <div class="bar-chart">
+    
+        <div class="bar-item">
+          <div class="bar-value-label">10.7M</div>
+          <div class="bar-stack" style="height:21px">
+            <div class="bar-seg-output" style="height:1px"></div>
+            <div class="bar-seg-input" style="height:9px"></div>
+            <div class="bar-seg-cache" style="height:11px"></div>
+          </div>
+          <div class="bar-date ">03-09</div>
+        </div>
+        
+
+        <div class="bar-item">
+          <div class="bar-value-label">8.5M</div>
+          <div class="bar-stack" style="height:17px">
+            <div class="bar-seg-output" style="height:2px"></div>
+            <div class="bar-seg-input" style="height:5px"></div>
+            <div class="bar-seg-cache" style="height:10px"></div>
+          </div>
+          <div class="bar-date ">03-10</div>
+        </div>
+        
+
+        <div class="bar-item">
+          <div class="bar-value-label">64.1M</div>
+          <div class="bar-stack" style="height:130px">
+            <div class="bar-seg-output" style="height:1px"></div>
+            <div class="bar-seg-input" style="height:30px"></div>
+            <div class="bar-seg-cache" style="height:99px"></div>
+          </div>
+          <div class="bar-date ">03-11</div>
+        </div>
+        
+
+        <div class="bar-item">
+          <div class="bar-value-label">32.1M</div>
+          <div class="bar-stack" style="height:65px">
+            <div class="bar-seg-output" style="height:1px"></div>
+            <div class="bar-seg-input" style="height:12px"></div>
+            <div class="bar-seg-cache" style="height:52px"></div>
+          </div>
+          <div class="bar-date ">03-12</div>
+        </div>
+        
+
+        <div class="bar-item">
+          <div class="bar-value-label">517.1K</div>
+          <div class="bar-stack" style="height:1px">
+            <div class="bar-seg-output" style="height:1px"></div>
+            <div class="bar-seg-input" style="height:1px"></div>
+            <div class="bar-seg-cache" style="height:1px"></div>
+          </div>
+          <div class="bar-date ">03-13</div>
+        </div>
+        
+
+        <div class="bar-item">
+          <div class="bar-value-label">22.1K</div>
+          <div class="bar-stack" style="height:0px">
+            <div class="bar-seg-output" style="height:1px"></div>
+            <div class="bar-seg-input" style="height:1px"></div>
+            <div class="bar-seg-cache" style="height:1px"></div>
+          </div>
+          <div class="bar-date ">03-14</div>
+        </div>
+        
+
+        <div class="bar-item">
+          <div class="bar-value-label">22.1K</div>
+          <div class="bar-stack" style="height:0px">
+            <div class="bar-seg-output" style="height:1px"></div>
+            <div class="bar-seg-input" style="height:1px"></div>
+            <div class="bar-seg-cache" style="height:1px"></div>
+          </div>
+          <div class="bar-date ">03-15</div>
+        </div>
+        
+
+        <div class="bar-item">
+          <div class="bar-value-label">11.4M</div>
+          <div class="bar-stack" style="height:23px">
+            <div class="bar-seg-output" style="height:1px"></div>
+            <div class="bar-seg-input" style="height:1px"></div>
+            <div class="bar-seg-cache" style="height:21px"></div>
+          </div>
+          <div class="bar-date ">03-16</div>
+        </div>
+        
+
+        <div class="bar-item">
+          <div class="bar-value-label">9.6M</div>
+          <div class="bar-stack" style="height:19px">
+            <div class="bar-seg-output" style="height:1px"></div>
+            <div class="bar-seg-input" style="height:1px"></div>
+            <div class="bar-seg-cache" style="height:18px"></div>
+          </div>
+          <div class="bar-date ">03-17</div>
+        </div>
+        
+
+        <div class="bar-item">
+          <div class="bar-value-label">6.3M</div>
+          <div class="bar-stack" style="height:12px">
+            <div class="bar-seg-output" style="height:1px"></div>
+            <div class="bar-seg-input" style="height:1px"></div>
+            <div class="bar-seg-cache" style="height:11px"></div>
+          </div>
+          <div class="bar-date today">03-18▲</div>
+        </div>
+        
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6"></div>Output</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div>Input</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2d4a7a"></div>Cache Read</div>
+  </div>
+</div>
+
+<!-- 明细表 -->
+<div class="table-section">
+  <div class="section-title">📋 每日明细</div>
+  <table>
+    <thead>
+      <tr>
+        <th>日期</th>
+        <th>轮次</th>
+        <th>Input</th>
+        <th>Output</th>
+        <th>Cache Read</th>
+        <th>Total</th>
+        <th>缓存命中率</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr class="">
+          <td>2026-03-09</td>
+          <td class="num">659</td>
+          <td class="num">4,592,404</td>
+          <td class="num">192,518</td>
+          <td class="num">5,926,206</td>
+          <td class="num">10,711,128</td>
+          <td class="hit-rate-low">55%</td>
+        </tr>
+        
+
+        <tr class="">
+          <td>2026-03-10</td>
+          <td class="num">559</td>
+          <td class="num">2,974,439</td>
+          <td class="num">312,951</td>
+          <td class="num">5,202,984</td>
+          <td class="num">8,490,374</td>
+          <td class="hit-rate-low">61%</td>
+        </tr>
+        
+
+        <tr class="">
+          <td>2026-03-11</td>
+          <td class="num">1466</td>
+          <td class="num">14,959,229</td>
+          <td class="num">295,999</td>
+          <td class="num">48,880,389</td>
+          <td class="num">64,135,617</td>
+          <td class="hit-rate-low">76%</td>
+        </tr>
+        
+
+        <tr class="">
+          <td>2026-03-12</td>
+          <td class="num">646</td>
+          <td class="num">6,037,742</td>
+          <td class="num">119,666</td>
+          <td class="num">25,931,156</td>
+          <td class="num">32,088,564</td>
+          <td class="hit-rate">81%</td>
+        </tr>
+        
+
+        <tr class="">
+          <td>2026-03-13</td>
+          <td class="num">123</td>
+          <td class="num">483,241</td>
+          <td class="num">33,819</td>
+          <td class="num">0</td>
+          <td class="num">517,060</td>
+          <td class="hit-rate-low">0%</td>
+        </tr>
+        
+
+        <tr class="">
+          <td>2026-03-14</td>
+          <td class="num">1</td>
+          <td class="num">22,089</td>
+          <td class="num">8</td>
+          <td class="num">0</td>
+          <td class="num">22,097</td>
+          <td class="hit-rate-low">0%</td>
+        </tr>
+        
+
+        <tr class="">
+          <td>2026-03-15</td>
+          <td class="num">1</td>
+          <td class="num">22,089</td>
+          <td class="num">8</td>
+          <td class="num">0</td>
+          <td class="num">22,097</td>
+          <td class="hit-rate-low">0%</td>
+        </tr>
+        
+
+        <tr class="">
+          <td>2026-03-16</td>
+          <td class="num">390</td>
+          <td class="num">778,256</td>
+          <td class="num">190,384</td>
+          <td class="num">10,419,046</td>
+          <td class="num">11,387,686</td>
+          <td class="hit-rate">91%</td>
+        </tr>
+        
+
+        <tr class="">
+          <td>2026-03-17</td>
+          <td class="num">231</td>
+          <td class="num">38,872</td>
+          <td class="num">89,025</td>
+          <td class="num">9,454,504</td>
+          <td class="num">9,582,401</td>
+          <td class="hit-rate">99%</td>
+        </tr>
+        
+
+        <tr class="today-row">
+          <td>2026-03-18 🔸</td>
+          <td class="num">176</td>
+          <td class="num">53</td>
+          <td class="num">46,972</td>
+          <td class="num">6,248,870</td>
+          <td class="num">6,295,895</td>
+          <td class="hit-rate">99%</td>
+        </tr>
+        
+    </tbody>
+    <tfoot>
+      
+    <tr class="total-row">
+      <td>合计</td>
+      <td class="num">4252</td>
+      <td class="num">29,908,414</td>
+      <td class="num">1,281,350</td>
+      <td class="num">112,063,155</td>
+      <td class="num">143,252,919</td>
+      <td class="hit-rate">78%</td>
+    </tr>
+    
+    </tfoot>
+  </table>
+</div>
+
+</body>
+</html>
