@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "hive": {
+      "baseUrl": "http://mcphub-server.sankuai.com/mcphub-api/b9ab5ad54bd141",
+      "headers": {
+        "Authorization": "Bearer AT_N3XU0WuqGSFz0ghaN97s5sNnR5jYlKDA_QXdRQUFBQWJCa3ROVXd3aURJamtRbzVraUNmd0lpSGRteWlDcHUvY0F3Z0JBQUFBWFFVbDcrYUUyaC9QdUNjdzFHcGoybTUrRUFyeHdXWDdrc0g5akJ1TjE1dXh3U0Rvc2ZmQlRsT3pvancxRFlvU1BVYUdQTzdKbEkyYWsvVWNrQ2Rab1g0MXNuSkhKRHZNRjdXbkxGRUNEWVNpaXJHMHBjYjdyRmdHM0owZzh3PT0**mtsso**sJFUQza10S7-M1u4NMtvmhg3KjQzDyOQBMNM9wlRIU7OQvktz7mAAzHGjvZoLCPOZHqgIgaEfsYq3w7ZnFeC5Q**NzMyMTg4NixndW9sZWlwaW5nLOmDreiVvuiQjSxndW9sZWlwaW5nQG1laXR1YW4uY29tLDEsMDMyODY0OTQsMTc3MzkzMzM5NTU1NSw1YTdkZDUyM2YwLDE1ZDE3MTBhZGI1NDQ4OGI4NjNhKmUyOTYzMzdkYTU0LDE3NzM5MjI1OTU1NTU"
+      }
+    }
+  },
+  "imports": []
+}
