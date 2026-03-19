@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f6fa; margin: 0; padding: 32px; }
+  h1 { font-size: 20px; color: #1a1a2e; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #888; margin-bottom: 24px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); font-size: 13px; }
+  thead tr { background: #1a1a2e; color: #fff; }
+  thead th { padding: 14px 16px; text-align: left; font-weight: 600; white-space: nowrap; }
+  tbody tr:nth-child(even) { background: #f9f9fc; }
+  tbody tr:hover { background: #eef2ff; }
+  td { padding: 12px 16px; vertical-align: top; line-height: 1.6; border-bottom: 1px solid #f0f0f0; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .p0 { background: #ffe0e0; color: #c0392b; }
+  .p1 { background: #fff3cd; color: #856404; }
+  .p2 { background: #d4edda; color: #155724; }
+  .exist { background: #d1ecf1; color: #0c5460; }
+  .partial { background: #fff3cd; color: #856404; }
+  .new { background: #f8d7da; color: #721c24; }
+  a { color: #2563eb; text-decoration: none; font-size: 12px; }
+  a:hover { text-decoration: underline; }
+  .scene { font-weight: 600; color: #1a1a2e; }
+  .problem { color: #555; font-size: 12px; }
+  .cli { font-family: monospace; font-size: 11px; background: #f0f4ff; padding: 2px 6px; border-radius: 4px; color: #3730a3; }
+  .section-header td { background: #e8eaf6; font-weight: 700; color: #3730a3; font-size: 13px; padding: 10px 16px; }
+</style>
+</head>
+<body>
+<h1>🔧 商户×销售企微沟通场景 → OpenClaw Skill 映射表</h1>
+<div class="subtitle">数据来源：【到综】商户与销售企微沟通行为分析 + 【新LE】沟通行为分析 + 服务零售 CLI & MCP 全家桶</div>
+<table>
+  <thead>
+    <tr>
+      <th>优先级</th>
+      <th>沟通场景</th>
+      <th>商户核心问题（来自听音）</th>
+      <th>频率</th>
+      <th>Skill 名称</th>
+      <th>现状</th>
+      <th>已有 Skill / MCP 链接</th>
+      <th>底层能力</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 商户端 -->
+    <tr class="section-header"><td colspan="8">📦 商户端场景</td></tr>
+
+    <tr>
+      <td><span class="tag p0">P0</span></td>
+      <td class="scene">团单管理</td>
+      <td class="problem">帮我上团单/改价格/改库存/改时间/下架；团单太复杂不想用美团了；报名活动团单不符合条件</td>
+      <td>商户发起 <strong>#1</strong><br>占23.1%</td>
+      <td><span class="cli">deal-group-assistant</span></td>
+      <td><span class="tag exist">已有</span></td>
+      <td>
+        <a href="https://friday.sankuai.com/mcp/skill-detail?activeTab=overview&from=/skills-market?keyword=deal-group-%26page=1&id=4283" target="_blank">🔗 服务零售商品助手 (deal-group-assistant)</a><br>
+        <a href="https://friday.sankuai.com/mcp/skill-detail?activeTab=overview&from=/skills-market?deepseek=false%26keyword=kaidianbao-app-outlink%26page=1&id=5320" target="_blank">🔗 经营宝APP外链生成 (kaidianbao-app-outlink)</a>
+      </td>
+      <td>dzbizsupply deal/product/spu 命令组<br>apollo supply 命令组（销售端）</td>
+    </tr>
+
+    <tr>
+      <td><span class="tag p0">P0</span></td>
+      <td class="scene">营销活动报名</td>
+      <td class="problem">有什么活动可参加？我的团单符合条件吗？报名失败怎么办？（提交3次未通过）</td>
+      <td>全周期<br>占12-26%</td>
+      <td><span class="cli">marketing-activity-assistant</span></td>
+      <td><span class="tag partial">部分有</span></td>
+      <td>
+        <a href="https://km.sankuai.com/collabpage/2724108004" target="_blank">🔗 营销优惠提报接口文档（RPC，已做AI友好适配）</a><br>
+        <span style="color:#888;font-size:11px;">负责人：姜俊宏/李路阳</span>
+      </td>
+      <td>营销优惠提报 RPC（活动报名）<br>团单合规检测逻辑</td>
+    </tr>
+
+    <tr>
+      <td><span class="tag p0">P0</span></td>
+      <td class="scene">推广产品咨询</td>
+      <td class="problem">推广余额不够了；帮我看推广消耗是否有问题；后台推广是否已开通；推广方案怎么选</td>
+      <td>LE新手期 <strong>#1</strong><br>占13-16%</td>
+      <td><span class="cli">promotion-assistant</span></td>
+      <td><span class="tag new">待建</span></td>
+      <td>—<br><span style="color:#888;font-size:11px;">全家桶文档未列出推广数据查询 MCP</span></td>
+      <td>推广账户查询 API<br>推广数据报告接口</td>
+    </tr>
+
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td class="scene">经营评分诊断</td>
+      <td class="problem">为什么浏览量上不去？怎么提升转化率？热榜排名规则是什么？线索质量差怎么办</td>
+      <td>CKA <strong>#1</strong><br>占10-14%</td>
+      <td><span class="cli">store-performance-advisor</span></td>
+      <td><span class="tag new">待建</span></td>
+      <td>—<br><span style="color:#888;font-size:11px;">经营评分数据接口未列入全家桶</span></td>
+      <td>经营评分 API<br>门店运营数据接口</td>
+    </tr>
+
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td class="scene">评价管理</td>
+      <td class="problem">如何删差评？评价与实际不符怎么申诉？差评审核进度查询</td>
+      <td>中频<br>占5-8%</td>
+      <td><span class="cli">merchant-review-cli</span></td>
+      <td><span class="tag exist">已有</span></td>
+      <td>
+        <a href="https://friday.sankuai.com/mcp/skill-detail?activeTab=overview&id=4926" target="_blank">🔗 merchant-review-cli</a><br>
+        <span style="color:#888;font-size:11px;">负责人：刘春 (Trenson Liu)</span>
+      </td>
+      <td>评价查询/申诉接口</td>
+    </tr>
+
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td class="scene">店铺装修</td>
+      <td class="problem">头图怎么修改？图片能否用在店铺装修上？图片审核不通过原因</td>
+      <td>中频<br>占8%</td>
+      <td><span class="cli">vg-decoration</span></td>
+      <td><span class="tag exist">已有</span></td>
+      <td>
+        <a href="https://friday.sankuai.com/mcp/skill-detail?activeTab=overview&id=5456" target="_blank">🔗 经营宝店铺装修 Skill (vg-decoration)</a><br>
+        <span style="color:#888;font-size:11px;">负责人：范佳兴</span>
+      </td>
+      <td>店铺装修编辑接口</td>
+    </tr>
+
+    <tr>
+      <td><span class="tag p1">P1</span></td>
+      <td class="scene">续约咨询</td>
+      <td class="problem">续费价格多少？合同什么时候到期？连锁门店运营无法推动老板付款</td>
+      <td>续约期 <strong>#1</strong><br>占9-24%</td>
+      <td><span class="cli">renewal-assistant</span></td>
+      <td><span class="tag new">待建</span></td>
+      <td>—<br><span style="color:#888;font-size:11px;">全家桶文档未收录续约相关 MCP</span></td>
+      <td>合同信息查询 API<br>自助
