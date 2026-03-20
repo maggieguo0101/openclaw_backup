@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #f8f9fa;
+    padding: 32px;
+    width: 1600px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 28px;
+  }
+
+  /* 图例 */
+  .legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #555;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-box {
+    width: 18px; height: 12px; border-radius: 2px; border: 1.5px solid;
+  }
+  .leg-new { background: #e8f4fd; border-color: #4a9edd; }
+  .leg-iter { background: #fff8e1; border-color: #f0b429; }
+  .leg-keep { background: #f0f4f0; border-color: #8ab08a; }
+
+  /* 主体网格 */
+  .grid {
+    display: grid;
+    grid-template-columns: 180px 280px 240px 260px 260px;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .col-header {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    padding: 6px 0 12px;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 12px;
+  }
+  .col-header .sub { font-size: 11px; color: #999; font-weight: 400; display: block; margin-top: 2px; }
+
+  /* 卡片基础 */
+  .card {
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .badge-new { background: #dbeafe; color: #1d4ed8; }
+  .badge-iter { background: #fef3c7; color: #b45309; }
+  .badge-keep { background: #dcfce7; color: #15803d; }
+
+  /* 颜色主题 */
+  .theme-green  { background: #f0faf0; border: 1.5px solid #8ab08a; }
+  .theme-blue   { background: #e8f4fd; border: 1.5px solid #4a9edd; }
+  .theme-yellow { background: #fffbeb; border: 1.5px solid #f0b429; }
+  .theme-gray   { background: #f4f4f4; border: 1.5px solid #bbb; }
+  .theme-pink   { background: #fdf2f2; border: 1.5px solid #e57373; }
+
+  /* 子项 */
+  .item {
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .item-new { border-left: 3px solid #4a9edd; }
+  .item-iter { border-left: 3px solid #f0b429; }
+  .item-keep { border-left: 3px solid #8ab08a; }
+  .item-pink { border-left: 3px solid #e57373; background: #fdf2f2; }
+
+  .arrow { color: #999; font-size: 11px; }
+  .indent { padding-left: 16px; font-size: 11px; color: #666; }
+
+  /* 备注栏 */
+  .footer {
+    margin-top: 20px;
+    background: #fffbe6;
+    border: 1.5px solid #ffe58f;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 11.5px;
+    color: #555;
+    line-height: 1.9;
+  }
+  .footer strong { color: #d48806; }
+</style>
+</head>
+<body>
+
+<h1>企微商家服务群 · OpenClaw 架构图</h1>
+<div class="subtitle">基于原架构扩展 · 商家服务场景专版 · 2026-03-19 v3</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-box leg-new"></div>本次新建</div>
+  <div class="legend-item"><div class="legend-box leg-iter"></div>后续迭代</div>
+  <div class="legend-item"><div class="legend-box leg-keep"></div>原有保留</div>
+</div>
+
+<div class="grid">
+
+  <!-- 列1：消息渠道 -->
+  <div>
+    <div class="col-header">消息渠道</div>
+
+    <div class="card theme-gray">
+      <div class="card-title">🏢 三方企微商家服务群
+        <span class="badge badge-keep">原有</span>
+      </div>
+      <div class="item item-keep">N个群（几百规模）</div>
+    </div>
+
+    <div style="text-align:center; color:#aaa; font-size:18px; padding:4px 0;">↓ webhook</div>
+
+    <div class="card theme-gray">
+      <div class="card-title">🏗️ 深海系统（原有）</div>
+      <div class="item item-keep">企微群消息接收/发送</div>
+      <div class="item item-new">群成员管理 <span class="badge badge-new">新</span></div>
+    </div>
+
+    <div style="text-align:center; color:#aaa; font-size:18px; padding:4px 0;">↕ 回调</div>
+
+    <div class="card theme-gray">
+      <div class="card-title">💬 大象消息
+        <span class="badge badge-keep">原有</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 列2：Infra · 通知中心 -->
+  <div>
+    <div class="col-header">Infra · 通知中心</div>
+
+    <div class="card theme-green">
+      <div class="card-title">深海对接组件（原有）</div>
+      <div class="item item-keep">对接管理接口</div>
+      <div class="item item-keep">消息发送组件</div>
+      <div class="item item-keep">消息接收组件</div>
+    </div>
+
+    <div class="card theme-blue">
+      <div class="card-title">商家服务路由层 <span class="badge badge-new">新</span></div>
+      <div class="item item-new">群→商家映射<br/>
+        <span class="indent">群ID → 商家ID → 负责销售</span>
+      </div>
+      <div class="item item-new">触发类型判断<br/>
+        <span class="indent">@AI触发 / Cron主动</span>
+      </div>
+      <div class="item item-pink">人工升级路由<br/>
+        <span class="indent">投诉/退款/解决失败 → 大象通知销售</span>
+      </div>
+    </div>
+
+    <div class="card theme-blue">
+      <div class="card-title">Cron 定时任务池 <span class="badge badge-new">新</span></div>
+      <div class="item item-new">📊 每日经营数据播报（9:00）</div>
+      <div class="item item-new">🔴 活动报名截止提醒（-1天）</div>
+      <div class="item item-new">📅 年框履约节点预警（-7/3/1天）</div>
+      <div class="item item-iter">🟡 续约到期提醒（-30/15/7天）<span class="badge badge-iter">迭代</span></div>
+    </div>
+
+    <div class="card theme-gray">
+      <div class="card-title">其他通知渠道（原有）</div>
+      <div class="item item-keep">语音外呼 / 短信 / 邮件</div>
+    </div>
+  </div>
+
+  <!-- 列3：ai.agent 服务 -->
+  <div>
+    <div class="col-header">ai.agent 服务<span class="sub">← webhook / → v1/chat</span></div>
+
+    <div class="card theme-blue">
+      <div class="card-title">权限校验&openclaw映射（原有）</div>
+      <div class="item item-new">商家ID → Session映射 <span class="badge badge-new">新</span></div>
+      <div class="item item-keep">开发者鉴权</div>
+    </div>
+
+    <div class="card theme-green">
+      <div class="card-title">消息处理&模型交互（原有）</div>
+      <div class="item item-keep">消息格式标准化</div>
+      <div class="item item-keep">模型调用管理</div>
+      <div class="item item-new">商家档案上下文注入 <span class="badge badge-new">新</span></div>
+    </div>
+
+    <div class="card theme-blue">
+      <div class="card-title">外部信号源 <span class="badge badge-new">新</span></div>
+      <div class="item item-new">📈 经营数据API（定时拉取）</div>
+      <div class="item item-new">🎯 活动/合同系统（事件推入）</div>
+      <div class="item item-new">⚠️ 异常监控告警</div>
+    </div>
+  </div>
+
+  <!-- 列4：OpenClaw（外网部署） -->
+  <div>
+    <div class="col-header">OpenClaw（外网部署）<span class="sub">← 接口调用</span></div>
+
+    <div class="card theme-blue">
+      <div class="card-title">merchant-service Agent <span class="badge badge-new">新</span></div>
+      <div class="item item-new">身份定义（SOUL.md）<br/><span class="indent">专业商家服务向角色</span></div>
+      <div class="item item-new">行为规则（AGENTS.md）<br/><span class="indent">@被动响应 + 主动推送规则<br/>人工升级触发 Session + 长期档案</span></div>
+      <div class="item item-new">商家记忆体系<br/><span class="indent">merchant_profiles/XXX.md<br/>每群独立 Session + 长期档案</span></div>
+      <div class="item item-new">安全限制<br/><span class="indent">操作需商家群内二次确认</span></div>
+    </div>
+
+    <div class="card theme-blue">
+      <div class="card-title">Skill 工具集 <span class="badge badge-new">新</span></div>
+      <div class="item item-new">📊 经营数据查询</div>
+      <div class="item item-new">🎯 团单管理（上/改/下架）</div>
+      <div class="item item-new">🔴 活动报名执行</div>
+      <div class="item item-iter">🟡 续约/年框操作 <span class="badge badge-iter">迭代</span></div>
+      <div class="item item-pink">🔴 人工升级 → 大象通知销售</div>
+    </div>
+  </div>
+
+  <!-- 列5：MCP Gateway（外网站点） -->
+  <div>
+    <div class="col-header">MCP Gateway（外网站点）</div>
+
+    <div class="card theme-green">
+      <div class="card-title">原有能力</div>
+      <div class="item item-keep">API权限管控</div>
+      <div class="item item-keep">开发者&openclaw映射校验</div>
+      <div class="item item-keep">限流熔断控制</div>
+    </div>
+
+    <div class="card theme-blue">
+      <div class="card-title">商家业务接口 <span class="badge badge-new">新</span></div>
+      <div class="item item-new">团单CRUD接口</div>
+      <div class="item item-new">活动报名接口</div>
+      <div class="item item-new">经营数据查询接口</div>
+      <div class="item item-iter">合同/续约接口 <span class="badge badge-iter">迭代</span></div>
+    </div>
+
+    <div style="text-align:center; color:#aaa; font-size:18px; padding:4px 0;">↓</div>
+
+    <div class="card theme-gray">
+      <div class="card-title">业务系统</div>
+      <div class="item item-keep">美团商家后台</div>
+      <div class="item item-keep">活动系统</div>
+      <div class="item item-keep">合同管理系统</div>
+    </div>
+
+    <div style="text-align:center; color:#aaa; font-size:18px; padding:4px 0;">↓</div>
+
+    <div class="card theme-gray">
+      <div class="card-title">📋 调用日志存储</div>
+      <div class="item item-keep">操作审计 / 可追溯</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>⭐ 关键设计说明：</strong>
+  ① 一个 Agent + N个Session（每群独立），不需要每群建一个Agent &nbsp;&nbsp;
+  ② 商家档案文件（merchant_profiles/）实现跨Session长期记忆 &nbsp;&nbsp;
+  ③ 团单/活动操作走"AI起草 → 商家群内确认 → AI执行"双步流程，避免误操作 &nbsp;&nbsp;
+  ④ 人工升级触发：投诉激动 / 退款纠纷 / 连续2次未解决 → 大象通知对应销售
+</div>
+
+</body>
+</html>
