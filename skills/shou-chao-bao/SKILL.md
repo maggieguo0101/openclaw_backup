@@ -20,8 +20,16 @@
 | **底部** | 姓名/班级/日期填写区 |
 
 **版式类型：**
-- 竖版（常见）：A4 竖放，适合节日/语文类
-- 横版（可选）：A4 横放，适合科学/活动类
+- 竖版（常见）：A4 竖放（794×1123px），适合节日/语文类
+- 横版（参考图风格）：A4 横放（1123×794px），适合节日类高颜值手抄报
+
+**横版真实手抄报特征（老板参考图确认）：**
+- 右上角或左上角大圆形艺术标题（红底金字描边）
+- 内容框为**云朵形/不规则形**，不是方形卡片
+- 内容以**段落正文**排列，不是条目列表
+- 背景有**浅色底纹**（如金色菱格纹）
+- **大量卡通插图**穿插（可用 SVG 简笔画代替）
+- 版面活泼、色彩丰富
 
 **风格要求：**
 - 儿童审美：色彩鲜亮（红黄绿蓝）、卡通风、手绘感
@@ -49,6 +57,9 @@
 <!-- A4 竖版尺寸 -->
 <body style="width:794px; height:1123px; overflow:hidden;">
 
+<!-- A4 横版尺寸 -->
+<body style="width:1123px; height:794px; overflow:hidden;">
+
 <!-- 字体只用系统字体，禁止 Google Fonts 外链 -->
 font-family: 'SimSun', 'FangSong', 'STSong', 'Noto Serif CJK SC', serif;
 ```
@@ -60,12 +71,17 @@ font-family: 'SimSun', 'FangSong', 'STSong', 'Noto Serif CJK SC', serif;
 ```python
 from playwright.sync_api import sync_playwright
 
+# 竖版
+W, H = 794, 1123
+# 横版
+# W, H = 1123, 794
+
 with sync_playwright() as p:
     browser = p.chromium.launch(
         executable_path='/usr/bin/chromium-browser',
         args=['--no-sandbox', '--disable-dev-shm-usage', '--disable-web-security']
     )
-    page = browser.new_page(viewport={'width': 794, 'height': 1123})
+    page = browser.new_page(viewport={'width': W, 'height': H})
     page.goto(f'file:///root/.openclaw/workspace/shou_chao_bao_{topic}.html',
               wait_until='domcontentloaded', timeout=10000)
     page.screenshot(path=f'/root/.openclaw/workspace/shou_chao_bao_{topic}.png', full_page=False)
@@ -105,7 +121,7 @@ message(action="send", channel="daxiang", media="/root/.openclaw/workspace/shou_
 └─────────────────────────────────┘
 ```
 
-### 内容框 CSS 模板
+### 内容框 CSS 模板（竖版方形卡片）
 
 ```css
 .card {
@@ -130,6 +146,107 @@ message(action="send", channel="daxiang", media="/root/.openclaw/workspace/shou_
 }
 .item { display: flex; gap: 6px; margin-bottom: 3px; }
 .dot { color: [主题色]; font-size: 16px; line-height: 1.6; }
+```
+
+---
+
+## 三-B、横版版面规范（1123×794px，真实手抄报风格）
+
+```
+┌──────────────────────────────────────────────────────┐
+│  [底纹背景：菱格纹/浅色图案]                          │
+│                                              ╭─────╮  │
+│  ╭──云朵框1──╮   ╭──云朵框2──╮           │大标│  │
+│  │ 标题+段落  │   │ 标题+段落  │           │题圆│  │
+│  ╰───────────╯   ╰───────────╯           │  形│  │
+│                                              ╰─────╯  │
+│  ╭──云朵框3──╮   ╭──云朵框4──╮   [SVG插图区]      │
+│  │ 标题+段落  │   │ 标题+段落  │                     │
+│  ╰───────────╯   ╰───────────╯                     │
+│  [装饰元素散落四角]          姓名：___班级：___日期：│
+└──────────────────────────────────────────────────────┘
+```
+
+### 圆形大标题（右上角/左上角）
+
+```html
+<div style="
+  position:absolute; top:20px; right:20px;
+  width:160px; height:160px; border-radius:50%;
+  background:#c0392b;
+  border:4px solid #f39c12;
+  box-shadow:0 0 0 6px rgba(192,57,43,0.3);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  z-index:10;
+">
+  <div style="color:#f39c12;font-size:28px;font-weight:bold;letter-spacing:4px;text-shadow:1px 1px 0 #8B0000;">元宵节</div>
+  <div style="color:#fff;font-size:13px;margin-top:4px;">手抄报</div>
+</div>
+```
+
+### 云朵形内容框（SVG clipPath 实现）
+
+每个云朵框需要唯一 id（cloud1/cloud2/cloud3...）：
+
+```html
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- 云朵路径：调整 cx/cy/r 改变形状 -->
+    <clipPath id="cloud1">
+      <path d="M30,80 Q10,60 20,40 Q10,10 40,15 Q50,-5 75,10 Q100,-5 120,15 Q150,5 155,35 Q175,30 175,55 Q185,75 165,85 Q160,100 140,95 Q130,110 110,105 Q90,120 70,108 Q50,120 35,108 Q15,105 10,90 Q5,80 30,80 Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<div style="position:absolute; left:40px; top:60px; width:175px; height:120px;">
+  <!-- 云朵背景色 -->
+  <svg width="175" height="120" style="position:absolute;top:0;left:0;">
+    <path d="M30,80 Q10,60 20,40 Q10,10 40,15 Q50,-5 75,10 Q100,-5 120,15 Q150,5 155,35 Q175,30 175,55 Q185,75 165,85 Q160,100 140,95 Q130,110 110,105 Q90,120 70,108 Q50,120 35,108 Q15,105 10,90 Q5,80 30,80 Z"
+          fill="#fff9e6" stroke="#f39c12" stroke-width="2"/>
+  </svg>
+  <!-- 云朵内文字（用 clip-path 裁剪） -->
+  <div style="position:absolute;top:18px;left:20px;width:135px;clip-path:url(#cloud1);">
+    <div style="font-size:13px;font-weight:bold;color:#c0392b;margin-bottom:4px;">🏮 节日由来</div>
+    <div style="font-size:11px;line-height:1.8;color:#333;">正月十五元宵节，又称上元节、灯节。汉文帝时期规定正月十五为元宵节。</div>
+  </div>
+</div>
+```
+
+**简化方案（不用 clipPath，直接 border-radius 大圆角）：**
+
+```html
+<div style="
+  position:absolute; left:40px; top:60px;
+  width:220px; min-height:130px;
+  background:#fff9e6;
+  border:2px solid #f39c12;
+  border-radius:60% 40% 55% 45% / 45% 55% 40% 60%;  /* 不规则椭圆 */
+  padding:18px 22px;
+  box-shadow:2px 3px 0 rgba(192,57,43,0.15);
+">
+  <div style="font-size:13px;font-weight:bold;color:#c0392b;margin-bottom:6px;">🏮 节日由来</div>
+  <div style="font-size:11px;line-height:1.9;color:#444;">正月十五元宵节，又称上元节。汉文帝时期规定正月十五为元宵节，是春节后的第一个重要节日。</div>
+</div>
+```
+
+### 底纹背景（菱格纹 SVG pattern）
+
+```html
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <pattern id="diamond" width="30" height="30" patternUnits="userSpaceOnUse">
+      <rect width="30" height="30" fill="#fffdf0"/>
+      <path d="M15,0 L30,15 L15,30 L0,15 Z" fill="none" stroke="rgba(212,170,80,0.25)" stroke-width="1"/>
+    </pattern>
+  </defs>
+</svg>
+<div style="position:absolute;top:0;left:0;width:1123px;height:794px;
+     background:url(\"data:image/svg+xml,...\")">
+<!-- 或直接用 SVG rect 铺底 -->
+<svg style="position:absolute;top:0;left:0;z-index:0" width="1123" height="794">
+  <rect width="1123" height="794" fill="url(#diamond)"/>
+</svg>
 ```
 
 ### 装饰元素（纯 SVG/CSS/Emoji，禁止外部图片）
