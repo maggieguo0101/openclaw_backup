@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 794px;
+  height: 1123px;
+  background: #fffdf5;
+  font-family: 'FangSong', 'SimSun', 'STSong', 'Noto Serif CJK SC', serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ===== 双层外框 ===== */
+.frame-outer {
+  position: absolute;
+  top: 12px; left: 12px;
+  width: 770px; height: 1099px;
+  border: 3.5px solid #c0392b;
+  border-radius: 10px;
+}
+.frame-inner {
+  position: absolute;
+  top: 18px; left: 18px;
+  width: 758px; height: 1087px;
+  border: 1.5px dashed #e8a838;
+  border-radius: 7px;
+}
+
+/* ===== 角花 ===== */
+.corner {
+  position: absolute;
+  font-size: 30px;
+  line-height: 1;
+  z-index: 10;
+}
+.c-tl { top: 20px; left: 22px; }
+.c-tr { top: 20px; right: 22px; }
+.c-bl { bottom: 22px; left: 22px; }
+.c-br { bottom: 22px; right: 22px; }
+
+/* ===== 标题区 ===== */
+.header {
+  position: absolute;
+  top: 34px; left: 68px;
+  width: 658px;
+  text-align: center;
+}
+.tag-line {
+  font-size: 13px;
+  color: #e67e22;
+  letter-spacing: 8px;
+  margin-bottom: 5px;
+}
+.main-title {
+  font-size: 58px;
+  font-weight: 900;
+  color: #c0392b;
+  letter-spacing: 14px;
+  line-height: 1;
+  text-shadow: 3px 3px 0 rgba(192,57,43,0.12);
+}
+.sub-title {
+  font-size: 13px;
+  color: #888;
+  letter-spacing: 5px;
+  margin-top: 7px;
+}
+
+/* ===== 分割线 ===== */
+.divider {
+  position: absolute;
+  left: 42px; right: 42px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.d-line {
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, #c0392b 30%, #c0392b 70%, transparent);
+}
+.d-icon { font-size: 14px; color: #c0392b; }
+
+/* ===== 内容卡片 ===== */
+.card {
+  position: absolute;
+  background: #fff;
+  border: 2px solid #e8a838;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-head {
+  background: #c0392b;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 14px;
+  letter-spacing: 3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.card-body {
+  padding: 9px 14px;
+  font-size: 12.5px;
+  line-height: 1.95;
+  color: #333;
+}
+.row { display: flex; align-items: flex-start; gap: 5px; margin-bottom: 2px; }
+.dot { color: #c0392b; font-size: 15px; line-height: 1.7; flex-shrink: 0; }
+
+/* ===== 手写线条区 ===== */
+.lines-wrap { padding: 10px 14px; }
+.hline {
+  height: 30px;
+  border-bottom: 1px solid #e8c870;
+  position: relative;
+  margin-bottom: 2px;
+}
+.hline-hint {
+  position: absolute;
+  top: 5px; left: 2px;
+  font-size: 11px;
+  color: #ccc;
+  letter-spacing: 1px;
+}
+
+/* ===== 全宽诗词区 ===== */
+.poetry-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 9px 18px;
+}
+.poem {
+  flex: 1;
+  text-align: center;
+  padding: 0 12px;
+}
+.poem + .poem { border-left: 1px dashed #e8a838; }
+.poem-title { font-size: 12.5px; color: #c0392b; font-weight: bold; margin-bottom: 3px; }
+.poem-body { font-size: 11px; color: #555; line-height: 1.9; }
+.poem-author { font-size: 10px; color: #999; margin-top: 3px; }
+
+/* ===== 底部署名栏 ===== */
+.sign-bar {
+  position: absolute;
+  bottom: 26px; left: 42px; right: 42px;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  border-top: 1px solid #e8a838;
+  padding-top: 10px;
+}
+.sign-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #666;
+}
+.sign-line {
+  width: 90px;
+  border-bottom: 1px solid #aaa;
+  height: 14px;
+}
+.sign-spacer { flex: 1; }
+</style>
+</head>
+<body>
+
+<!-- 双层外框 -->
+<div class="frame-outer"></div>
+<div class="frame-inner"></div>
+
+<!-- 角花 -->
+<div class="corner c-tl">🏮</div>
+<div class="corner c-tr">🏮</div>
+<div class="corner c-bl">🌙</div>
+<div class="corner c-br">🌙</div>
+
+<!-- =========== 标题 =========== -->
+<div class="header">
+  <div class="tag-line">正月十五 · 中国传统节日</div>
+  <div class="main-title">元 宵 节</div>
+  <div class="sub-title">习俗介绍手抄报 · Lantern Festival</div>
+</div>
+
+<!-- 分割线 -->
+<div class="divider" style="top: 148px;">
+  <div class="d-line"></div>
+  <span class="d-icon">❋</span>
+  <span class="d-icon">🏮</span>
+  <span class="d-icon">❋</span>
+  <div class="d-line"></div>
+</div>
+
+<!-- =========== 第1行：节日简介 + 吃元宵 =========== -->
+
+<!-- 节日简介 -->
+<div class="card" style="top:168px; left:38px; width:348px; height:162px;">
+  <div class="card-head">🌕 节日简介</div>
+  <div class="card-body">
+    <div class="row"><span class="dot">▸</span><span>农历正月十五，一年中第一个月圆之夜</span></div>
+    <div class="row"><span class="dot">▸</span><span>又称"上元节""灯节"，距今已有2000多年历史</span></div>
+    <div class="row"><span class="dot">▸</span><span>是春节之后第一个重要传统节日</span></div>
+    <div class="row"><span class="dot">▸</span><span>月圆象征团圆，承载着家人团聚的美好愿望</span></div>
+  </div>
+</div>
+
+<!-- 吃元宵 -->
+<div class="card" style="top:168px; left:398px; width:358px; height:162px;">
+  <div class="card-head">🍡 吃元宵 · 汤圆</div>
+  <div class="card-body">
+    <div class="row"><span class="dot">▸</span><span>元宵节必吃元宵或汤圆，寓意"团团圆圆"</span></div>
+    <div class="row"><span class="dot">▸</span><span>北方"滚"元宵，南方"包"汤圆，做法不同</span></div>
+    <div class="row"><span class="dot">▸</span><span>馅料丰富：芝麻、花生、豆沙、水果多种</span></div>
+    <div class="row"><span class="dot">▸</span><span>圆形寓意圆满，全家共食表达团聚之情</span></div>
+  </div>
+</div>
+
+<!-- =========== 第2行：赏花灯 + 猜灯谜 =========== -->
+
+<!-- 赏花灯 -->
+<div class="card" style="top:343px; left:38px; width:348px; height:162px;">
+  <div class="card-head">🏮 观花灯 · 赏灯会</div>
+  <div class="card-body">
+    <div class="row"><span class="dot">▸</span><span>正月十五挂灯笼、赏花灯是最重要的习俗</span></div>
+    <div class="row"><span class="dot">▸</span><span>花灯种类繁多：走马灯、兔子灯、龙形灯……</span></div>
+    <div class="row"><span class="dot">▸</span><span>各地举办灯会，万人空巷，灯光璀璨</span></div>
+    <div class="row"><span class="dot">▸</span><span>花灯寓意光明、驱邪避祟、带来好运</span></div>
+  </div>
+</div>
+
+<!-- 猜灯谜 -->
+<div class="card" style="top:343px; left:398px; width:358px; height:162px;">
+  <div class="card-head">🎯 猜灯谜</div>
+  <div class="card-body">
+    <div class="row"><span class="dot">▸</span><span>将谜语写在纸条上贴于花灯，猜中有奖</span></div>
+    <div class="row"><span class="dot">▸</span><span>起源于宋代，是智慧与文化的游戏</span></div>
+    <div class="row"><span class="dot">▸</span><span>谜面用文字或诗句，谜底包罗万象</span></div>
+    <div class="row"><span class="dot">▸</span><span>老少皆宜，增添浓浓的节日欢乐气氛</span></div>
+  </div>
+</div>
+
+<!-- =========== 第3行：舞龙舞狮 + 踩高跷 =========== -->
+
+<!-- 舞龙舞狮 -->
+<div class="card" style="top:518px; left:38px; width:348px; height:152px;">
+  <div class="card-head">🐉 舞龙 · 舞狮</div>
+  <div class="card-body">
+    <div class="row"><span class="dot">▸</span><span>舞龙舞狮是元宵节最热闹的表演活动</span></div>
+    <div class="row"><span class="dot">▸</span><span>龙是中华民族图腾，象征祥瑞与力量</span></div>
+    <div class="row"><span class="dot">▸</span><span>狮子舞动象征驱邪纳福、迎祥接福</span></div>
+    <div class="row"><span class="dot">▸</span><span>锣鼓喧天，热闹非凡，家家迎好彩头</span></div>
+  </div>
+</div>
+
+<!-- 踩高跷/扭秧歌 -->
+<div class="card" style="top:518px; left:398px; width:358px; height:152px;">
+  <div class="card-head">🎪 踩高跷 · 扭秧歌</div>
+  <div class="card-body">
+    <div class="row"><span class="dot">▸</span><span>踩高跷是民间传统杂技，历史悠久</span></div>
+    <div class="row"><span class="dot">▸</span><span>表演者踩木质长腿，造型夸张色彩艳丽</span></div>
+    <div class="row"><span class="dot">▸</span><span>扭秧歌节奏欢快，是东北特色民俗</span></div>
+    <div class="row"><span class="dot">▸</span><span>均为国家级非物质文化遗产</span></div>
+  </div>
+</div>
+
+<!-- =========== 第4行：放烟花 + 我的手写区 =========== -->
+
+<!-- 放烟花 -->
+<div class="card" style="top:683px; left:38px; width:348px; height:138px;">
+  <div class="card-head">🎆 放烟花 · 燃爆竹</div>
+  <div class="card-body">
+    <div class="row"><span class="dot">▸</span><span>元宵夜燃放烟花爆竹，驱除霉运迎吉祥</span></div>
+    <div class="row"><span class="dot">▸</span><span>满天烟火配月圆，是元宵节最美的夜景</span></div>
+    <div class="row"><span class="dot">▸</span><span>现代城市以灯光秀代替，更加环保绿色</span></div>
+  </div>
+</div>
+
+<!-- 我的元宵记忆（手写区）-->
+<div class="card" style="top:683px; left:398px; width:358px; height:138px;">
+  <div class="card-head" style="background:#e67e22;">✏️ 我的元宵节记忆</div>
+  <div class="lines-wrap">
+    <div class="hline"><span class="hline-hint">今年元宵节我做了……</span></div>
+    <div class="hline"></div>
+    <div class="hline"></div>
+  </div>
+</div>
+
+<!-- =========== 第5行：经典诗词（全宽） =========== -->
+<div class="card" style="top:834px; left:38px; width:718px; height:108px; border-color:#c0392b;">
+  <div class="card-head" style="background:#8e1010; letter-spacing:4px;">📜 元宵节经典诗词</div>
+  <div class="poetry-row">
+    <div class="poem">
+      <div class="poem-title">《青玉案·元夕》</div>
+      <div class="poem-body">众里寻他千百度，蓦然回首，<br>那人却在，灯火阑珊处。</div>
+      <div class="poem-author">—— 辛弃疾</div>
+    </div>
+    <div class="poem">
+      <div class="poem-title">《元 宵》</div>
+      <div class="poem-body">有灯无月不娱人，<br>有月无灯不算春。</div>
+      <div class="poem-author">—— 唐 寅</div>
+    </div>
+    <div class="poem">
+      <div class="poem-title">《正月十五夜》</div>
+      <div class="poem-body">火树银花合，<br>星桥铁锁开。</div>
+      <div class="poem-author">—— 苏味道</div>
+    </div>
+  </div>
+</div>
+
+<!-- =========== 底部署名区 =========== -->
+<div class="sign-bar">
+  <div class="sign-item">
+    姓名：<div class="sign-line"></div>
+  </div>
+  <div class="sign-item">
+    班级：<div class="sign-line" style="width:70px;"></div>
+  </div>
+  <div class="sign-item">
+    日期：<div class="sign-line" style="width:100px;"></div>
+  </div>
+  <div class="sign-spacer"></div>
+  <div style="font-size:11px; color:#ccc; letter-spacing:2px;">🏮 正月十五 · 元宵佳节 · 团圆吉祥 🏮</div>
+</div>
+
+</body>
+</html>

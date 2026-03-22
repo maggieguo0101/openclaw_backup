@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1123px;
+  height: 794px;
+  overflow: hidden;
+  position: relative;
+  font-family: 'FangSong', 'SimSun', 'STSong', serif;
+  background: #fdf3e3;
+}
+
+/* ===== 背景底纹（CSS纹理模拟） ===== */
+.bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(192,57,43,0.06) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(230,126,34,0.06) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, transparent, transparent 28px, rgba(192,57,43,0.03) 28px, rgba(192,57,43,0.03) 30px),
+    repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(230,126,34,0.03) 28px, rgba(230,126,34,0.03) 30px);
+}
+
+/* ===== 四边装饰边框 ===== */
+.border-frame {
+  position: absolute;
+  inset: 10px;
+  border: 3px solid #c0392b;
+  border-radius: 6px;
+  pointer-events: none;
+}
+.border-frame-inner {
+  position: absolute;
+  inset: 15px;
+  border: 1.5px dashed #e8a838;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* ===== 四角装饰（梅花SVG纹饰） ===== */
+.corner-deco {
+  position: absolute;
+  width: 70px; height: 70px;
+  opacity: 0.85;
+}
+
+/* ===== 右上角标题大圆 ===== */
+.title-circle {
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #e74c3c, #8e1010);
+  box-shadow: 0 4px 20px rgba(192,57,43,0.45), inset 0 0 30px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+.title-circle-text {
+  font-size: 52px;
+  font-weight: 900;
+  color: #ffd700;
+  letter-spacing: 4px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3), 0 0 20px rgba(255,215,0,0.5);
+  line-height: 1;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+.title-circle-sub {
+  font-size: 13px;
+  color: rgba(255,215,0,0.85);
+  letter-spacing: 2px;
+  margin-top: 6px;
+  writing-mode: horizontal-tb;
+}
+
+/* ===== 云朵形内容框（SVG clipPath） ===== */
+.cloud-container {
+  position: absolute;
+  filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.12));
+}
+
+/* 云朵白底 */
+.cloud-bg {
+  fill: white;
+  stroke-width: 2.5;
+}
+.cloud-green { stroke: #27ae60; }
+.cloud-blue  { stroke: #3498db; }
+.cloud-orange{ stroke: #e67e22; }
+.cloud-red   { stroke: #c0392b; }
+.cloud-purple{ stroke: #8e44ad; }
+
+/* 内容文字 */
+.cloud-content {
+  position: absolute;
+  font-size: 11.5px;
+  line-height: 1.85;
+  color: #333;
+  padding: 0;
+}
+.cloud-title {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+.col-green  { color: #27ae60; }
+.col-blue   { color: #3498db; }
+.col-orange { color: #e67e22; }
+.col-red    { color: #c0392b; }
+.col-purple { color: #8e44ad; }
+
+/* ===== 装饰emoji ===== */
+.deco {
+  position: absolute;
+  font-size: 20px;
+  z-index: 30;
+  opacity: 0.9;
+}
+
+/* ===== 底部署名 ===== */
+.sign {
+  position: absolute;
+  bottom: 22px; left: 50px; right: 260px;
+  display: flex; gap: 30px; align-items: center;
+  font-size: 12px; color: #888;
+  border-top: 1px solid #e8a838;
+  padding-top: 7px;
+}
+.sline { width: 80px; border-bottom: 1px solid #aaa; display: inline-block; height: 13px; }
+</style>
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+<div class="border-frame"></div>
+<div class="border-frame-inner"></div>
+
+<!-- ===== 四角装饰 ===== -->
+<!-- 左上 -->
+<svg class="corner-deco" style="top:8px;left:8px;" viewBox="0 0 70 70">
+  <g fill="#c0392b" opacity="0.7">
+    <circle cx="10" cy="10" r="6"/><circle cx="24" cy="6" r="4"/><circle cx="6" cy="24" r="4"/>
+    <circle cx="35" cy="8" r="3"/><circle cx="8" cy="35" r="3"/>
+    <path d="M10,10 Q35,5 35,35 Q5,35 10,10Z" fill="none" stroke="#c0392b" stroke-width="1.5" opacity="0.4"/>
+  </g>
+  <text x="5" y="58" font-size="38" opacity="0.18" fill="#c0392b" font-family="serif">梅</text>
+</svg>
+<!-- 右下 -->
+<svg class="corner-deco" style="bottom:8px;right:8px;" viewBox="0 0 70 70">
+  <g fill="#e67e22" opacity="0.7" transform="rotate(180,35,35)">
+    <circle cx="10" cy="10" r="6"/><circle cx="24" cy="6" r="4"/><circle cx="6" cy="24" r="4"/>
+    <circle cx="35" cy="8" r="3"/><circle cx="8" cy="35" r="3"/>
+  </g>
+  <text x="5" y="58" font-size="38" opacity="0.18" fill="#e67e22" font-family="serif">花</text>
+</svg>
+<!-- 左下 -->
+<svg class="corner-deco" style="bottom:8px;left:8px;" viewBox="0 0 70 70">
+  <text x="5" y="58" font-size="38" opacity="0.18" fill="#27ae60" font-family="serif">春</text>
+</svg>
+<!-- 右上（被圆形标题覆盖，不显示） -->
+
+<!-- 装饰元素 -->
+<div class="deco" style="top:28px;left:85px;">🏮</div>
+<div class="deco" style="top:28px;left:115px; font-size:14px;">✦</div>
+<div class="deco" style="top:230px;left:22px; font-size:26px; opacity:0.3;">🎆</div>
+<div class="deco" style="top:520px;right:240px; font-size:22px; opacity:0.35;">🌙</div>
+<div class="deco" style="top:60px;left:480px; font-size:16px; opacity:0.5;">⭐</div>
+<div class="deco" style="top:80px;left:500px; font-size:11px; opacity:0.5;">✦</div>
+
+<!-- ===== 右上角标题大圆 ===== -->
+<div class="title-circle">
+  <div style="display:flex; align-items:center; gap:6px;">
+    <div class="title-circle-text">元宵</div>
+    <div class="title-circle-text">节</div>
+  </div>
+  <div class="title-circle-sub">正月十五 · 传统节日</div>
+</div>
+
+<!-- ===== 左上区：元宵灯诗（云朵形 SVG） ===== -->
+<!-- 云朵框1：左侧偏上，绿色边，较大 -->
+<div class="cloud-container" style="top:28px; left:28px; width:370px; height:250px;">
+  <svg width="370" height="250" viewBox="0 0 370 250">
+    <path class="cloud-bg cloud-red" d="
+      M60,220
+      Q20,220 20,185
+      Q20,165 38,158
+      Q25,148 25,132
+      Q25,108 50,100
+      Q48,88 55,78
+      Q68,55 95,58
+      Q100,35 125,28
+      Q155,18 175,38
+      Q195,22 220,24
+      Q250,20 262,46
+      Q285,36 305,52
+      Q330,55 335,80
+      Q355,88 355,112
+      Q360,130 348,145
+      Q358,155 358,170
+      Q358,200 330,210
+      Q320,225 295,222
+      Q270,235 245,225
+      Q225,238 200,230
+      Q180,242 155,232
+      Q130,242 110,228
+      Q80,235 60,220Z
+    "/>
+  </svg>
+  <div class="cloud-content" style="top:36px; left:38px; right:28px; bottom:22px;">
+    <div class="cloud-title col-red">🏮 元宵灯诗</div>
+    <div>唐代时，元宵放灯已发展成为盛况空前的灯市。京城"作灯轮高二十丈，衣以锦绮，饰以金银，燃五万盏灯，簇之为花树"。唐代诗人苏味道的《正月十五夜》诗云举"火树银花合，星桥铁锁开。暗尘随马去，明月逐人来"，描绘了灯月交辉、游人如织、热闹非凡的场景。</div>
+  </div>
+</div>
+
+<!-- ===== 中上区：节日介绍（中间偏上云朵） ===== -->
+<div class="cloud-container" style="top:18px; left:380px; width:320px; height:210px;">
+  <svg width="320" height="210" viewBox="0 0 320 210">
+    <path class="cloud-bg cloud-blue" d="
+      M50,185
+      Q18,183 18,158
+      Q18,138 35,130
+      Q22,118 24,100
+      Q26,72 52,64
+      Q52,42 75,30
+      Q100,16 122,30
+      Q140,14 165,16
+      Q192,12 205,35
+      Q228,22 252,38
+      Q276,44 280,70
+      Q298,78 300,100
+      Q305,120 294,135
+      Q304,148 302,165
+      Q300,192 272,198
+      Q250,208 228,198
+      Q208,210 185,202
+      Q162,212 140,202
+      Q116,210 95,196
+      Q68,200 50,185Z
+    "/>
+  </svg>
+  <div class="cloud-content" style="top:28px; left:30px; right:24px; bottom:22px;">
+    <div class="cloud-title col-blue">📋 节日介绍</div>
+    <div>农历正月十五元宵节，又称为"上元节"、上元佳节、小正月、元夕或灯节，是春节之后的第一个重要节日，是中国亦是汉字文化圈的地区和海外华人的传统节日之一。</div>
+  </div>
+</div>
+
+<!-- ===== 左下区：习俗文化（最大云朵） ===== -->
+<div class="cloud-container" style="top:270px; left:18px; width:400px; height:285px;">
+  <svg width="400" height="285" viewBox="0 0 400 285">
+    <path class="cloud-bg cloud-green" d="
+      M65,258
+      Q22,256 20,220
+      Q18,195 38,185
+      Q22,172 24,150
+      Q24,118 55,108
+      Q52,88 62,72
+      Q80,44 110,48
+      Q115,24 145,16
+      Q178,6 200,28
+      Q222,10 252,14
+      Q286,12 298,42
+      Q326,32 345,56
+      Q372,62 375,95
+      Q382,118 368,136
+      Q382,150 380,172
+      Q380,208 350,220
+      Q338,240 308,236
+      Q285,252 258,242
+      Q235,256 208,246
+      Q182,260 155,248
+      Q126,260 100,244
+      Q78,254 65,258Z
+    "/>
+  </svg>
+  <div class="cloud-content" style="top:34px; left:42px; right:32px; bottom:26px;">
+    <div class="cloud-title col-green">🐉 习俗文化</div>
+    <div>元宵节的节期与节俗活动，是随历史的发展而延长、扩展的。就节期长短而言，汉代才一天，到唐代已为三天，宋代则长达五天，明代更是自初八点灯，一直到正月十七的夜里才落灯，是中国历史上最长的灯节。与春节相接，白昼为市，热闹非凡，夜间燃灯，蔚为壮观。特别是那精巧、多彩的灯火，更使其成为春节期间娱乐活动的高潮。</div>
+  </div>
+</div>
+
+<!-- ===== 右下区：吃元宵（右侧大云朵） ===== -->
+<div class="cloud-container" style="top:235px; left:560px; width:420px; height:310px;">
+  <svg width="420" height="310" viewBox="0 0 420 310">
+    <path class="cloud-bg cloud-orange" d="
+      M68,280
+      Q24,278 22,240
+      Q20,212 42,200
+      Q26,186 28,162
+      Q28,128 62,116
+      Q58,92 70,74
+      Q90,44 124,50
+      Q128,24 162,14
+      Q198,2 222,28
+      Q246,8 280,12
+      Q318,8 332,42
+      Q364,30 384,58
+      Q412,66 415,102
+      Q422,128 406,148
+      Q418,164 416,190
+      Q416,228 382,242
+      Q368,265 334,260
+      Q308,276 278,264
+      Q252,280 222,268
+      Q194,284 164,270
+      Q132,284 104,266
+      Q80,272 68,280Z
+    "/>
+  </svg>
+  <div class="cloud-content" style="top:38px; left:46px; right:36px; bottom:30px;">
+    <div class="cloud-title col-orange">🍡 吃元宵</div>
+    <div>正月十五吃元宵，"元宵"作为食品，在我国也由来已久。宋代，民间即流行一种元宵节吃的新奇食品。这种食品，最早叫"浮元子"后称"元宵"，生意人还美其名曰"元宝"。<br>元宵即"汤圆"以白糖、玫瑰、芝麻、豆沙、黄桂、核桃仁、果仁、枣泥等为馅，用糯米粉包成圆形，可荤可素，风味各异。可汤煮、油炸、蒸食，有团圆美满之意。</div>
+  </div>
+</div>
+
+<!-- ===== 中间小元素（汤圆碗SVG装饰） ===== -->
+<svg style="position:absolute;top:218px;left:420px;opacity:0.22;z-index:5;" width="130" height="100" viewBox="0 0 130 100">
+  <!-- 碗 -->
+  <ellipse cx="65" cy="75" rx="55" ry="18" fill="#e67e22"/>
+  <path d="M12,55 Q15,85 65,88 Q115,85 118,55 Z" fill="#f39c12"/>
+  <ellipse cx="65" cy="55" rx="53" ry="16" fill="#fdf3e3" stroke="#e67e22" stroke-width="2"/>
+  <!-- 汤圆 -->
+  <circle cx="45" cy="48" r="14" fill="white" stroke="#e8c870" stroke-width="1.5"/>
+  <circle cx="68" cy="44" r="13" fill="white" stroke="#e8c870" stroke-width="1.5"/>
+  <circle cx="88" cy="49" r="12" fill="white" stroke="#e8c870" stroke-width="1.5"/>
+</svg>
+
+<!-- ===== 灯笼SVG装饰（右侧悬挂感） ===== -->
+<svg style="position:absolute;top:25px;left:760px;opacity:0.25;z-index:5;" width="50" height="85" viewBox="0 0 50 85">
+  <rect x="21" y="0" width="8" height="12" rx="4" fill="#c0392b"/>
+  <ellipse cx="25" cy="45" rx="20" ry="30" fill="#e74c3c"/>
+  <line x1="5" y1="32" x2="45" y2="32" stroke="#f39c12" stroke-width="1.5"/>
+  <line x1="5" y1="45" x2="45" y2="45" stroke="#f39c12" stroke-width="1.5"/>
+  <line x1="5" y1="58" x2="45" y2="58" stroke="#f39c12" stroke-width="1.5"/>
+  <line x1="25" y1="12" x2="25" y2="15" stroke="#c0392b" stroke-width="2"/>
+  <line x1="25" y1="75" x2="25" y2="85" stroke="#f39c12" stroke-width="1.5"/>
+  <ellipse cx="25" cy="85" rx="5" ry="2" fill="#f39c12"/>
+</svg>
+
+<!-- ===== 底部署名区 ===== -->
+<div class="sign">
+  <span>姓名：<span class="sline"></span></span>
+  <span>班级：<span class="sline" style="width:60px;"></span></span>
+  <span>日期：<span class="sline" style="width:90px;"></span></span>
+  <span style="flex:1;"></span>
+  <span style="font-size:11px;color:#e67e22;letter-spacing:2px;">🏮 正月十五 · 元宵佳节 · 团圆吉祥 🏮</span>
+</div>
+
+</body>
+</html>
