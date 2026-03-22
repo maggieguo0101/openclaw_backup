@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1123px; height: 794px;
+  overflow: hidden;
+  background: #fef3d8;
+  font-family: 'FangSong','STFangsong','SimSun',serif;
+  position: relative;
+}
+
+/* ===== 背景纹理 ===== */
+.bg-tex {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(192,57,43,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 85% 15%, rgba(192,57,43,0.07) 0%, transparent 70%),
+    repeating-linear-gradient(45deg, transparent, transparent 24px, rgba(212,168,39,0.05) 24px, rgba(212,168,39,0.05) 26px),
+    repeating-linear-gradient(-45deg, transparent, transparent 24px, rgba(212,168,39,0.05) 24px, rgba(212,168,39,0.05) 26px);
+}
+
+/* ===== 双线边框 ===== */
+.border-a { position:absolute; inset:9px;  border:3px solid #c0392b; border-radius:4px; pointer-events:none; z-index:99; }
+.border-b { position:absolute; inset:15px; border:1.5px dashed #d4a827; border-radius:3px; pointer-events:none; z-index:99; }
+
+/* ===== 通用内容云框（白底彩色粗边） ===== */
+.box {
+  position: absolute;
+  background: white;
+  border-radius: 50% 45% 55% 48% / 48% 52% 45% 55%;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  filter: drop-shadow(2px 3px 5px rgba(0,0,0,0.13));
+}
+.box-inner { padding: 10px 16px 10px 16px; flex: 1; }
+.box-title {
+  font-size: 17px; font-weight: bold;
+  margin-bottom: 5px; letter-spacing: 1px;
+}
+.box-text {
+  font-size: 11.2px; line-height: 1.88; color: #333;
+}
+
+/* 颜色方案 */
+.box-red    { border: 3px solid #c0392b; }
+.box-green  { border: 3px solid #27ae60; }
+.box-blue   { border: 3px solid #2980b9; }
+.box-orange { border: 3px solid #e67e22; }
+.box-purple { border: 3px solid #8e44ad; }
+
+.t-red    { color: #c0392b; }
+.t-green  { color: #27ae60; }
+.t-blue   { color: #2980b9; }
+.t-orange { color: #e67e22; }
+.t-purple { color: #8e44ad; }
+
+/* ===== 右上大圆标题 ===== */
+.title-big {
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 228px; height: 228px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #e74c3c 0%, #7b0e0e 100%);
+  box-shadow: 0 5px 22px rgba(180,0,0,0.4), inset 0 0 30px rgba(0,0,0,0.2);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  z-index: 30;
+  border: 3px solid rgba(241,196,15,0.6);
+}
+.title-chars {
+  display: flex; gap: 3px;
+}
+.title-char {
+  font-size: 54px; font-weight: 900;
+  font-family: 'STXingkai','KaiTi','STKaiti','FangSong',serif;
+  color: #ffd700;
+  text-shadow: 1px 1px 0 #8B0000, 2px 2px 3px rgba(0,0,0,0.3);
+  line-height: 1;
+}
+.title-sub {
+  font-size: 12px; color: rgba(255,215,0,0.85);
+  letter-spacing: 2.5px; margin-top: 8px;
+  font-family: 'FangSong',serif;
+}
+
+/* ===== 底部署名 ===== */
+.footer {
+  position: absolute;
+  bottom: 20px; left: 45px; right: 265px;
+  border-top: 1.5px solid #e8c870;
+  padding-top: 6px;
+  display: flex; align-items: center; gap: 25px;
+  font-size: 12px; color: #888;
+}
+.write-line { display: inline-block; width: 75px; border-bottom: 1px solid #aaa; }
+
+/* ===== 装饰Emoji绝对定位 ===== */
+.deco { position: absolute; z-index: 25; }
+</style>
+</head>
+<body>
+
+<div class="bg-tex"></div>
+<div class="border-a"></div>
+<div class="border-b"></div>
+
+<!-- ===== 右上圆形大标题 ===== -->
+<div class="title-big">
+  <div class="title-chars">
+    <span class="title-char">元</span>
+    <span class="title-char">宵</span>
+    <span class="title-char">节</span>
+  </div>
+  <div class="title-sub">正月十五 · 传统佳节</div>
+</div>
+
+<!-- ===== 装饰元素 ===== -->
+<!-- 左上梅花枝 -->
+<svg style="position:absolute;top:12px;left:12px;z-index:20;" width="150" height="120" viewBox="0 0 150 120">
+  <path d="M8,110 Q30,80 60,55 Q80,38 105,25 M60,55 Q70,38 80,22 M40,72 Q28,62 22,65" stroke="#8B4513" stroke-width="2.5" fill="none"/>
+  <!-- 梅花1 -->
+  <g transform="translate(105,23)">
+    <circle cx="0" cy="-9" r="6.5" fill="#e74c3c"/><circle cx="8" cy="-4" r="6.5" fill="#e74c3c"/>
+    <circle cx="6" cy="6" r="6.5" fill="#e74c3c"/><circle cx="-6" cy="6" r="6.5" fill="#e74c3c"/>
+    <circle cx="-8" cy="-4" r="6.5" fill="#e74c3c"/>
+    <circle cx="0" cy="0" r="5" fill="#fde8e8"/><circle cx="0" cy="0" r="2.5" fill="#f39c12"/>
+  </g>
+  <!-- 梅花2 -->
+  <g transform="translate(80,21)">
+    <circle cx="0" cy="-7" r="5" fill="#e74c3c" opacity="0.9"/><circle cx="6" cy="-3" r="5" fill="#e74c3c" opacity="0.9"/>
+    <circle cx="5" cy="5" r="5" fill="#e74c3c" opacity="0.9"/><circle cx="-5" cy="5" r="5" fill="#e74c3c" opacity="0.9"/>
+    <circle cx="-6" cy="-3" r="5" fill="#e74c3c" opacity="0.9"/>
+    <circle cx="0" cy="0" r="3.5" fill="#fde8e8"/>
+  </g>
+  <!-- 梅花3 -->
+  <g transform="translate(59,54)">
+    <circle cx="0" cy="-6" r="4" fill="#c0392b" opacity="0.8"/><circle cx="5" cy="-2" r="4" fill="#c0392b" opacity="0.8"/>
+    <circle cx="4" cy="4" r="4" fill="#c0392b" opacity="0.8"/><circle cx="-4" cy="4" r="4" fill="#c0392b" opacity="0.8"/>
+    <circle cx="-5" cy="-2" r="4" fill="#c0392b" opacity="0.8"/>
+    <circle cx="0" cy="0" r="3" fill="#fde8e8"/>
+  </g>
+  <!-- 梅花4 -->
+  <g transform="translate(22,64)">
+    <circle cx="0" cy="-5" r="4" fill="#e74c3c" opacity="0.7"/><circle cx="5" cy="1" r="4" fill="#e74c3c" opacity="0.7"/>
+    <circle cx="-5" cy="1" r="4" fill="#e74c3c" opacity="0.7"/>
+    <circle cx="0" cy="0" r="3" fill="#fde8e8"/>
+  </g>
+  <!-- 花蕾 -->
+  <ellipse cx="130" cy="5" rx="4" ry="7" fill="#e74c3c" transform="rotate(-20,130,5)"/>
+  <ellipse cx="95" cy="9" rx="3" ry="5.5" fill="#c0392b" transform="rotate(10,95,9)"/>
+</svg>
+
+<!-- 顶部灯笼串 -->
+<svg style="position:absolute;top:16px;left:145px;z-index:20;" width="680" height="92" viewBox="0 0 680 92">
+  <!-- 绳子 -->
+  <path d="M0,18 Q80,30 160,18 Q250,32 340,18 Q430,32 520,18 Q600,30 680,18" stroke="#7a4e2d" stroke-width="2" fill="none"/>
+  <!-- 灯笼1 -->
+  <g transform="translate(65,18)">
+    <line x1="0" y1="-18" x2="0" y2="-5" stroke="#7a4e2d" stroke-width="1.5"/>
+    <ellipse cx="0" cy="18" rx="18" ry="27" fill="#e74c3c"/>
+    <line x1="-18" y1="6" x2="18" y2="6" stroke="#f1c40f" stroke-width="1.5"/>
+    <line x1="-18" y1="18" x2="18" y2="18" stroke="#f1c40f" stroke-width="1.5"/>
+    <line x1="-18" y1="30" x2="18" y2="30" stroke="#f1c40f" stroke-width="1.5"/>
+    <ellipse cx="0" cy="-3" rx="11" ry="5" fill="#f1c40f"/>
+    <ellipse cx="0" cy="44" rx="11" ry="5" fill="#f1c40f"/>
+    <line x1="-5" y1="44" x2="-7" y2="65" stroke="#f1c40f" stroke-width="1.5"/>
+    <line x1="0" y1="44" x2="0" y2="65" stroke="#f39c12" stroke-width="1.5"/>
+    <line x1="5" y1="44" x2="7" y2="65" stroke="#f1c40f" stroke-width="1.5"/>
+    <text x="0" y="22" text-anchor="middle" font-size="18" fill="#ffd700" font-family="serif">福</text>
+  </g>
+  <!-- 灯笼2 -->
+  <g transform="translate(200,28)">
+    <line x1="0" y1="-28" x2="0" y2="-5" stroke="#7a4e2d" stroke-width="1.5"/>
+    <ellipse cx="0" cy="15" rx="15" ry="22" fill="#c0392b"/>
+    <line x1="-15" y1="5" x2="15" y2="5" stroke="#f39c12" stroke-width="1.5"/>
+    <line x1="-15" y1="15" x2="15" y2="15" stroke="#f39c12" stroke-width="1.5"/>
+    <line x1="-15" y1="25" x2="15" y2="25" stroke="#f39c12" stroke-width="1.5"/>
+    <ellipse cx="0" cy="-3" rx="9" ry="4" fill="#f39c12"/>
+    <ellipse cx="0" cy="37" rx="9" ry="4" fill="#f39c12"/>
+    <line x1="0" y1="37" x2="0" y2="58" stroke="#f39c12" stroke-width="1.5"/>
+    <text x="0" y="20" text-anchor="middle" font-size="14" fill="#ffd700" font-family="serif">乐</text>
+  </g>
+  <!-- 灯笼3 -->
+  <g transform="translate(340,18)">
+    <line x1="0" y1="-18" x2="0" y2="-5" stroke="#7a4e2d" stroke-width="1.5"/>
+    <ellipse cx="0" cy="18" rx="18" ry="27" fill="#e74c3c"/>
+    <line x1="-18" y1="6" x2="18" y2="6" stroke="#f1c40f" stroke-width="1.5"/>
+    <line x1="-18" y1="18" x2="18" y2="18" stroke="#f1c40f" stroke-width="1.5"/>
+    <line x1="-18" y1="30" x2="18" y2="30" stroke="#f1c40f" stroke-width="1.5"/>
+    <ellipse cx="0" cy="-3" rx="11" ry="5" fill="#f1c40f"/>
+    <ellipse cx="0" cy="44" rx="11" ry="5" fill="#f1c40f"/>
+    <line x1="0" y1="44" x2="0" y2="65" stroke="#f39c12" stroke-width="1.5"/>
+    <text x="0" y="22" text-anchor="middle" font-size="18" fill="#ffd700" font-family="serif">寿</text>
+  </g>
+  <!-- 灯笼4 -->
+  <g transform="translate(480,28)">
+    <line x1="0" y1="-28" x2="0" y2="-5" stroke="#7a4e2d" stroke-width="1.5"/>
+    <ellipse cx="0" cy="15" rx="15" ry="22" fill="#c0392b"/>
+    <line x1="-15" y1="5" x2="15" y2="5" stroke="#f39c12" stroke-width="1.5"/>
+    <line x1="-15" y1="15" x2="15" y2="15" stroke="#f39c12" stroke-width="1.5"/>
+    <line x1="-15" y1="25" x2="15" y2="25" stroke="#f39c12" stroke-width="1.5"/>
+    <ellipse cx="0" cy="-3" rx="9" ry="4" fill="#f39c12"/>
+    <ellipse cx="0" cy="37" rx="9" ry="4" fill="#f39c12"/>
+    <line x1="0" y1="37" x2="0" y2="58" stroke="#f39c12" stroke-width="1.5"/>
+    <text x="0" y="20" text-anchor="middle" font-size="14" fill="#ffd700" font-family="serif">喜</text>
+  </g>
+  <!-- 灯笼5 -->
+  <g transform="translate(615,18)">
+    <line x1="0" y1="-18" x2="0" y2="-5" stroke="#7a4e2d" stroke-width="1.5"/>
+    <ellipse cx="0" cy="18" rx="18" ry="27" fill="#e74c3c"/>
+    <line x1="-18" y1="6" x2="18" y2="6" stroke="#f1c40f" stroke-width="1.5"/>
+    <line x1="-18" y1="18" x2="18" y2="18" stroke="#f1c40f" stroke-width="1.5"/>
+    <line x1="-18" y1="30" x2="18" y2="30" stroke="#f1c40f" stroke-width="1.5"/>
+    <ellipse cx="0" cy="-3" rx="11" ry="5" fill="#f1c40f"/>
+    <ellipse cx="0" cy="44" rx="11" ry="5" fill="#f1c40f"/>
+    <line x1="0" y1="44" x2="0" y2="65" stroke="#f39c12" stroke-width="1.5"/>
+    <text x="0" y="22" text-anchor="middle" font-size="18" fill="#ffd700" font-family="serif">春</text>
+  </g>
+</svg>
+
+<!-- 右侧烟花 -->
+<svg style="position:absolute;top:24px;left:826px;z-index:15;" width="70" height="80" viewBox="0 0 70 80" opacity="0.7">
+  <g transform="translate(30,25)">
+    <line x1="0" y1="-22" x2="0" y2="22" stroke="#f39c12" stroke-width="2"/>
+    <line x1="-22" y1="0" x2="22" y2="0" stroke="#e74c3c" stroke-width="2"/>
+    <line x1="-16" y1="-16" x2="16" y2="16" stroke="#f1c40f" stroke-width="2"/>
+    <line x1="16" y1="-16" x2="-16" y2="16" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="0" cy="-24" r="3.5" fill="#f39c12"/>
+    <circle cx="0" cy="24" r="3.5" fill="#f39c12"/>
+    <circle cx="-24" cy="0" r="3.5" fill="#e74c3c"/>
+    <circle cx="24" cy="0" r="3.5" fill="#e74c3c"/>
+    <circle cx="-17" cy="-17" r="3" fill="#f1c40f"/>
+    <circle cx="17" cy="17" r="3" fill="#f1c40f"/>
+    <circle cx="17" cy="-17" r="3" fill="#27ae60"/>
+    <circle cx="-17" cy="17" r="3" fill="#27ae60"/>
+    <circle cx="0" cy="0" r="5" fill="#e74c3c"/>
+  </g>
+  <g transform="translate(52,58)" opacity="0.6">
+    <line x1="0" y1="-14" x2="0" y2="14" stroke="#3498db" stroke-width="1.5"/>
+    <line x1="-14" y1="0" x2="14" y2="0" stroke="#9b59b6" stroke-width="1.5"/>
+    <line x1="-10" y1="-10" x2="10" y2="10" stroke="#3498db" stroke-width="1.5"/>
+    <line x1="10" y1="-10" x2="-10" y2="10" stroke="#9b59b6" stroke-width="1.5"/>
+    <circle cx="0" cy="-16" r="3" fill="#3498db"/>
+    <circle cx="16" cy="0" r="3" fill="#9b59b6"/>
+    <circle cx="0" cy="0" r="4" fill="#3498db"/>
+  </g>
+</svg>
+
+<!-- 左下角鞭炮 -->
+<svg style="position:absolute;bottom:28px;left:20px;z-index:20;" width="80" height="130" viewBox="0 0 80 130">
+  <!-- 绳子 -->
+  <path d="M40,0 Q32,20 40,38" stroke="#8B4513" stroke-width="2" fill="none"/>
+  <!-- 鞭炮串1 -->
+  <rect x="24" y="38" width="32" height="48" rx="9" fill="#e74c3c"/>
+  <rect x="24" y="38" width="32" height="48" rx="9" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="24" y1="52" x2="56" y2="52" stroke="#c0392b" stroke-width="1"/>
+  <line x1="24" y1="62" x2="56" y2="62" stroke="#c0392b" stroke-width="1"/>
+  <line x1="24" y1="72" x2="56" y2="72" stroke="#c0392b" stroke-width="1"/>
+  <text x="40" y="70" text-anchor="middle" font-size="14" fill="#ffd700" font-family="'KaiTi',serif">福</text>
+  <!-- 鞭炮串2 -->
+  <rect x="10" y="80" width="26" height="38" rx="7" fill="#c0392b"/>
+  <rect x="10" y="80" width="26" height="38" rx="7" fill="none" stroke="#922b21" stroke-width="1.5"/>
+  <line x1="10" y1="92" x2="36" y2="92" stroke="#922b21" stroke-width="1"/>
+  <line x1="10" y1="103" x2="36" y2="103" stroke="#922b21" stroke-width="1"/>
+  <text x="23" y="100" text-anchor="middle" font-size="11" fill="#ffd700" font-family="serif">喜</text>
+  <!-- 爆炸星 -->
+  <g transform="translate(40,30)" fill="#f39c12">
+    <polygon points="0,-9 2,-3 8,-3 3,1 5,8 0,4 -5,8 -3,1 -8,-3 -2,-3"/>
+  </g>
+</svg>
+
+<!-- 右下角：汤圆碗装饰 -->
+<svg style="position:absolute;bottom:28px;right:18px;z-index:20;" width="120" height="110" viewBox="0 0 120 110">
+  <!-- 碗 -->
+  <path d="M15,55 Q20,90 60,95 Q100,90 105,55 Z" fill="#f39c12"/>
+  <ellipse cx="60" cy="55" rx="48" ry="17" fill="#fef5e4" stroke="#e67e22" stroke-width="2"/>
+  <ellipse cx="60" cy="90" rx="40" ry="12" fill="#e67e22"/>
+  <!-- 汤圆 -->
+  <circle cx="38" cy="46" r="16" fill="white" stroke="#e8c870" stroke-width="2"/>
+  <circle cx="61" cy="42" r="15" fill="white" stroke="#e8c870" stroke-width="2"/>
+  <circle cx="83" cy="46" r="14" fill="white" stroke="#e8c870" stroke-width="2"/>
+  <!-- 汤圆表情 -->
+  <circle cx="34" cy="43" r="2" fill="#555"/><circle cx="42" cy="43" r="2" fill="#555"/>
+  <path d="M34,49 Q38,54 42,49" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+  <ellipse cx="32" cy="48" rx="3.5" ry="2" fill="#e74c3c" opacity="0.3"/>
+  <ellipse cx="44" cy="48" rx="3.5" ry="2" fill="#e74c3c" opacity="0.3"/>
+  <!-- 汤圆2表情 -->
+  <circle cx="57" cy="39" r="2" fill="#555"/><circle cx="65" cy="39" r="2" fill="#555"/>
+  <path d="M57,45 Q61,50 65,45" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+  <!-- 小辫子 -->
+  <path d="M61,27 Q57,20 61,13" stroke="#8B4513" stroke-width="2" fill="none"/>
+  <circle cx="61" cy="11" r="4" fill="#e74c3c"/>
+  <!-- 碗底纹 -->
+  <path d="M35,90 Q60,100 85,90" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+</svg>
+
+<!-- 中央舞狮（右侧插图位置） -->
+<svg style="position:absolute;top:260px;right:18px;z-index:20;" width="155" height="175" viewBox="0 0 155 175">
+  <!-- 狮子整体 -->
+  <!-- 鬃毛（最外层） -->
+  <ellipse cx="75" cy="80" rx="60" ry="55" fill="#f39c12"/>
+  <!-- 鬃毛分层 -->
+  <ellipse cx="75" cy="80" rx="56" ry="51" fill="#e67e22"/>
+  <ellipse cx="75" cy="80" rx="52" ry="47" fill="#f39c12" opacity="0.6"/>
+  <!-- 脸 -->
+  <ellipse cx="75" cy="82" rx="40" ry="38" fill="#f5cba7"/>
+  <!-- 眉毛 -->
+  <path d="M45,65 Q55,58 62,65" stroke="#8B4513" stroke-width="2.5" fill="none"/>
+  <path d="M88,65 Q95,58 105,65" stroke="#8B4513" stroke-width="2.5" fill="none"/>
+  <!-- 眼睛 -->
+  <ellipse cx="57" cy="72" rx="11" ry="12" fill="white"/>
+  <ellipse cx="93" cy="72" rx="11" ry="12" fill="white"/>
+  <circle cx="59" cy="74" r="7" fill="#2c3e50"/>
+  <circle cx="95" cy="74" r="7" fill="#2c3e50"/>
+  <circle cx="60" cy="72" r="3" fill="white"/>
+  <circle cx="96" cy="72" r="3" fill="white"/>
+  <!-- 鼻子 -->
+  <ellipse cx="75" cy="88" rx="15" ry="10" fill="#e74c3c"/>
+  <ellipse cx="75" cy="85" rx="10" ry="7" fill="#c0392b"/>
+  <ellipse cx="72" cy="83" rx="3" ry="2" fill="#922b21"/>
+  <ellipse cx="78" cy="83" rx="3" ry="2" fill="#922b21"/>
+  <!-- 嘴 -->
+  <path d="M62,96 Q75,108 88,96" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- 胡须 -->
+  <line x1="48" y1="88" x2="28" y2="82" stroke="white" stroke-width="2"/>
+  <line x1="48" y1="93" x2="25" y2="92" stroke="white" stroke-width="2"/>
+  <line x1="102" y1="88" x2="122" y2="82" stroke="white" stroke-width="2"/>
+  <line x1="102" y1="93" x2="125" y2="92" stroke="white" stroke-width="2"/>
+  <!-- 耳朵/角 -->
+  <ellipse cx="38" cy="45" rx="15" ry="18" fill="#e74c3c" transform="rotate(-15,38,45)"/>
+  <ellipse cx="38" cy="45" rx="8" ry="10" fill="#f5cba7" transform="rotate(-15,38,45)"/>
+  <ellipse cx="112" cy="45" rx="15" ry="18" fill="#e74c3c" transform="rotate(15,112,45)"/>
+  <ellipse cx="112" cy="45" rx="8" ry="10" fill="#f5cba7" transform="rotate(15,112,45)"/>
+  <!-- 头顶装饰 -->
+  <circle cx="75" cy="28" r="10" fill="#f1c40f"/>
+  <circle cx="75" cy="28" r="6" fill="#e74c3c"/>
+  <!-- 身体 -->
+  <rect x="40" y="120" width="70" height="40" rx="20" fill="#e74c3c"/>
+  <!-- 腿 -->
+  <rect x="45" y="152" width="22" height="32" rx="11" fill="#e74c3c"/>
+  <rect x="88" y="152" width="22" height="32" rx="11" fill="#e74c3c"/>
+  <!-- 爪 -->
+  <ellipse cx="56" cy="185" rx="14" ry="8" fill="#f5cba7"/>
+  <ellipse cx="99" cy="185" rx="14" ry="8" fill="#f5cba7"/>
+  <!-- 彩球（右手持） -->
+  <circle cx="132" cy="115" r="18" fill="#e74c3c"/>
+  <circle cx="132" cy="115" r="18" fill="none" stroke="#f1c40f" stroke-width="2.5"/>
+  <path d="M114,115 Q132,102 150,115" fill="none" stroke="#f1c40f" stroke-width="2"/>
+  <path d="M114,115 Q132,128 150,115" fill="none" stroke="#f1c40f" stroke-width="2"/>
+  <circle cx="132" cy="115" r="5" fill="#f1c40f"/>
+  <!-- 尾巴 -->
+  <path d="M105,140 Q125,148 118,162" stroke="#f39c12" stroke-width="4" fill="none"/>
+  <circle cx="116" cy="165" r="8" fill="#f39c12"/>
+</svg>
+
+<!-- ===== 云朵内容框1：元宵灯诗（左上偏大） ===== -->
+<div class="box box-red" style="top:115px;left:22px;width:358px;height:235px;">
+  <div class="box-inner">
+    <div class="box-title t-red">🏮 元宵灯诗</div>
+    <div class="box-text">
+      唐代时，元宵放灯已发展成为盛况空前的灯市。京城"作灯轮高二十丈，衣以锦绮，饰以金银，燃五万盏灯，簇之为花树"。<br>
+      唐代诗人苏味道的《正月十五夜》诗云举"火树银花合，星桥铁锁开。暗尘随马去，明月逐人来"，描绘了灯月交辉、游人如织、热闹非凡的场景。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 云朵内容框2：节日介绍（右上，标题圆左边） ===== -->
+<div class="box box-blue" style="top:110px;left:395px;width:310px;height:195px;">
+  <div class="box-inner">
+    <div class="box-title t-blue">📋 节日介绍</div>
+    <div class="box-text">
+      农历正月十五元宵节，又称为"上元节"、上元佳节、小正月、元夕或灯节，是春节之后的第一个重要节日，是中国亦是汉字文化圈的地区和海外华人的传统节日之一。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 云朵内容框3：习俗文化（左下，最大） ===== -->
+<div class="box box-green" style="top:355px;left:18px;width:390px;height:288px;">
+  <div class="box-inner">
+    <div class="box-title t-green">🐉 习俗文化</div>
+    <div class="box-text">
+      元宵节的节期与节俗活动，随历史的发展而延长、扩展。就节期长短而言，汉代才一天，唐代已为三天，宋代则长达五天，明代更是自初八点灯，一直到正月十七才落灯，是中国历史上最长的灯节。<br>
+      与春节相接，白昼为市，热闹非凡，夜间燃灯，蔚为壮观。特别是那精巧、多彩的灯火，更使其成为春节期间娱乐活动的高潮。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 云朵内容框4：吃元宵（右下） ===== -->
+<div class="box box-orange" style="top:320px;left:425px;width:400px;height:325px;">
+  <div class="box-inner">
+    <div class="box-title t-orange">🍡 吃元宵</div>
+    <div class="box-text">
+      正月十五吃元宵，"元宵"作为食品，在我国也由来已久。宋代，民间即流行一种元宵节吃的新奇食品，最早叫"浮元子"后称"元宵"，生意人还美其名曰"元宝"。<br><br>
+      元宵即"汤圆"以白糖、玫瑰、芝麻、豆沙、黄桂、核桃仁、果仁、枣泥等为馅，用糯米粉包成圆形，可荤可素，风味各异。可汤煮、油炸、蒸食，有团圆美满之意。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 底部署名区 ===== -->
+<div class="footer">
+  <span>姓名：<span class="write-line"></span></span>
+  <span>班级：<span class="write-line" style="width:60px;"></span></span>
+  <span>日期：<span class="write-line" style="width:90px;"></span></span>
+  <span style="flex:1;text-align:center;color:#e67e22;letter-spacing:2px;font-size:12px;">🏮 元宵佳节 · 团圆吉祥 · 正月十五 🏮</span>
+</div>
+
+</body>
+</html>

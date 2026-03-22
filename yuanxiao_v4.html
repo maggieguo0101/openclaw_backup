@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('data:text/css,');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1123px;
+  height: 794px;
+  overflow: hidden;
+  background: #fef5e4;
+  font-family: 'FangSong','STFangsong','SimSun',serif;
+  position: relative;
+}
+
+/* 背景金色纹理 */
+.bg {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(45deg,  rgba(210,160,40,0.06) 0,rgba(210,160,40,0.06) 1px, transparent 0, transparent 50%),
+    repeating-linear-gradient(-45deg, rgba(210,160,40,0.06) 0,rgba(210,160,40,0.06) 1px, transparent 0, transparent 50%);
+  background-size: 20px 20px;
+}
+
+/* 外框 */
+.frame-outer { position:absolute; inset:8px;  border:3px solid #c0392b; border-radius:5px; pointer-events:none; z-index:50; }
+.frame-inner { position:absolute; inset:14px; border:1.5px dashed #d4a827; border-radius:3px; pointer-events:none; z-index:50; }
+
+/* 四角回字纹 */
+.corner {
+  position:absolute; width:52px; height:52px; z-index:51;
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="frame-outer"></div>
+<div class="frame-inner"></div>
+
+<!-- ======== 整体用一个大SVG绘制 ======== -->
+<svg width="1123" height="794" viewBox="0 0 1123 794" style="position:absolute;top:0;left:0;" xmlns="http://www.w3.org/2000/svg">
+
+<!-- ======== 四角回字纹装饰 ======== -->
+<g opacity="0.7">
+  <!-- 左上 -->
+  <rect x="8" y="8" width="50" height="50" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <rect x="13" y="13" width="40" height="40" fill="none" stroke="#d4a827" stroke-width="1"/>
+  <rect x="18" y="18" width="30" height="30" fill="none" stroke="#c0392b" stroke-width="1"/>
+  <rect x="23" y="23" width="20" height="20" fill="#c0392b" opacity="0.15"/>
+  <!-- 右上 -->
+  <rect x="1065" y="8" width="50" height="50" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <rect x="1070" y="13" width="40" height="40" fill="none" stroke="#d4a827" stroke-width="1"/>
+  <rect x="1075" y="18" width="30" height="30" fill="none" stroke="#c0392b" stroke-width="1"/>
+  <rect x="1080" y="23" width="20" height="20" fill="#c0392b" opacity="0.15"/>
+  <!-- 左下 -->
+  <rect x="8" y="736" width="50" height="50" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <rect x="13" y="741" width="40" height="40" fill="none" stroke="#d4a827" stroke-width="1"/>
+  <rect x="18" y="746" width="30" height="30" fill="none" stroke="#c0392b" stroke-width="1"/>
+  <rect x="23" y="751" width="20" height="20" fill="#c0392b" opacity="0.15"/>
+  <!-- 右下 -->
+  <rect x="1065" y="736" width="50" height="50" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <rect x="1070" y="741" width="40" height="40" fill="none" stroke="#d4a827" stroke-width="1"/>
+  <rect x="1075" y="746" width="30" height="30" fill="none" stroke="#c0392b" stroke-width="1"/>
+  <rect x="1080" y="751" width="20" height="20" fill="#c0392b" opacity="0.15"/>
+</g>
+
+<!-- ======== 顶部标题带 ======== -->
+<!-- 梅花枝（左上角） -->
+<g transform="translate(18,18)">
+  <!-- 树枝 -->
+  <path d="M10,80 Q30,60 55,40 Q70,28 90,20" stroke="#8B4513" stroke-width="3" fill="none"/>
+  <path d="M55,40 Q65,25 70,15" stroke="#8B4513" stroke-width="2" fill="none"/>
+  <path d="M40,55 Q30,45 20,48" stroke="#8B4513" stroke-width="1.5" fill="none"/>
+  <!-- 梅花 -->
+  <g transform="translate(90,18)">
+    <circle cx="0" cy="-8" r="5" fill="#e74c3c"/>
+    <circle cx="7" cy="-3" r="5" fill="#e74c3c"/>
+    <circle cx="5" cy="5" r="5" fill="#e74c3c"/>
+    <circle cx="-5" cy="5" r="5" fill="#e74c3c"/>
+    <circle cx="-7" cy="-3" r="5" fill="#e74c3c"/>
+    <circle cx="0" cy="0" r="4" fill="#f9d9d9"/>
+    <circle cx="0" cy="0" r="2" fill="#f39c12"/>
+  </g>
+  <g transform="translate(68,14)">
+    <circle cx="0" cy="-6" r="4" fill="#e74c3c" opacity="0.85"/>
+    <circle cx="5" cy="-2" r="4" fill="#e74c3c" opacity="0.85"/>
+    <circle cx="4" cy="4" r="4" fill="#e74c3c" opacity="0.85"/>
+    <circle cx="-4" cy="4" r="4" fill="#e74c3c" opacity="0.85"/>
+    <circle cx="-5" cy="-2" r="4" fill="#e74c3c" opacity="0.85"/>
+    <circle cx="0" cy="0" r="3" fill="#fde8e8"/>
+  </g>
+  <g transform="translate(52,55)">
+    <circle cx="0" cy="-5" r="3.5" fill="#c0392b" opacity="0.8"/>
+    <circle cx="4" cy="-1" r="3.5" fill="#c0392b" opacity="0.8"/>
+    <circle cx="3" cy="4" r="3.5" fill="#c0392b" opacity="0.8"/>
+    <circle cx="-3" cy="4" r="3.5" fill="#c0392b" opacity="0.8"/>
+    <circle cx="-4" cy="-1" r="3.5" fill="#c0392b" opacity="0.8"/>
+    <circle cx="0" cy="0" r="2.5" fill="#fde8e8"/>
+  </g>
+  <g transform="translate(22,48)">
+    <circle cx="0" cy="-4" r="3" fill="#e74c3c" opacity="0.7"/>
+    <circle cx="3" cy="1" r="3" fill="#e74c3c" opacity="0.7"/>
+    <circle cx="-3" cy="1" r="3" fill="#e74c3c" opacity="0.7"/>
+    <circle cx="0" cy="0" r="2" fill="#fde8e8"/>
+  </g>
+</g>
+
+<!-- ======== 右上角：大圆形标题 ======== -->
+<defs>
+  <radialGradient id="bigCircle" cx="40%" cy="35%">
+    <stop offset="0%" stop-color="#e74c3c"/>
+    <stop offset="100%" stop-color="#7b0e0e"/>
+  </radialGradient>
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="3" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="shadow">
+    <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,0.3)"/>
+  </filter>
+</defs>
+
+<!-- 圆形背景 + 光晕 -->
+<circle cx="940" cy="145" r="122" fill="rgba(192,57,43,0.15)"/>
+<circle cx="940" cy="145" r="115" fill="url(#bigCircle)" filter="url(#shadow)"/>
+<!-- 金色装饰圈 -->
+<circle cx="940" cy="145" r="115" fill="none" stroke="#f1c40f" stroke-width="3" opacity="0.6"/>
+<circle cx="940" cy="145" r="108" fill="none" stroke="#f39c12" stroke-width="1" opacity="0.4" stroke-dasharray="8,4"/>
+
+<!-- 元宵节三个大字（描边艺术字） -->
+<text x="895" y="110" font-size="58" font-weight="900" font-family="'STXingkai','KaiTi','FangSong',serif"
+  fill="#ffd700" stroke="#a0520030" stroke-width="0"
+  style="text-shadow: 2px 2px 0 #8B0000;">元</text>
+<text x="895" y="165" font-size="58" font-weight="900" font-family="'STXingkai','KaiTi','FangSong',serif"
+  fill="#ffd700">宵</text>
+<text x="895" y="220" font-size="58" font-weight="900" font-family="'STXingkai','KaiTi','FangSong',serif"
+  fill="#ffd700">节</text>
+<!-- 金色描边加深 -->
+<text x="895" y="110" font-size="58" font-weight="900" font-family="'STXingkai','KaiTi','FangSong',serif"
+  fill="none" stroke="#b8860b" stroke-width="2">元</text>
+<text x="895" y="165" font-size="58" font-weight="900" font-family="'STXingkai','KaiTi','FangSong',serif"
+  fill="none" stroke="#b8860b" stroke-width="2">宵</text>
+<text x="895" y="220" font-size="58" font-weight="900" font-family="'STXingkai','KaiTi','FangSong',serif"
+  fill="none" stroke="#b8860b" stroke-width="2">节</text>
+<!-- 副标题 -->
+<text x="940" y="258" text-anchor="middle" font-size="13" fill="rgba(255,220,100,0.9)" font-family="'FangSong',serif" letter-spacing="3">正月十五 · 传统佳节</text>
+
+<!-- 烟花（右上） -->
+<g transform="translate(1060,35)" opacity="0.65">
+  <line x1="0" y1="0" x2="0" y2="-22" stroke="#f39c12" stroke-width="2"/>
+  <line x1="0" y1="0" x2="19" y2="-11" stroke="#e74c3c" stroke-width="2"/>
+  <line x1="0" y1="0" x2="22" y2="8" stroke="#f1c40f" stroke-width="2"/>
+  <line x1="0" y1="0" x2="12" y2="20" stroke="#e67e22" stroke-width="2"/>
+  <line x1="0" y1="0" x2="-12" y2="20" stroke="#f39c12" stroke-width="2"/>
+  <line x1="0" y1="0" x2="-22" y2="8" stroke="#e74c3c" stroke-width="2"/>
+  <line x1="0" y1="0" x2="-19" y2="-11" stroke="#f1c40f" stroke-width="2"/>
+  <circle cx="0" cy="-24" r="3" fill="#f39c12"/>
+  <circle cx="21" cy="-12" r="3" fill="#e74c3c"/>
+  <circle cx="24" cy="9" r="3" fill="#f1c40f"/>
+  <circle cx="13" cy="22" r="3" fill="#e67e22"/>
+</g>
+<g transform="translate(1085,65)" opacity="0.5">
+  <line x1="0" y1="0" x2="0" y2="-14" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="0" y1="0" x2="12" y2="-7" stroke="#3498db" stroke-width="1.5"/>
+  <line x1="0" y1="0" x2="14" y2="5" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="0" y1="0" x2="7" y2="13" stroke="#3498db" stroke-width="1.5"/>
+  <line x1="0" y1="0" x2="-7" y2="13" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="0" y1="0" x2="-14" y2="5" stroke="#3498db" stroke-width="1.5"/>
+  <line x1="0" y1="0" x2="-12" y2="-7" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="0" cy="-16" r="2.5" fill="#27ae60"/>
+  <circle cx="14" cy="-8" r="2.5" fill="#3498db"/>
+</g>
+
+<!-- ======== 悬挂灯笼（顶部中央） ======== -->
+<!-- 灯笼1 -->
+<g transform="translate(450,18)">
+  <line x1="0" y1="0" x2="0" y2="12" stroke="#8B4513" stroke-width="2"/>
+  <ellipse cx="0" cy="38" rx="16" ry="24" fill="#e74c3c"/>
+  <line x1="-16" y1="28" x2="16" y2="28" stroke="#f1c40f" stroke-width="1.5"/>
+  <line x1="-16" y1="38" x2="16" y2="38" stroke="#f1c40f" stroke-width="1.5"/>
+  <line x1="-16" y1="48" x2="16" y2="48" stroke="#f1c40f" stroke-width="1.5"/>
+  <ellipse cx="0" cy="15" rx="10" ry="5" fill="#f1c40f"/>
+  <ellipse cx="0" cy="62" rx="10" ry="5" fill="#f1c40f"/>
+  <line x1="-4" y1="62" x2="-6" y2="80" stroke="#f1c40f" stroke-width="1.5"/>
+  <line x1="0" y1="62" x2="0" y2="80" stroke="#f39c12" stroke-width="1.5"/>
+  <line x1="4" y1="62" x2="6" y2="80" stroke="#f1c40f" stroke-width="1.5"/>
+  <text x="0" y="42" text-anchor="middle" font-size="16" fill="#ffd700" font-family="'KaiTi',serif">福</text>
+</g>
+<!-- 灯笼2 -->
+<g transform="translate(540,22)">
+  <line x1="0" y1="0" x2="0" y2="10" stroke="#8B4513" stroke-width="2"/>
+  <ellipse cx="0" cy="32" rx="13" ry="20" fill="#c0392b"/>
+  <line x1="-13" y1="23" x2="13" y2="23" stroke="#f39c12" stroke-width="1.5"/>
+  <line x1="-13" y1="32" x2="13" y2="32" stroke="#f39c12" stroke-width="1.5"/>
+  <line x1="-13" y1="41" x2="13" y2="41" stroke="#f39c12" stroke-width="1.5"/>
+  <ellipse cx="0" cy="12" rx="8" ry="4" fill="#f39c12"/>
+  <ellipse cx="0" cy="52" rx="8" ry="4" fill="#f39c12"/>
+  <line x1="0" y1="52" x2="0" y2="70" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="0" y="36" text-anchor="middle" font-size="13" fill="#ffd700" font-family="'KaiTi',serif">寿</text>
+</g>
+<!-- 灯笼3 -->
+<g transform="translate(620,18)">
+  <line x1="0" y1="0" x2="0" y2="12" stroke="#8B4513" stroke-width="2"/>
+  <ellipse cx="0" cy="38" rx="16" ry="24" fill="#e74c3c"/>
+  <line x1="-16" y1="28" x2="16" y2="28" stroke="#f1c40f" stroke-width="1.5"/>
+  <line x1="-16" y1="38" x2="16" y2="38" stroke="#f1c40f" stroke-width="1.5"/>
+  <line x1="-16" y1="48" x2="16" y2="48" stroke="#f1c40f" stroke-width="1.5"/>
+  <ellipse cx="0" cy="15" rx="10" ry="5" fill="#f1c40f"/>
+  <ellipse cx="0" cy="62" rx="10" ry="5" fill="#f1c40f"/>
+  <line x1="0" y1="62" x2="0" y2="80" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="0" y="42" text-anchor="middle" font-size="16" fill="#ffd700" font-family="'KaiTi',serif">乐</text>
+</g>
+<!-- 连接灯笼的绳子 -->
+<path d="M410,20 Q450,28 490,20 Q540,30 580,20 Q620,28 660,20" stroke="#8B4513" stroke-width="1.5" fill="none"/>
+
+<!-- ======== 舞狮（右侧，圆形标题右下方） ======== -->
+<g transform="translate(820,260)">
+  <!-- 狮子身体 -->
+  <ellipse cx="55" cy="65" rx="40" ry="30" fill="#e74c3c"/>
+  <!-- 狮子毛（多圈弧线模拟） -->
+  <g fill="#f1c40f">
+    <ellipse cx="55" cy="35" rx="38" ry="28"/>
+    <!-- 毛发纹路 -->
+  </g>
+  <ellipse cx="55" cy="35" rx="36" ry="26" fill="#e67e22"/>
+  <!-- 狮子脸 -->
+  <ellipse cx="55" cy="38" rx="28" ry="26" fill="#f5cba7"/>
+  <!-- 眼睛 -->
+  <ellipse cx="42" cy="30" rx="8" ry="9" fill="white"/>
+  <ellipse cx="68" cy="30" rx="8" ry="9" fill="white"/>
+  <circle cx="43" cy="31" r="5" fill="#2c3e50"/>
+  <circle cx="69" cy="31" r="5" fill="#2c3e50"/>
+  <circle cx="44" cy="30" r="2" fill="white"/>
+  <circle cx="70" cy="30" r="2" fill="white"/>
+  <!-- 鼻子嘴 -->
+  <ellipse cx="55" cy="44" rx="12" ry="8" fill="#e74c3c"/>
+  <ellipse cx="55" cy="41" rx="8" ry="5" fill="#c0392b"/>
+  <path d="M48,47 Q55,54 62,47" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- 胡须 -->
+  <line x1="36" y1="44" x2="22" y2="40" stroke="#bdc3c7" stroke-width="1.5"/>
+  <line x1="36" y1="47" x2="20" y2="47" stroke="#bdc3c7" stroke-width="1.5"/>
+  <line x1="74" y1="44" x2="88" y2="40" stroke="#bdc3c7" stroke-width="1.5"/>
+  <line x1="74" y1="47" x2="90" y2="47" stroke="#bdc3c7" stroke-width="1.5"/>
+  <!-- 角 -->
+  <path d="M40,12 Q42,0 48,8" fill="#f1c40f" stroke="#e67e22" stroke-width="1"/>
+  <path d="M70,12 Q68,0 62,8" fill="#f1c40f" stroke="#e67e22" stroke-width="1"/>
+  <!-- 彩球 -->
+  <circle cx="98" cy="20" r="14" fill="#e74c3c"/>
+  <circle cx="98" cy="20" r="14" fill="none" stroke="#f1c40f" stroke-width="2"/>
+  <path d="M84,20 Q98,10 112,20" fill="none" stroke="#f1c40f" stroke-width="1.5"/>
+  <path d="M84,20 Q98,30 112,20" fill="none" stroke="#f1c40f" stroke-width="1.5"/>
+  <!-- 腿 -->
+  <rect x="30" y="88" width="15" height="25" rx="7" fill="#e74c3c"/>
+  <rect x="68" y="88" width="15" height="25" rx="7" fill="#e74c3c"/>
+  <!-- 爪子 -->
+  <ellipse cx="37" cy="114" rx="10" ry="6" fill="#f5cba7"/>
+  <ellipse cx="75" cy="114" rx="10" ry="6" fill="#f5cba7"/>
+</g>
+
+<!-- ======== 汤圆小人（左侧中部） ======== -->
+<g transform="translate(25,320)">
+  <!-- 汤圆碗 -->
+  <ellipse cx="65" cy="115" rx="52" ry="18" fill="#e67e22"/>
+  <path d="M14,90 Q18,115 65,118 Q112,115 116,90Z" fill="#f39c12"/>
+  <ellipse cx="65" cy="90" rx="52" ry="16" fill="#fef5e4" stroke="#e67e22" stroke-width="2"/>
+  <!-- 汤圆 x3 -->
+  <circle cx="38" cy="80" r="18" fill="white" stroke="#e8c870" stroke-width="2"/>
+  <circle cx="65" cy="75" r="17" fill="white" stroke="#e8c870" stroke-width="2"/>
+  <circle cx="90" cy="80" r="16" fill="white" stroke="#e8c870" stroke-width="2"/>
+  <!-- 汤圆脸 -->
+  <circle cx="34" cy="77" r="2.5" fill="#2c3e50"/>
+  <circle cx="42" cy="77" r="2.5" fill="#2c3e50"/>
+  <path d="M34,83 Q38,87 42,83" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+  <!-- 红腮红 -->
+  <ellipse cx="31" cy="82" rx="4" ry="2.5" fill="#e74c3c" opacity="0.3"/>
+  <ellipse cx="45" cy="82" rx="4" ry="2.5" fill="#e74c3c" opacity="0.3"/>
+
+  <!-- 汤圆2 -->
+  <circle cx="61" cy="72" r="2.5" fill="#2c3e50"/>
+  <circle cx="69" cy="72" r="2.5" fill="#2c3e50"/>
+  <path d="M61,78 Q65,83 69,78" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+  <ellipse cx="58" cy="77" rx="4" ry="2.5" fill="#e74c3c" opacity="0.3"/>
+  <ellipse cx="72" cy="77" rx="4" ry="2.5" fill="#e74c3c" opacity="0.3"/>
+  <!-- 小辫子 -->
+  <path d="M65,58 Q60,50 65,44" stroke="#8B4513" stroke-width="2" fill="none"/>
+  <circle cx="65" cy="42" r="4" fill="#e74c3c"/>
+</g>
+
+<!-- ======== 花灯（右侧中部） ======== -->
+<g transform="translate(830,450)">
+  <!-- 莲花灯 -->
+  <line x1="60" y1="0" x2="60" y2="20" stroke="#8B4513" stroke-width="2"/>
+  <!-- 花瓣 -->
+  <ellipse cx="60" cy="50" rx="8" ry="20" fill="#f39c12" transform="rotate(-20,60,50)" opacity="0.9"/>
+  <ellipse cx="60" cy="50" rx="8" ry="20" fill="#e74c3c" transform="rotate(0,60,50)" opacity="0.9"/>
+  <ellipse cx="60" cy="50" rx="8" ry="20" fill="#f39c12" transform="rotate(20,60,50)" opacity="0.9"/>
+  <ellipse cx="60" cy="50" rx="8" ry="20" fill="#e67e22" transform="rotate(-40,60,50)" opacity="0.85"/>
+  <ellipse cx="60" cy="50" rx="8" ry="20" fill="#e67e22" transform="rotate(40,60,50)" opacity="0.85"/>
+  <!-- 灯心 -->
+  <circle cx="60" cy="50" r="12" fill="#ffd700"/>
+  <circle cx="60" cy="50" r="8" fill="#f39c12"/>
+  <circle cx="60" cy="50" r="4" fill="#e74c3c"/>
+</g>
+
+<!-- ======== 鞭炮（左下角） ======== -->
+<g transform="translate(22,610)">
+  <!-- 绳子 -->
+  <path d="M30,0 Q20,20 30,35 Q40,50 30,65" stroke="#8B4513" stroke-width="2" fill="none"/>
+  <!-- 鞭炮串 -->
+  <rect x="18" y="35" width="22" height="35" rx="6" fill="#e74c3c"/>
+  <rect x="18" y="35" width="22" height="35" rx="6" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="18" y1="45" x2="40" y2="45" stroke="#c0392b" stroke-width="1"/>
+  <line x1="18" y1="55" x2="40" y2="55" stroke="#c0392b" stroke-width="1"/>
+  <text x="29" y="58" text-anchor="middle" font-size="11" fill="#ffd700" font-family="serif">福</text>
+  <!-- 导火索 -->
+  <path d="M29,35 Q25,25 28,18" stroke="#8B4513" stroke-width="1.5" fill="none"/>
+  <!-- 爆炸效果 -->
+  <g transform="translate(28,15)" fill="#f39c12" opacity="0.8">
+    <polygon points="0,-10 2,-3 9,-3 4,2 6,9 0,5 -6,9 -4,2 -9,-3 -2,-3"/>
+  </g>
+  <!-- 第二个鞭炮 -->
+  <rect x="45" y="50" width="18" height="28" rx="5" fill="#c0392b"/>
+  <line x1="45" y1="60" x2="63" y2="60" stroke="#a93226" stroke-width="1"/>
+  <line x1="45" y1="68" x2="63" y2="68" stroke="#a93226" stroke-width="1"/>
+</g>
+
+<!-- ======== 祥云装饰 ======== -->
+<g opacity="0.2" fill="#d4a827">
+  <path d="M200,30 Q205,20 215,22 Q218,14
