@@ -2,7 +2,8 @@
   "lastChecks": {
     "calendar": 1742171820,
     "email": null,
-    "weather": null
+    "weather": null,
+    "heartbeat": 1742731260
   },
-  "note": "2026-03-17 09:17 calendar query timed out (CIBA auth likely needed)"
+  "note": "2026-03-23 20:01 routine check OK, no pending tasks"
 }
