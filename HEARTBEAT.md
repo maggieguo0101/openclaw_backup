@@ -17,10 +17,10 @@
 ### 🔔 新股打新提醒（每天上午检查，北交所 + 港交所）
 
 **北交所：**
-- 检查近7天内是否有北交所新股申购窗口（920XXX）
-- 用新 Skill：`python3 /root/.openclaw/workspace/skills/bse-ipo-full/scripts/bse_pipeline.py calendar`
-- 有 → 提前1天主动推提醒 + 完整打新分析（顶格资金、三账户获配结构、三档收益率、推荐券商时间）
-- 有注册批文新动态：`python3 .../bse_pipeline.py pipeline`，预估上市时间推给老板
+- ⚠️ 日历检查已迁移到 Cron（每天10:00自动跑脚本，零token）：
+  `/root/.openclaw/workspace/skills/bse-ipo-full/scripts/bse_cron_check.py`
+- Heartbeat 不再主动调 bse_pipeline.py calendar，避免空转消耗
+- 收到 Cron 推送通知后，根据老板指令再执行 analyze / listing / review
 
 **港交所：**
 - 检查近7天内是否有港股新股招股/申购窗口

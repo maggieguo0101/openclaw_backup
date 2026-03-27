@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0e1a;
+  color: #e8eaf0;
+  font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  width: 480px;
+  padding: 24px;
+}
+.badge {
+  background: linear-gradient(135deg, #1a3a5c, #0d2840);
+  border: 1px solid #2a5a8c;
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 11px;
+  color: #5bb8ff;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.title { font-size: 28px; font-weight: 700; color: #ffffff; letter-spacing: 1px; }
+.title span { color: #5bb8ff; }
+.subtitle { font-size: 12px; color: #6b7a99; margin-top: 4px; margin-bottom: 6px; }
+.tag-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.tag { background: #1a2540; border: 1px solid #2a3a60; border-radius: 4px; padding: 3px 10px; font-size: 11px; color: #8899cc; }
+.tag.highlight { border-color: #3a6aaa; color: #5bb8ff; }
+.params-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.param-box { background: #0f1520; border: 1px solid #1e2a40; border-radius: 8px; padding: 12px; text-align: center; }
+.param-label { font-size: 11px; color: #6b7a99; margin-bottom: 4px; }
+.param-value { font-size: 18px; font-weight: 700; color: #f0c060; }
+.param-unit { font-size: 11px; color: #8899bb; }
+.section-title { font-size: 12px; color: #6b7a99; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.section-title::before { content: ''; display: inline-block; width: 3px; height: 12px; background: #5bb8ff; border-radius: 2px; }
+.pe-row { display: flex; align-items: center; margin-bottom: 8px; gap: 10px; }
+.pe-label { font-size: 12px; color: #aab8cc; width: 80px; flex-shrink: 0; }
+.pe-bar-wrap { flex: 1; background: #0f1520; border-radius: 4px; height: 16px; overflow: hidden; }
+.pe-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; }
+.pe-val { font-size: 12px; color: #e8eaf0; width: 50px; text-align: right; flex-shrink: 0; }
+.forecast-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+.forecast-table th { background: #0f1520; font-size: 11px; color: #6b7a99; padding: 8px 10px; text-align: left; font-weight: 500; }
+.forecast-table td { padding: 10px 10px; font-size: 13px; border-bottom: 1px solid #0f1520; }
+.forecast-table tr:nth-child(even) td { background: #0c1118; }
+.scenario { font-size: 13px; font-weight: 600; }
+.s-bear { color: #7799bb; } .s-mid { color: #5bb8ff; } .s-opt { color: #50d890; } .s-bull { color: #f0c060; }
+.price-up { color: #ff6b6b; font-weight: 700; }
+.profit { color: #50d890; font-weight: 700; }
+.sop-box { background: #0f1520; border: 1px solid #1e3050; border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+.sop-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #151e30; font-size: 12px; }
+.sop-row:last-child { border-bottom: none; }
+.sop-time { color: #f0c060; font-weight: 700; width: 70px; }
+.sop-cond { color: #aab8cc; flex: 1; }
+.sop-action { color: #ff7070; font-weight: 600; }
+.sop-action.hold { color: #50d890; }
+.conclusion { background: linear-gradient(135deg, #0f1e35, #0a1525); border: 1px solid #2a4a70; border-radius: 8px; padding: 14px; font-size: 12px; color: #c0cce0; line-height: 1.8; }
+.conclusion strong { color: #f0c060; }
+.footer { text-align: center; font-size: 10px; color: #3a4a60; margin-top: 16px; }
+.divider { height: 1px; background: linear-gradient(90deg, transparent, #2a3a55, transparent); margin: 16px 0; }
+</style>
+</head>
+<body>
+<div class="badge">北交所新股上市预测</div>
+<div class="title">隆源股份 · <span>920055</span></div>
+<div class="subtitle">化工/新材料 · 直接定价 · 上市日：2026-03-31（后天）</div>
+<div class="tag-row">
+  <div class="tag highlight">发行价 24.70元</div>
+  <div class="tag highlight">发行PE 14.99x</div>
+  <div class="tag">行业PE 30~45x</div>
+  <div class="tag">折价率 ~67%</div>
+</div>
+<div class="params-row">
+  <div class="param-box">
+    <div class="param-label">发行价</div>
+    <div class="param-value">24.70</div>
+    <div class="param-unit">元/股</div>
+  </div>
+  <div class="param-box">
+    <div class="param-label">发行市盈率</div>
+    <div class="param-value">14.99<span style="font-size:13px">x</span></div>
+    <div class="param-unit">行业均值 38x</div>
+  </div>
+  <div class="param-box">
+    <div class="param-label">中性开盘预测</div>
+    <div class="param-value" style="color:#ff6b6b">62.62</div>
+    <div class="param-unit">+154%</div>
+  </div>
+</div>
+<div class="divider"></div>
+<div class="section-title">估值区间对比</div>
+<div style="margin-bottom:16px">
+  <div class="pe-row">
+    <div class="pe-label">发行PE</div>
+    <div class="pe-bar-wrap"><div class="pe-bar" style="width:33%;background:linear-gradient(90deg,#2a5a8c,#3a7acc)">14.99x</div></div>
+    <div class="pe-val" style="color:#5bb8ff">14.99x</div>
+  </div>
+  <div class="pe-row">
+    <div class="pe-label">行业均值</div>
+    <div class="pe-bar-wrap"><div class="pe-bar" style="width:85%;background:linear-gradient(90deg,#1a5a3a,#2a8a55)">行业中枢</div></div>
+    <div class="pe-val" style="color:#50d890">38x</div>
+  </div>
+  <div class="pe-row">
+    <div class="pe-label">行业高位</div>
+    <div class="pe-bar-wrap"><div class="pe-bar" style="width:100%;background:linear-gradient(90deg,#5a3a1a,#aa6a20)">行业高位</div></div>
+    <div class="pe-val" style="color:#f0c060">45x</div>
+  </div>
+</div>
+<div class="section-title">预测收益对比（不同情景）</div>
+<table class="forecast-table">
+  <thead><tr><th>情景</th><th>对应PE</th><th>理论开盘价</th><th>涨幅</th><th>100股收益</th><th>200股收益</th></tr></thead>
+  <tbody>
+    <tr><td><span class="scenario s-bear">😰 悲观</span></td><td style="color:#7799bb">30x</td><td class="price-up">49.43元</td><td style="color:#ff9a9a">+100%</td><td class="profit">2,473元</td><td class="profit">4,946元</td></tr>
+    <tr><td><span class="scenario s-mid">😐 中性</span></td><td style="color:#5bb8ff">38x</td><td class="price-up">62.62元</td><td style="color:#ff6b6b">+154%</td><td class="profit">3,792元</td><td class="profit">7,584元</td></tr>
+    <tr><td><span class="scenario s-opt">😊 乐观</span></td><td style="color:#50d890">45x</td><td class="price-up">74.15元</td><td style="color:#ff4444">+200%</td><td class="profit">4,945元</td><td class="profit">9,890元</td></tr>
+    <tr><td><span class="scenario s-bull">🚀 超牛</span></td><td style="color:#f0c060">58x</td><td class="price-up">95.57元</td><td style="color:#ff2222">+287%</td><td class="profit">7,087元</td><td class="profit">14,174元</td></tr>
+  </tbody>
+</table>
+<div class="section-title">首日卖出 SOP（换手率阈值）</div>
+<div class="sop-box">
+  <div class="sop-row"><div class="sop-time">9:25</div><div class="sop-cond">集合竞价涨幅 &lt; 7%</div><div class="sop-action">开盘全卖</div></div>
+  <div class="sop-row"><div class="sop-time">9:35</div><div class="sop-cond">涨幅 &lt; 10%</div><div class="sop-action">立刻全卖</div></div>
+  <div class="sop-row"><div class="sop-time">9:45</div><div class="sop-cond">涨幅 &lt; 30%</div><div class="sop-action">立刻全卖</div></div>
+  <div class="sop-row"><div class="sop-time">10:00</div><div class="sop-cond">涨幅 ≥ 45% 且换手率 &lt; 30%</div><div class="sop-action hold">持有博峰值</div></div>
+  <div class="sop-row"><div class="sop-time">量价背离</div><div class="sop-cond">量增但价格不再创新高</div><div class="sop-action">立即出场</div></div>
+</div>
+<div class="conclusion">
+  <strong>📌 综合结论：</strong>发行PE仅14.99x，行业均值38x，折价率约67%，安全边际较高。<br>
+  中性预测开盘 <strong>62.62元（+154%）</strong>，100股收益约 <strong>3,792元</strong>，200股约 <strong>7,584元</strong>。<br>
+  化工/新材料板块估值空间充足，上市当天若开盘涨幅超45%建议优先持有观察换手率变化。
+</div>
+<div class="footer">数据来源：北交所官网发行公告 · 行业PE参考东方财富 · 2026-03-27 · 仅供参考，不构成投资建议</div>
+</body>
+</html>
