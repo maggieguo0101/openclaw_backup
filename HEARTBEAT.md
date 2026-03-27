@@ -18,7 +18,9 @@
 
 **北交所：**
 - 检查近7天内是否有北交所新股申购窗口（920XXX）
+- 用新 Skill：`python3 /root/.openclaw/workspace/skills/bse-ipo-full/scripts/bse_pipeline.py calendar`
 - 有 → 提前1天主动推提醒 + 完整打新分析（顶格资金、三账户获配结构、三档收益率、推荐券商时间）
+- 有注册批文新动态：`python3 .../bse_pipeline.py pipeline`，预估上市时间推给老板
 
 **港交所：**
 - 检查近7天内是否有港股新股招股/申购窗口
